@@ -1,4 +1,5 @@
-﻿using BetterBPMGD.Models;
+﻿using BetterBPMGD.Commands;
+using BetterBPMGD.Models;
 using BetterBPMGD.Services;
 using System.Windows.Input;
 
@@ -38,16 +39,15 @@ namespace BetterBPMGD.ViewModels
             }
         }
 
-        public int FolloGroupId
+        public int FollowGroupId
         {
             get => folloGroupId;
             set
             {
                 folloGroupId = value;
-                OnPropertyChanged(nameof(FolloGroupId));
+                OnPropertyChanged(nameof(FollowGroupId));
             }
         }
-
 
         public Settings Settings => settings;
 
@@ -55,13 +55,23 @@ namespace BetterBPMGD.ViewModels
         {
             ResetUICommand = new ResetUICommand();
             ResetSettingCommand = new ResetSettingCommand();
-            AppHelpCommand = new AppHelpCommand();
+            AppHelpCommand = new HelpCommand(ShowAppHelp);
             OpenBPMViewCommand = new NavigateCommand(bpmViewNavigationService);
-            FollowGroupIdHelpCommand = new FollowGroupIdHelpCommand();
+            FollowGroupIdHelpCommand = new HelpCommand(ShowFollowGroupIdHelp);
 
             includeSpeedPortals = settings.IncludeSpeedPortals;
             undogeableSpeedPortals = settings.UndogeableSpeedPortals;
             folloGroupId = settings.FollowGroupId;
+        }
+
+        private void ShowAppHelp()
+        {
+
+        }
+
+        private void ShowFollowGroupIdHelp()
+        {
+
         }
     }
 }

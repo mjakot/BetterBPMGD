@@ -58,7 +58,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="0" Grid.Row="4" Margin="5" Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="Follow trigger group id"/>
-                    <TextBox Margin="5" VerticalContentAlignment="Center" Width="100" Text="{Binding FolloGroupId}"/>
+                    <TextBox Margin="5" VerticalContentAlignment="Center" Width="100" Text="{Binding FollowGroupId}"/>
                     <Button Margin="5" Width="30" Content="?" Command="{Binding FollowGroupIdHelpCommand}"/>
                 </StackPanel>
             </Grid>

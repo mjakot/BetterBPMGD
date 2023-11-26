@@ -27,13 +27,13 @@ namespace BetterBPMGD.ViewModels
                 }
             }
         }
-        public bool ShowHelpPopup
+        public bool ShowHelpPoPup
         {
             get => showHelpPopup;
             set
             {
                 showHelpPopup = value;
-                OnPropertyChanged(nameof(ShowHelpPopup));
+                OnPropertyChanged(nameof(ShowHelpPoPup));
             }
         }
 
@@ -56,7 +56,7 @@ namespace BetterBPMGD.ViewModels
             OpenSettingsCommand = new NavigateCommand(settingsViewNavigationService);
             RefineTimingCommand = new RefineTimingCommand();
             ResetTimingCommand = new ResetTimingCommand(this.level, this);
-            ShowColorPatternHelpCommand = new ShowColorPatternHelpCommand();
+            ShowColorPatternHelpCommand = new HelpCommand(ShowHelp);
             GenerateBarsCommand = new GenerateBarsCommand();
 
             timings = new ObservableCollection<TimingViewModel>(CreateTimingList(level.LevelTimings));
@@ -64,6 +64,11 @@ namespace BetterBPMGD.ViewModels
             level.PropertyChanged += Level_PropertyChanged;
         }
 
+        private void ShowHelp()
+        {
+            ShowHelpPoPup = true;
+        }
+        
         private IEnumerable<TimingViewModel> CreateTimingList(IEnumerable<Timing> timings)
         {
             foreach (Timing timing in timings)
