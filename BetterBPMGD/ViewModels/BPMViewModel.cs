@@ -27,13 +27,13 @@ namespace BetterBPMGD.ViewModels
                 }
             }
         }
-        public bool ShowHelpPoPup
+        public bool ShowHelpPopup
         {
             get => showHelpPopup;
             set
             {
                 showHelpPopup = value;
-                OnPropertyChanged(nameof(ShowHelpPoPup));
+                OnPropertyChanged(nameof(ShowHelpPopup));
             }
         }
 
@@ -66,7 +66,7 @@ namespace BetterBPMGD.ViewModels
 
         private void ShowHelp()
         {
-            ShowHelpPoPup = true;
+            ShowHelpPopup = true;
         }
         
         private IEnumerable<TimingViewModel> CreateTimingList(IEnumerable<Timing> timings)

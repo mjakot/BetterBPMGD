@@ -200,7 +200,7 @@
                 </ListView.View>
             </ListView>
 
-            <Popup IsOpen="{Binding ShowHelpPoPup}" Placement="Mouse" HorizontalOffset="-30" VerticalOffset="-75">
+            <Popup IsOpen="{Binding ShowHelpPopup}" Placement="Mouse" HorizontalOffset="-30" VerticalOffset="-75">
                 <local:HelpView/>
             </Popup>
         </Grid>

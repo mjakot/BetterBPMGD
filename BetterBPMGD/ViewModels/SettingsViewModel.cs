@@ -9,6 +9,8 @@ namespace BetterBPMGD.ViewModels
     {
         private Settings settings;
 
+        private bool showAppHelpPopup;
+        private bool showFollowGroupIdHelpPopup;
         private bool includeSpeedPortals;
         private bool undogeableSpeedPortals;
         private int folloGroupId;
@@ -49,6 +51,26 @@ namespace BetterBPMGD.ViewModels
             }
         }
 
+        public bool ShowAppHelpPopup
+        {
+            get => showAppHelpPopup;
+            set
+            {
+                showAppHelpPopup = value;
+                OnPropertyChanged(nameof(ShowAppHelpPopup));
+            }
+        }
+
+        public bool ShowFollowGroupIdHelpPopup
+        {
+            get => showFollowGroupIdHelpPopup;
+            set
+            {
+                showFollowGroupIdHelpPopup = value;
+                OnPropertyChanged(nameof(ShowFollowGroupIdHelpPopup));
+            }
+        }
+
         public Settings Settings => settings;
 
         public SettingsViewModel(Settings settings, NavigationService bpmViewNavigationService)
@@ -66,12 +88,12 @@ namespace BetterBPMGD.ViewModels
 
         private void ShowAppHelp()
         {
-
+            ShowAppHelpPopup = true;
         }
 
         private void ShowFollowGroupIdHelp()
         {
-
+            ShowFollowGroupIdHelpPopup = true;
         }
     }
 }
