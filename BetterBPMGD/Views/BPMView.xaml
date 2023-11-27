@@ -201,7 +201,7 @@
             </ListView>
 
             <Popup IsOpen="{Binding ShowHelpPopup}" Placement="Mouse" HorizontalOffset="-30" VerticalOffset="-75">
-                <local:HelpView/>
+                <local:HelpView DataContext="{Binding HelpPopupDataContext}"/>
             </Popup>
         </Grid>
     </Border>

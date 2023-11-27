@@ -64,11 +64,11 @@
             </Grid>
 
             <Popup IsOpen="{Binding ShowAppHelpPopup}" Placement="Mouse" HorizontalOffset="-30" VerticalOffset="-75">
-                <local:HelpView/>
+                <local:HelpView DataContext="{Binding AppHelpPopupDataContext}"/>
             </Popup>
 
             <Popup IsOpen="{Binding ShowFollowGroupIdHelpPopup}" Placement="Mouse" HorizontalOffset="-30" VerticalOffset="-75">
-                <local:HelpView/>
+                <local:HelpView DataContext="{Binding FollowGroupIdHelpPopupDataContext}"/>
             </Popup>
         </Grid>
     </Border>

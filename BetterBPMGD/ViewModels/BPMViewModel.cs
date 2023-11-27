@@ -10,11 +10,16 @@ namespace BetterBPMGD.ViewModels
     public class BPMViewModel : ViewModelBase
     {
         private readonly LevelViewModel level;
+
         private ObservableCollection<TimingViewModel> timings;
         private TimingViewModel? selectedItem;
+        
         private bool showHelpPopup;
+        
+        private readonly HelpViewModel helpPopupDataContext;
 
         public IEnumerable<TimingViewModel> Timings => timings;
+
         public TimingViewModel? SelectedItem
         {
             get => selectedItem;
@@ -27,6 +32,7 @@ namespace BetterBPMGD.ViewModels
                 }
             }
         }
+
         public bool ShowHelpPopup
         {
             get => showHelpPopup;
@@ -36,6 +42,8 @@ namespace BetterBPMGD.ViewModels
                 OnPropertyChanged(nameof(ShowHelpPopup));
             }
         }
+
+        public HelpViewModel HelpPopupDataContext => helpPopupDataContext;
 
         public ICommand PlayCommand { get; }
         public ICommand AddTimingCommand { get; }
@@ -62,6 +70,8 @@ namespace BetterBPMGD.ViewModels
             timings = new ObservableCollection<TimingViewModel>(CreateTimingList(level.LevelTimings));
 
             level.PropertyChanged += Level_PropertyChanged;
+
+            helpPopupDataContext = new("O - orange\nG - Green\nY - yellow");
         }
 
         private void ShowHelp()

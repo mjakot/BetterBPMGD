@@ -9,6 +9,9 @@ namespace BetterBPMGD.ViewModels
     {
         private Settings settings;
 
+        private readonly HelpViewModel appHelpPopupDataContext;
+        private readonly HelpViewModel followGroupIdHelpPopupDataContext;
+
         private bool showAppHelpPopup;
         private bool showFollowGroupIdHelpPopup;
         private bool includeSpeedPortals;
@@ -71,6 +74,10 @@ namespace BetterBPMGD.ViewModels
             }
         }
 
+        public HelpViewModel AppHelpPopupDataContext => appHelpPopupDataContext;
+
+        public HelpViewModel FollowGroupIdHelpPopupDataContext => followGroupIdHelpPopupDataContext;
+
         public Settings Settings => settings;
 
         public SettingsViewModel(Settings settings, NavigationService bpmViewNavigationService)
@@ -84,6 +91,9 @@ namespace BetterBPMGD.ViewModels
             includeSpeedPortals = settings.IncludeSpeedPortals;
             undogeableSpeedPortals = settings.UndogeableSpeedPortals;
             folloGroupId = settings.FollowGroupId;
+
+            appHelpPopupDataContext = new("Program for adding bpm bars to Geometry dash levels");
+            followGroupIdHelpPopupDataContext = new("Group Id for follow trigger to make speed portals undodgeable");
         }
 
         private void ShowAppHelp()
