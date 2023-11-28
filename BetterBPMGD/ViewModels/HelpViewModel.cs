@@ -1,4 +1,7 @@
-﻿namespace BetterBPMGD.ViewModels
+﻿using BetterBPMGD.Commands;
+using System.Windows.Input;
+
+namespace BetterBPMGD.ViewModels
 {
     public class HelpViewModel : ViewModelBase
     {
@@ -6,9 +9,17 @@
 
         public string HelpText => helpText;
 
+        public ICommand CloseHelpPopupCommand { get; }
+
         public HelpViewModel(string helpText)
         {
             this.helpText = helpText;
+            CloseHelpPopupCommand = new CloseViewCommand(ClosePopup);
+        }
+
+        private void ClosePopup()
+        {
+
         }
     }
 }
