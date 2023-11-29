@@ -64,19 +64,19 @@ namespace BetterBPMGD.ViewModels
             OpenSettingsCommand = new NavigateCommand(settingsViewNavigationService);
             RefineTimingCommand = new RefineTimingCommand();
             ResetTimingCommand = new ResetTimingCommand(this.level, this);
-            ShowColorPatternHelpCommand = new HelpCommand(ShowHelp);
+            ShowColorPatternHelpCommand = new ToggleHelpPopupCommand(ToggleHelpPopup);
             GenerateBarsCommand = new GenerateBarsCommand();
 
             timings = new ObservableCollection<TimingViewModel>(CreateTimingList(level.LevelTimings));
 
             level.PropertyChanged += Level_PropertyChanged;
 
-            helpPopupDataContext = new("O - orange\nG - Green\nY - yellow");
+            helpPopupDataContext = new("O - orange\nG - Green\nY - yellow", ToggleHelpPopup);
         }
 
-        private void ShowHelp()
+        private void ToggleHelpPopup()
         {
-            ShowHelpPopup = true;
+            ShowHelpPopup = !ShowHelpPopup;
         }
         
         private IEnumerable<TimingViewModel> CreateTimingList(IEnumerable<Timing> timings)
