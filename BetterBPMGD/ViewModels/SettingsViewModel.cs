@@ -93,7 +93,7 @@ namespace BetterBPMGD.ViewModels
             folloGroupId = settings.FollowGroupId;
 
             appHelpPopupDataContext = new("Program for adding bpm bars to Geometry dash levels", ToggleAppHelpPopup);
-            followGroupIdHelpPopupDataContext = new("Group Id for follow trigger to make speed portals undodgeable", ToggleFollowGroupIdHelpPopup);
+            followGroupIdHelpPopupDataContext = new("Group Id used by follow trigger to make speed portals undodgeable", ToggleFollowGroupIdHelpPopup);
         }
 
         private void ToggleAppHelpPopup()
