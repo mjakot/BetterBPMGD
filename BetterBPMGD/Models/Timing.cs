@@ -5,7 +5,7 @@
         public static int Counter { get; private set; }
 
         public int Id { get; private set; }
-        public int OffsetMS { get; set; }
+        public ulong OffsetMS { get; set; }
         public UnitsOfTime TimeUnit { get; set; }
         public double Bpm { get; set; }
         public bool IncludeInBetweenBeats { get; set; }
@@ -21,7 +21,7 @@
             this.Id = Id;
         }
 
-        public Timing(int offsetms, UnitsOfTime timeUnit, double bpm, bool includeInBetweenBeats, Fraction timeSignature, SpeedPortalTypes speed, string colorPattern)
+        public Timing(ulong offsetms, UnitsOfTime timeUnit, double bpm, bool includeInBetweenBeats, Fraction timeSignature, SpeedPortalTypes speed, string colorPattern)
         {
             Id = Counter++;
             OffsetMS = offsetms;

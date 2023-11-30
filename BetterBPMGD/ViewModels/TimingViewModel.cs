@@ -8,7 +8,7 @@ namespace BetterBPMGD.ViewModels
 
         public int ID => Timing.Id;
 
-        public int OffsetMSEditable
+        public ulong OffsetMSEditable
         {
             get { return Timing.OffsetMS; }
             set
@@ -93,10 +93,10 @@ namespace BetterBPMGD.ViewModels
                         return Timing.OffsetMS.ToString();
 
                     case UnitsOfTime.second:
-                        return $"{GetFullSeconds(Timing.OffsetMS)}:{Timing.OffsetMS - GetFullSeconds(Timing.OffsetMS) * 1000}";
+                        return $"{GetSeconds(Timing.OffsetMS) % 60}:{Timing.OffsetMS % 1000}";
 
                     case UnitsOfTime.minute:
-                        return $"{GetFullMinutes(GetFullSeconds(Timing.OffsetMS))}:{GetFullSeconds(Timing.OffsetMS)}:{Timing.OffsetMS - (GetFullMinutes(GetFullSeconds(Timing.OffsetMS)) * 60000 + GetFullSeconds(Timing.OffsetMS) * 1000)}";
+                        return $"{GetSeconds(Timing.OffsetMS) / 60}:{GetSeconds(Timing.OffsetMS) % 60}:{Timing.OffsetMS % 1000}";
                     
                     default:
                         goto case UnitsOfTime.milisecond;
@@ -134,7 +134,6 @@ namespace BetterBPMGD.ViewModels
 
         public TimingViewModel(Timing timing) => this.Timing = timing;
 
-        private int GetFullSeconds(int miliseconds) => miliseconds / 1000;
-        private int GetFullMinutes(int seconds) => seconds / 60;
+        private ulong GetSeconds(ulong milliseconds) => milliseconds / 1000;
     }
 }
