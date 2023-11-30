@@ -10,10 +10,44 @@ namespace BetterBPMGD.ViewModels
 
         public ulong OffsetMSEditable
         {
-            get { return Timing.OffsetMS; }
+            get
+            {
+                switch (Timing.TimeUnit)
+                {
+                    case UnitsOfTime.milisecond:
+                        return Timing.OffsetMS;
+
+                    case UnitsOfTime.second:
+                        return Timing.OffsetMS / 1000;
+
+                    case UnitsOfTime.minute:
+                        return Timing.OffsetMS / 1000 / 60;
+
+                    default:
+                        goto case UnitsOfTime.milisecond;
+                }
+            }
+
             set
             {
-                Timing.OffsetMS = value;
+                switch (Timing.TimeUnit)
+                {
+                    case UnitsOfTime.milisecond:
+                        Timing.OffsetMS = value;
+                        break;
+
+                    case UnitsOfTime.second:
+                        Timing.OffsetMS = value * 1000;
+                        break;
+
+                    case UnitsOfTime.minute:
+                        Timing.OffsetMS = value * 1000 * 60;
+                        break;
+
+                    default:
+                        goto case UnitsOfTime.milisecond;
+                }
+
                 OnPropertyChanged(nameof(OffsetMSEditable));
                 OnPropertyChanged(nameof(OffsetMSDisplayable));
             }
@@ -93,7 +127,7 @@ namespace BetterBPMGD.ViewModels
                         return Timing.OffsetMS.ToString();
 
                     case UnitsOfTime.second:
-                        return $"{GetSeconds(Timing.OffsetMS) % 60}:{Timing.OffsetMS % 1000}";
+                        return $"{GetSeconds(Timing.OffsetMS)}:{Timing.OffsetMS % 1000}";
 
                     case UnitsOfTime.minute:
                         return $"{GetSeconds(Timing.OffsetMS) / 60}:{GetSeconds(Timing.OffsetMS) % 60}:{Timing.OffsetMS % 1000}";
