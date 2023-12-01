@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterBPMGD", "BetterBPMGD\BetterBPMGD.csproj", "{0EC6E9E0-9F9D-4469-8C2D-5899555D3435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterBPMGD", "BetterBPMGD\BetterBPMGD.csproj", "{0EC6E9E0-9F9D-4469-8C2D-5899555D3435}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterBPMGDCLI", "BetterBPMGDCLI\BetterBPMGDCLI.csproj", "{D41093A0-1AB5-4FC2-9C51-BFC1178357B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0EC6E9E0-9F9D-4469-8C2D-5899555D3435}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EC6E9E0-9F9D-4469-8C2D-5899555D3435}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EC6E9E0-9F9D-4469-8C2D-5899555D3435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D41093A0-1AB5-4FC2-9C51-BFC1178357B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41093A0-1AB5-4FC2-9C51-BFC1178357B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41093A0-1AB5-4FC2-9C51-BFC1178357B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41093A0-1AB5-4FC2-9C51-BFC1178357B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
