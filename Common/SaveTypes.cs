@@ -1,4 +1,4 @@
-﻿namespace BetterBPMGD.Models
+﻿namespace Common
 {
     public enum SaveTypes
     {

@@ -1,6 +1,6 @@
-﻿namespace BetterBPMGD.Models
+﻿namespace Common
 {
-    public enum SpeedPortalTypes : int
+    public enum SpeedPortalTypes
     {
         HALFSPEED = 0,
         NORMAL = 1,

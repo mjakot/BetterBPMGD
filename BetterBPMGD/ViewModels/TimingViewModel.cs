@@ -1,4 +1,7 @@
 ﻿using BetterBPMGD.Models;
+using Common;
+using Fraction = BetterBPMGD.Models.Fraction;
+using Timing = BetterBPMGD.Models.Timing;
 
 namespace BetterBPMGD.ViewModels
 {

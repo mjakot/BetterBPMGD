@@ -1,4 +1,6 @@
-﻿namespace BetterBPMGD.Models
+﻿using Common;
+
+namespace BetterBPMGD.Models
 {
     public class Settings
     {

@@ -7,7 +7,7 @@ namespace BetterBPMGD.ViewModels
     {
         private readonly Level level;
 
-        public IEnumerable<Timing> LevelTimings => level.Timings;
+        public IEnumerable<Timing> LevelTimings => (IEnumerable<Timing>)level.Timings;
 
         public LevelViewModel(Level level) => this.level = level;
 

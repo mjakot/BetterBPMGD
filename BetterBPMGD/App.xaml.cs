@@ -1,8 +1,11 @@
 ﻿using BetterBPMGD.Models;
 using BetterBPMGD.Stores;
 using BetterBPMGD.ViewModels;
+using Common;
 using System.Collections.Generic;
 using System.Windows;
+using Level = BetterBPMGD.Models.Level;
+using Timing = BetterBPMGD.Models.Timing;
 
 namespace BetterBPMGD
 {

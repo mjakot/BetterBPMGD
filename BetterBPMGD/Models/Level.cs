@@ -3,17 +3,13 @@ using System.Linq;
 
 namespace BetterBPMGD.Models
 {
-    public class Level
+    public class Level : Common.Level
     {
-        private readonly List<Timing> timings;
+        public Level() : base() { }
 
-        public IEnumerable<Timing> Timings => timings;
+        public Level(IEnumerable<Timing> timings) : base(timings) { }
 
-        public Level() => timings = new();
-
-        public Level(IEnumerable<Timing> timings) => this.timings = new(timings);
-
-        public Level(Timing timing) => timings = new() { timing };
+        public Level(Timing timing) : base(timing) { }
 
         public bool AddTiming(Timing timing)
         {
@@ -34,7 +30,7 @@ namespace BetterBPMGD.Models
                 return false;
             }
 
-            Timing? removeItem = timings.SingleOrDefault(i => i.Id == timingId);
+            Timing? removeItem = (Timing)timings.SingleOrDefault(i => i.Id == timingId);
 
             return removeItem != null ? timings.Remove(removeItem) : false;
         }
