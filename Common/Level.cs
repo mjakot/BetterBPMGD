@@ -4,7 +4,7 @@
     {
         protected readonly List<Timing> timings;
 
-        public IEnumerable<Timing> Timings => timings;
+        virtual public IEnumerable<Timing> Timings => timings;
 
         public Level() => timings = new();
 

@@ -5,11 +5,15 @@ namespace BetterBPMGD.Models
 {
     public class Level : Common.Level
     {
-        public Level() : base() { }
+        private readonly List<Timing> timings;
 
-        public Level(IEnumerable<Timing> timings) : base(timings) { }
+        public Level() : base() => timings = new();
 
-        public Level(Timing timing) : base(timing) { }
+        public Level(IEnumerable<Timing> timings) : base(timings) => this.timings = new(timings);
+
+        public Level(Timing timing) : base(timing) => timings = new() { timing };
+
+        public override IEnumerable<Common.Timing> Timings => timings;
 
         public bool AddTiming(Timing timing)
         {
