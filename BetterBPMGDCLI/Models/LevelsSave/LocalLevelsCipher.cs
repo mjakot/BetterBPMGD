@@ -1,28 +1,13 @@
-﻿using BetterBPMGDCLI.Utils;
+﻿using BetterBPMGDCLI.Models.LevelsSave;
 using System.IO.Compression;
-using System.Text;
 
 namespace BetterBPMGDCLI.Models
 {
-    public class LocalLevelsCipher : Base64Conversion
+    public class LocalLevelsCipher : BaseLocalLevelCipher
     {
-        string localLevelsString;
-        byte[] localLevelsByteArray;
+        public LocalLevelsCipher(string localLevelsString) : base(localLevelsString) { }
 
-        public string LocalLevelsString => localLevelsString;
-        public byte[] LocalLevelsByteArray => localLevelsByteArray;
-
-        public LocalLevelsCipher(string localLevelsString)
-        {
-            this.localLevelsString = localLevelsString;
-            localLevelsByteArray = Encoding.UTF8.GetBytes(localLevelsString);
-        }
-
-        public LocalLevelsCipher(byte[] localLevelsByteArray)
-        {
-            this.localLevelsByteArray = localLevelsByteArray;
-            localLevelsString = Encoding.UTF8.GetString(localLevelsByteArray);
-        }
+        public LocalLevelsCipher(byte[] localLevelsByteArray) : base(localLevelsByteArray) { }
 
         public LocalLevelsCipher XOR(int key)
         {
@@ -31,17 +16,9 @@ namespace BetterBPMGDCLI.Models
             return new(localLevelsByteArray);
         }
 
-        public LocalLevelsCipher FromBase64UrlToBase64()
-        {
-            return new(FromBase64UrlToBase64(localLevelsString));
-        }
+        public LocalLevelsCipher FromBase64UrlToBase64() => new(FromBase64UrlToBase64(localLevelsString));
 
-        public LocalLevelsCipher FromBase64ToByteArray()
-        {
-            localLevelsByteArray = Convert.FromBase64String(localLevelsString);
-
-            return new(localLevelsByteArray);
-        }
+        public LocalLevelsCipher FromBase64ToByteArray() => new(Convert.FromBase64String(localLevelsString));
 
         public LocalLevelsCipher GZIPDecompress()
         {
