@@ -1,9 +1,10 @@
-﻿using System.IO.Compression;
+﻿using BetterBPMGDCLI.Utils;
+using System.IO.Compression;
 using System.Text;
 
 namespace BetterBPMGDCLI.Models
 {
-    public class LocalLevelsCipher
+    public class LocalLevelsCipher : Base64Conversion
     {
         string localLevelsString;
         byte[] localLevelsByteArray;
@@ -32,13 +33,7 @@ namespace BetterBPMGDCLI.Models
 
         public LocalLevelsCipher FromBase64UrlToBase64()
         {
-            localLevelsString = localLevelsString.Replace('-', '+').Replace('_', '/').Replace("\0", string.Empty);
-
-            int remaining = localLevelsString.Length % 4;
-
-            if (remaining > 0) { localLevelsString += new string('=', 4 - remaining); }
-
-            return new(localLevelsString);
+            return new(FromBase64UrlToBase64(localLevelsString));
         }
 
         public LocalLevelsCipher FromBase64ToByteArray()
