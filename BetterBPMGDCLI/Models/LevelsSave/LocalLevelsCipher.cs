@@ -5,79 +5,58 @@ namespace BetterBPMGDCLI.Models
 {
     public class LocalLevelsCipher
     {
-        private byte[] localLevelsBytes;
-        private string localLevelsString;
+        string localLevelsString;
+        byte[] localLevelsByteArray;
 
-        public byte[] LocalLevelsBytes => localLevelsBytes;
         public string LocalLevelsString => localLevelsString;
+        public byte[] LocalLevelsByteArray => localLevelsByteArray;
 
-        public LocalLevelsCipher(byte[] levelsSaveData)
+        public LocalLevelsCipher(string localLevelsString)
         {
-            localLevelsBytes = levelsSaveData;
-            localLevelsString = Encoding.UTF8.GetString(levelsSaveData);
+            this.localLevelsString = localLevelsString;
+            localLevelsByteArray = Encoding.UTF8.GetBytes(localLevelsString);
         }
 
-        public LocalLevelsCipher(string levelsSaveData)
+        public LocalLevelsCipher(byte[] localLevelsByteArray)
         {
-            localLevelsString = levelsSaveData;
-            localLevelsBytes = Encoding.UTF8.GetBytes(levelsSaveData);
+            this.localLevelsByteArray = localLevelsByteArray;
+            localLevelsString = Encoding.UTF8.GetString(localLevelsByteArray);
         }
 
-        public LocalLevelsCipher ApplyXOR(int key)
+        public LocalLevelsCipher XOR(int key)
         {
-            for (int i = 0; i < localLevelsBytes.Length; i++) localLevelsBytes[i] = (byte)(localLevelsBytes[i] ^ key);
+            for (int i = 0; i < localLevelsString.Length; i++) localLevelsByteArray[i] = (byte)(localLevelsByteArray[i] ^ key);
 
-            return new(localLevelsBytes);
+            return new(localLevelsByteArray);
         }
 
-        public LocalLevelsCipher ApplyBase64(bool decode)
+        public LocalLevelsCipher FromBase64UrlToBase64()
         {
-            if (decode) return new(FromBase64(localLevelsString));
+            localLevelsString = localLevelsString.Replace('-', '+').Replace('_', '/').Replace("\0", string.Empty);
 
-            return new(ToBase64(localLevelsBytes));
+            int remaining = localLevelsString.Length % 4;
+
+            if (remaining > 0) { localLevelsString += new string('=', 4 - remaining); }
+
+            return new(localLevelsString);
         }
 
-        public LocalLevelsCipher ApplyGZIP(bool compress)
+        public LocalLevelsCipher FromBase64ToByteArray()
         {
-            if (compress) return new(GZIPCompress(localLevelsBytes));
+            localLevelsByteArray = Convert.FromBase64String(localLevelsString);
 
-            return new(GZIPDecompress(localLevelsBytes));
+            return new(localLevelsByteArray);
         }
 
-        private static byte[] FromBase64(string input)
+        public LocalLevelsCipher GZIPDecompress()
         {
-            var formatted = input.Replace('-', '+').Replace('_', '/').Replace("\0", string.Empty);
-            int remaining = formatted.Length % 4;
+            using var compressedstream = new MemoryStream(localLevelsByteArray);
+            using var resultstream = new MemoryStream();
+            using var zipstream = new GZipStream(compressedstream, CompressionMode.Decompress);
 
-            if (remaining > 0) formatted += new string('=', 4 - remaining);
+            zipstream.CopyTo(resultstream);
 
-            return Convert.FromBase64String(formatted);
-        }
-
-        private static string ToBase64(byte[] input) => Convert.ToBase64String(input);
-
-        private static byte[] GZIPDecompress(byte[] input)
-        {
-            using MemoryStream uncompressedStream = new(input);
-            using MemoryStream resultStream = new();
-            using GZipStream zipStream = new(resultStream, CompressionMode.Compress);
-
-            uncompressedStream.CopyTo(zipStream);
-
-            zipStream.Close();
-
-            return resultStream.ToArray();
-        }
-
-        private static byte[] GZIPCompress(byte[] input)
-        {
-            using MemoryStream compressedStream = new(input);
-            using MemoryStream resultStream = new();
-            using GZipStream zipStream = new(compressedStream, CompressionMode.Decompress);
-
-            zipStream.CopyTo(resultStream);
-
-            return resultStream.ToArray();
+            return new(resultstream.ToArray());
         }
     }
 }
