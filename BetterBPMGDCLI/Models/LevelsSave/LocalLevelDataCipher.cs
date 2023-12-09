@@ -1,6 +1,6 @@
 ﻿namespace BetterBPMGDCLI.Models.LevelsSave
 {
-    public class LocalLevelObjectsCipher
+    public class LocalLevelDataCipher
     {
 
     }
