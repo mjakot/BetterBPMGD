@@ -4,7 +4,6 @@
     {
         Success,
         Fail,
-        Updated,
         AlreadySaved
     }
 }
