@@ -1,8 +1,8 @@
 ﻿using Common;
 
-namespace BetterBPMGDCLI.Models.LevelsSave.Level
+namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData
 {
-    public struct SpeedPortal
+    public struct SpeedPortal : ILevelData
     {
         public SpeedPortalTypes PortalType { get; }
         public double PositionX { get; }
