@@ -4,7 +4,7 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
 {
     public interface ILevelDataCollection : ICollection
     {
-        public List<ILevelData> List { get; }
+        public IEnumerable<ILevelData> Collection { get; }
 
         public string Encode();
     }
