@@ -78,13 +78,13 @@ namespace BetterBPMGD.ViewModels
             }
         }
         
-        public bool IncludeInBetweenBeatsEditable
+        public bool SubdivideBeatsEditable
         {
             get{ return Timing.IncludeInBetweenBeats; }
             set
             {
                 Timing.IncludeInBetweenBeats = value;
-                OnPropertyChanged(nameof(IncludeInBetweenBeatsEditable));
+                OnPropertyChanged(nameof(SubdivideBeatsEditable));
             }
         }
         
