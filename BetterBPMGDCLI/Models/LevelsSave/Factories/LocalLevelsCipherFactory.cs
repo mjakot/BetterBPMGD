@@ -1,4 +1,6 @@
-﻿namespace BetterBPMGDCLI.Models.LevelsSave.Factories
+﻿using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
+
+namespace BetterBPMGDCLI.Models.LevelsSave.Factories
 {
     public class LocalLevelsCipherFactory
     {
@@ -10,7 +12,7 @@
                 .FromBase64ToByteArray()
                 .GZIPDecompress();
 
-            Cache.SaveCache(result.LocalLevelsString);
+            Cache.Cache.SaveCache(result.LocalLevelsString);
 
             return result;
         }

@@ -26,7 +26,7 @@ namespace BetterBPMGDCLI.Models.Cache
 
         public static XmlDocument GetCacheXmlDocument()
         {
-            XmlDocument xmlCache = new XmlDocument();
+            XmlDocument xmlCache = new();
 
             string stringCache = GetCacheString() ?? string.Empty;
 
