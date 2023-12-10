@@ -6,7 +6,7 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
     {
         public override string Encode()
         {
-            StringBuilder sb = new StringBuilder(";");
+            StringBuilder sb = new();
 
             foreach (SpeedPortal item in collection)
             {

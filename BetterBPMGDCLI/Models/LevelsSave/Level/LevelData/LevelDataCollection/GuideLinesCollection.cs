@@ -2,7 +2,7 @@
 
 namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
 {
-    public class GuideLinesCollection : BaseLevelDataCollection
+    public class GuidelinesCollection : BaseLevelDataCollection
     {
         public override string Encode()
         {

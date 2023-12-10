@@ -21,7 +21,7 @@
             this.id = id;
             this.name = name;
             this.description = description;
-            this.levelData = levelData ?? new();
+            this.levelData = levelData ?? new(string.Empty);
             this.author = author;
             this.verified = verified;
         }
