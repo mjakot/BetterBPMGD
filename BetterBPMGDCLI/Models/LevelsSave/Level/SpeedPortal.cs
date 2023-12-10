@@ -1,7 +1,6 @@
 ﻿namespace BetterBPMGDCLI.Models.LevelsSave.Level
 {
-    public class LocalLevelData : Common.Level
+    public class SpeedPortal
     {
-
     }
 }
