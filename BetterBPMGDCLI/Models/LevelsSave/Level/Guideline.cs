@@ -1,9 +1,7 @@
-﻿using Common;
-
-namespace BetterBPMGDCLI.Models.LevelsSave.Level
+﻿namespace BetterBPMGDCLI.Models.LevelsSave.Level
 {
-    public class Guideline
+    public struct Guideline
     {
-        public SpeedPortalTypes PortalType { get; }
+
     }
 }
