@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace BetterBPMGDCLI.Utils
+namespace BetterBPMGDCLI.Models.Cache
 {
     public class Cache
     {

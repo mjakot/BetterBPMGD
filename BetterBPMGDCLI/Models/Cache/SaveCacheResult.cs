@@ -1,4 +1,4 @@
-﻿namespace BetterBPMGDCLI.Utils
+﻿namespace BetterBPMGDCLI.Models.Cache
 {
     public enum SaveCacheResult
     {
