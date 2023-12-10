@@ -1,5 +1,4 @@
 ﻿using BetterBPMGDCLI.Models.LevelsSave;
-using System.IO.Compression;
 
 namespace BetterBPMGDCLI.Models
 {
@@ -16,19 +15,10 @@ namespace BetterBPMGDCLI.Models
             return new(localLevelsByteArray);
         }
 
-        public LocalLevelsCipher FromBase64UrlToBase64() => new(FromBase64UrlToBase64(localLevelsString));
+        public new LocalLevelsCipher FromBase64UrlToBase64() => new(base.FromBase64UrlToBase64());
 
-        public LocalLevelsCipher FromBase64ToByteArray() => new(Convert.FromBase64String(localLevelsString));
+        public new LocalLevelsCipher FromBase64ToByteArray() => new(base.FromBase64ToByteArray());
 
-        public LocalLevelsCipher GZIPDecompress()
-        {
-            using var compressedstream = new MemoryStream(localLevelsByteArray);
-            using var resultstream = new MemoryStream();
-            using var zipstream = new GZipStream(compressedstream, CompressionMode.Decompress);
-
-            zipstream.CopyTo(resultstream);
-
-            return new(resultstream.ToArray());
-        }
+        public new LocalLevelsCipher GZIPDecompress() => new(base.GZIPDecompress());
     }
 }

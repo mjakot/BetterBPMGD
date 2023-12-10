@@ -1,6 +1,4 @@
-﻿using System.IO.Compression;
-
-namespace BetterBPMGDCLI.Models.LevelsSave
+﻿namespace BetterBPMGDCLI.Models.LevelsSave
 {
     public class LocalLevelDataCipher : BaseLocalLevelCipher
     {
@@ -8,19 +6,10 @@ namespace BetterBPMGDCLI.Models.LevelsSave
 
         public LocalLevelDataCipher(byte[] localLevelsByteArray) : base(localLevelsByteArray) { }
 
-        public LocalLevelDataCipher FromBase64UrlToBase64() => new(FromBase64UrlToBase64(localLevelsString));
+        public new LocalLevelDataCipher FromBase64UrlToBase64() => new(base.FromBase64UrlToBase64());
 
-        public LocalLevelDataCipher GZIPDecompress()
-        {
-            using var compressedstream = new MemoryStream(localLevelsByteArray);
-            using var resultstream = new MemoryStream();
-            using var zipstream = new GZipStream(compressedstream, CompressionMode.Decompress);
+        public new LocalLevelDataCipher GZIPDecompress() => new(base.GZIPDecompress());
 
-            zipstream.CopyTo(resultstream);
-
-            return new(resultstream.ToArray());
-        }
-
-        public LocalLevelDataCipher FromBase64ToByteArray() => new(Convert.FromBase64String(localLevelsString));
+        public new LocalLevelDataCipher FromBase64ToByteArray() => new(base.FromBase64ToByteArray());
     }
 }
