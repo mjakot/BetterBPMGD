@@ -6,14 +6,8 @@ namespace BetterBPMGD.Commands
     {
         private readonly LevelViewModel level;
 
-        public AddTimingCommand(LevelViewModel level)
-        {
-            this.level = level;
-        }
+        public AddTimingCommand(LevelViewModel level) => this.level = level;
 
-        public override void Execute(object? parameter)
-        {
-            level.AddTiming(new());
-        }
+        public override void Execute(object? parameter) => level.AddTiming(new());
     }
 }

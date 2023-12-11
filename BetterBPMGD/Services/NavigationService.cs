@@ -15,9 +15,6 @@ namespace BetterBPMGD.Services
             this.createViewModel = createViewModel;
         }
 
-        public void Navigate()
-        {
-            navigationStore.CurrentViewModel = createViewModel();
-        }
+        public void Navigate() => navigationStore.CurrentViewModel = createViewModel();
     }
 }

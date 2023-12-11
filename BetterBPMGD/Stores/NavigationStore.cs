@@ -19,9 +19,6 @@ namespace BetterBPMGD.Stores
 
         public event Action CurrentViewModelChanged;
         
-        private void OnCurrentViewModelChanged()
-        {
-            CurrentViewModelChanged?.Invoke();
-        }
+        private void OnCurrentViewModelChanged() => CurrentViewModelChanged?.Invoke();
     }
 }

@@ -7,10 +7,7 @@ namespace BetterBPMGD.ViewModels
     {
         public event EventHandler? CanExecuteChanged;
 
-        public virtual bool CanExecute(object? parameter)
-        {
-            return true;
-        }
+        public virtual bool CanExecute(object? parameter) => true;
 
         public abstract void Execute(object? parameter);
 

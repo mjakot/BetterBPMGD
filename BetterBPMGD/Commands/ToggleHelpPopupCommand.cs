@@ -7,14 +7,8 @@ namespace BetterBPMGD.Commands
     {
         private readonly Action toggleHelp;
 
-        public ToggleHelpPopupCommand(Action toggleHelp)
-        {
-            this.toggleHelp = toggleHelp;
-        }
+        public ToggleHelpPopupCommand(Action toggleHelp) => this.toggleHelp = toggleHelp;
 
-        public override void Execute(object? parameter)
-        {
-            toggleHelp();
-        }
+        public override void Execute(object? parameter) => toggleHelp();
     }
 }

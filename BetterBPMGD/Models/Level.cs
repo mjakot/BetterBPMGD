@@ -17,10 +17,7 @@ namespace BetterBPMGD.Models
 
         public bool AddTiming(Timing timing)
         {
-            if (timing == null)
-            {
-                return false;
-            }
+            if (timing == null) return false;
 
             timings.Add(timing);
             
@@ -29,10 +26,7 @@ namespace BetterBPMGD.Models
 
         public bool RemoveTiming(int timingId)
         {
-            if (timings == null || timingId > Timing.Counter)
-            {
-                return false;
-            }
+            if (timings == null || timingId > Common.Timing.Counter) return false;
 
             Timing? removeItem = timings.SingleOrDefault(i => i.Id == timingId);
 
@@ -42,6 +36,7 @@ namespace BetterBPMGD.Models
         public bool EditTiming(Timing timing)
         {
             bool result = RemoveTiming(timing.Id);
+
             return result & AddTiming(timing);
         }
     }

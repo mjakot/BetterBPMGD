@@ -15,9 +15,6 @@ namespace BetterBPMGD.ViewModels
             navigationStore.CurrentViewModelChanged += NavigationStore_CurrentViewModelChanged;
         }
 
-        private void NavigationStore_CurrentViewModelChanged()
-        {
-            OnPropertyChanged(nameof(CurrentViewModel));
-        }
+        private void NavigationStore_CurrentViewModelChanged() => OnPropertyChanged(nameof(CurrentViewModel));
     }
 }

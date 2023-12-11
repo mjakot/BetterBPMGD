@@ -96,14 +96,8 @@ namespace BetterBPMGD.ViewModels
             followGroupIdHelpPopupDataContext = new("Group Id used by follow trigger to make speed portals undodgeable", ToggleFollowGroupIdHelpPopup);
         }
 
-        private void ToggleAppHelpPopup()
-        {
-            ShowAppHelpPopup = !ShowAppHelpPopup;
-        }
+        private void ToggleAppHelpPopup() => ShowAppHelpPopup = !ShowAppHelpPopup;
 
-        private void ToggleFollowGroupIdHelpPopup()
-        {
-            ShowFollowGroupIdHelpPopup = !ShowFollowGroupIdHelpPopup;
-        }
+        private void ToggleFollowGroupIdHelpPopup() => ShowFollowGroupIdHelpPopup = !ShowFollowGroupIdHelpPopup;
     }
 }

@@ -74,17 +74,11 @@ namespace BetterBPMGD.ViewModels
             helpPopupDataContext = new("O - orange\nG - Green\nY - yellow", ToggleHelpPopup);
         }
 
-        private void ToggleHelpPopup()
-        {
-            ShowHelpPopup = !ShowHelpPopup;
-        }
-        
+        private void ToggleHelpPopup() => ShowHelpPopup = !ShowHelpPopup;
+
         private IEnumerable<TimingViewModel> CreateTimingList(IEnumerable<Timing> timings)
         {
-            foreach (Timing timing in timings)
-            {
-                yield return new(timing);
-            }
+            foreach (Timing timing in timings) yield return new(timing);
         }
 
         private void Level_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
