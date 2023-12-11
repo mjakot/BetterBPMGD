@@ -57,7 +57,7 @@ namespace BetterBPMGD.ViewModels
 
         public int TimeUnitEditable
         {
-            get { return (int)Timing.TimeUnit; }
+            get => (int)Timing.TimeUnit;
             set
             {
                 Timing.TimeUnit = (UnitsOfTime)value;
@@ -68,7 +68,7 @@ namespace BetterBPMGD.ViewModels
         
         public double BpmEditable
         {
-            get { return Timing.Bpm; }
+            get => Timing.Bpm;
             set
             {
                 Timing.Bpm = value;
@@ -79,7 +79,7 @@ namespace BetterBPMGD.ViewModels
         
         public bool SubdivideBeatsEditable
         {
-            get{ return Timing.SubdivideBeats; }
+            get => Timing.SubdivideBeats;
             set
             {
                 Timing.SubdivideBeats = value;
@@ -89,7 +89,7 @@ namespace BetterBPMGD.ViewModels
         
         public int BeatSubdivisionEditable
         {
-            get { return Timing.BeatSubdivisuon; }
+            get => Timing.BeatSubdivisuon;
             set
             {
                 Timing.BeatSubdivisuon = value;
@@ -100,7 +100,7 @@ namespace BetterBPMGD.ViewModels
 
         public int SpeedEditable
         {
-            get { return (int)Timing.Speed; }
+            get => (int)Timing.Speed;
             set
             {
                 Timing.Speed = (SpeedPortalTypes)value;
@@ -111,7 +111,7 @@ namespace BetterBPMGD.ViewModels
         
         public string ColorPatternEditable
         {
-            get { return Timing.ColorPattern; }
+            get => Timing.ColorPattern;
             set
             {
                 Timing.ColorPattern = value;
@@ -139,8 +139,8 @@ namespace BetterBPMGD.ViewModels
                 }
             }
         }
-        public double BpmDisplayable { get { return Timing.Bpm; } }
-        public int BeatSubdivisionDisplayable { get { return Timing.BeatSubdivisuon; } }
+        public double BpmDisplayable => Timing.Bpm;
+        public int BeatSubdivisionDisplayable => Timing.BeatSubdivisuon;
         public string SpeedDisplayable
         {
             get
@@ -168,7 +168,7 @@ namespace BetterBPMGD.ViewModels
             }
         }
 
-        public TimingViewModel(Timing timing) => this.Timing = timing;
+        public TimingViewModel(Timing timing) => Timing = timing;
 
         private ulong GetSeconds(ulong milliseconds) => milliseconds / 1000;
     }
