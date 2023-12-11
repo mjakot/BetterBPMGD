@@ -11,9 +11,8 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
             foreach (Guideline item in collection)
             {
                 result.Append(item.Encode());
+                result.Append('~');
             }
-
-            result.Append('~');
 
             return result.ToString();
         }
