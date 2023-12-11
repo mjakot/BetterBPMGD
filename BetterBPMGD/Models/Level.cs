@@ -5,7 +5,7 @@ namespace BetterBPMGD.Models
 {
     public class Level : Common.Level
     {
-        private readonly List<Timing> timings;
+        private new readonly List<Timing> timings;
 
         public Level() : base() => timings = new();
 
@@ -34,7 +34,7 @@ namespace BetterBPMGD.Models
                 return false;
             }
 
-            Timing? removeItem = (Timing)timings.SingleOrDefault(i => i.Id == timingId);
+            Timing? removeItem = timings.SingleOrDefault(i => i.Id == timingId);
 
             return removeItem != null ? timings.Remove(removeItem) : false;
         }
