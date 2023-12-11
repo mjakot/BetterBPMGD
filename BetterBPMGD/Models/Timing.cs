@@ -6,18 +6,12 @@ namespace BetterBPMGD.Models
     {
         public UnitsOfTime TimeUnit { get; set; }
 
-        public Timing() : base() => DefaultInitializer();
+        public Timing() : base() => TimeUnit = UnitsOfTime.milisecond;
 
-        public Timing(int Id) : base(Id) => DefaultInitializer();
+        public Timing(int Id) : base(Id) => TimeUnit = UnitsOfTime.milisecond;
 
-        public Timing(ulong offsetms, UnitsOfTime timeUnit, double bpm, bool includeInBetweenBeats, Fraction timeSignature, SpeedPortalTypes speed, string colorPattern)
-                : base(offsetms, bpm, includeInBetweenBeats, timeSignature, speed, colorPattern)
+        public Timing(ulong offsetms, UnitsOfTime timeUnit, double bpm, bool subdivideBeats, int beatSubdivision, SpeedPortalTypes speed, string colorPattern)
+                : base(offsetms, bpm, subdivideBeats, beatSubdivision, speed, colorPattern)
                 => TimeUnit = timeUnit;
-
-        private void DefaultInitializer()
-        {
-            TimeSignature = new Fraction(4, 4);
-            TimeUnit = UnitsOfTime.milisecond;
-        }
     }
 }

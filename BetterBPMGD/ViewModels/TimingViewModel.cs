@@ -1,6 +1,5 @@
 ﻿using BetterBPMGD.Models;
 using Common;
-using Fraction = BetterBPMGD.Models.Fraction;
 using Timing = BetterBPMGD.Models.Timing;
 
 namespace BetterBPMGD.ViewModels
@@ -80,25 +79,25 @@ namespace BetterBPMGD.ViewModels
         
         public bool SubdivideBeatsEditable
         {
-            get{ return Timing.IncludeInBetweenBeats; }
+            get{ return Timing.SubdivideBeats; }
             set
             {
-                Timing.IncludeInBetweenBeats = value;
+                Timing.SubdivideBeats = value;
                 OnPropertyChanged(nameof(SubdivideBeatsEditable));
             }
         }
         
-        public string TimeSignatureEditable
+        public int BeatSubdivisionEditable
         {
-            get { return Timing.TimeSignature.ToString(); }
+            get { return Timing.BeatSubdivisuon; }
             set
             {
-                Timing.TimeSignature = Fraction.TryParse(value);
-                OnPropertyChanged(nameof(TimeSignatureEditable));
-                OnPropertyChanged(nameof(TimeSignatureDisplayable));
+                Timing.BeatSubdivisuon = value;
+                OnPropertyChanged(nameof(BeatSubdivisionEditable));
+                OnPropertyChanged(nameof(BeatSubdivisionDisplayable));
             }
         }
-        
+
         public int SpeedEditable
         {
             get { return (int)Timing.Speed; }
@@ -141,7 +140,7 @@ namespace BetterBPMGD.ViewModels
             }
         }
         public double BpmDisplayable { get { return Timing.Bpm; } }
-        public string TimeSignatureDisplayable { get { return Timing.TimeSignature.ToString(); } }
+        public int BeatSubdivisionDisplayable { get { return Timing.BeatSubdivisuon; } }
         public string SpeedDisplayable
         {
             get

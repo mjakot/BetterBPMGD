@@ -105,10 +105,10 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0" Margin="5" HorizontalAlignment="Left" Text="Subdivide beats"/>
-                        <CheckBox Grid.Column="1" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding SelectedItem.SubdivideBeatsEditable, Mode=TwoWay}"/>
+                        <CheckBox x:Name="SubdivideBeatsCheckBox" Grid.Column="1" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding SelectedItem.SubdivideBeatsEditable, Mode=TwoWay}"/>
                     </Grid>
 
-                    <Grid Grid.Row="3">
+                    <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -125,15 +125,19 @@
                         </ComboBox>
                     </Grid>
 
-                    <Grid Grid.Row="4">
+                    <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Margin="5" HorizontalAlignment="Left" Text="Time signature"/>
-                        <TextBox Grid.Column="1" Margin="5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding SelectedItem.TimeSignatureEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Column="0" Margin="5" HorizontalAlignment="Left" Text="Beat subdivision"/>
+                        <!--<TextBox Grid.Column="1" Margin="5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding SelectedItem.TimeSignatureEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+                        <DockPanel Grid.Column="1" Grid.ColumnSpan="2" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
+                            <Slider x:Name="BeatSubdivisionSlider" DockPanel.Dock="Left" VerticalAlignment="Stretch" TickPlacement="BottomRight" Maximum="16" TickFrequency="2" IsSnapToTickEnabled="True" Width="300" Value="{Binding SelectedItem.BeatSubdivisionEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=SubdivideBeatsCheckBox, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=BeatSubdivisionSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
                     </Grid>
 
                     <Grid Grid.Row="5">
@@ -181,10 +185,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Time signature">
+                        <GridViewColumn Header="Beat subdivision">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding TimeSignatureDisplayable}"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding BeatSubdivisionDisplayable}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

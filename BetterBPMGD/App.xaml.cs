@@ -20,7 +20,7 @@ namespace BetterBPMGD
 
         public App()
         {
-            level = new(new List<Timing>() { new(), new(12312312, UnitsOfTime.milisecond, 123.123, true, new(4, 2), SpeedPortalTypes.HALFSPEED, "eye"), new(122222222, UnitsOfTime.second, 553.2, true, new(5, 2), SpeedPortalTypes.DOUBLE, "zdf") });
+            level = new(new List<Timing>() { new(), new(12312312, UnitsOfTime.milisecond, 123.123, true, 16, SpeedPortalTypes.HALFSPEED, "eye"), new(122222222, UnitsOfTime.second, 553.2, true, 2, SpeedPortalTypes.DOUBLE, "zdf") });
             navigationStore = new();
             settings = new();
         }
