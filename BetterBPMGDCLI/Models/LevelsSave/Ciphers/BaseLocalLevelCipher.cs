@@ -5,40 +5,40 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Ciphers
 {
     public abstract class BaseLocalLevelCipher
     {
-        protected string localLevelsString;
-        protected byte[] localLevelsByteArray;
+        protected string dataString;
+        protected byte[] dataByteArray;
 
-        public virtual string LocalLevelsString => localLevelsString;
-        public virtual byte[] LocalLevelsByteArray => localLevelsByteArray;
+        public virtual string DataString => dataString;
+        public virtual byte[] DataByteArray => dataByteArray;
 
         public BaseLocalLevelCipher(string localLevelsString)
         {
-            this.localLevelsString = localLevelsString;
-            localLevelsByteArray = Encoding.UTF8.GetBytes(localLevelsString);
+            this.dataString = localLevelsString;
+            dataByteArray = Encoding.UTF8.GetBytes(localLevelsString);
         }
 
         public BaseLocalLevelCipher(byte[] localLevelsByteArray)
         {
-            this.localLevelsByteArray = localLevelsByteArray;
-            localLevelsString = Encoding.UTF8.GetString(localLevelsByteArray);
+            this.dataByteArray = localLevelsByteArray;
+            dataString = Encoding.UTF8.GetString(localLevelsByteArray);
         }
 
         public string FromBase64UrlToBase64()
         {
-            localLevelsString = localLevelsString.Replace('-', '+').Replace('_', '/').Replace("\0", string.Empty);
+            dataString = dataString.Replace('-', '+').Replace('_', '/').Replace("\0", string.Empty);
 
-            int remaining = localLevelsString.Length % 4;
+            int remaining = dataString.Length % 4;
 
-            if (remaining > 0) { localLevelsString += new string('=', 4 - remaining); }
+            if (remaining > 0) { dataString += new string('=', 4 - remaining); }
 
-            return localLevelsString;
+            return dataString;
         }
 
-        public byte[] FromBase64ToByteArray() => Convert.FromBase64String(localLevelsString);
+        public byte[] FromBase64ToByteArray() => Convert.FromBase64String(dataString);
 
         public byte[] GZIPDecompress()
         {
-            using var compressedstream = new MemoryStream(localLevelsByteArray);
+            using var compressedstream = new MemoryStream(dataByteArray);
             using var resultstream = new MemoryStream();
             using var zipstream = new GZipStream(compressedstream, CompressionMode.Decompress);
 

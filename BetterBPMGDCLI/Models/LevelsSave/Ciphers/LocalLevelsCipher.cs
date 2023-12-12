@@ -8,9 +8,9 @@
 
         public LocalLevelsCipher XOR(int key)
         {
-            for (int i = 0; i < localLevelsString.Length; i++) localLevelsByteArray[i] = (byte)(localLevelsByteArray[i] ^ key);
+            for (int i = 0; i < dataString.Length; i++) dataByteArray[i] = (byte)(dataByteArray[i] ^ key);
 
-            return new(localLevelsByteArray);
+            return new(dataByteArray);
         }
 
         public new LocalLevelsCipher FromBase64UrlToBase64() => new(base.FromBase64UrlToBase64());

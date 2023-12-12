@@ -1,6 +1,4 @@
-﻿using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
-
-namespace BetterBPMGDCLI.Models.LevelsSave.Factories
+﻿namespace BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories
 {
     public class LocalLevelDataCipherFactory
     {
