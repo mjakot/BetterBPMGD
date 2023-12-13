@@ -2,7 +2,7 @@
 
 namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData
 {
-    public struct SpeedPortal : ILevelData
+    public class SpeedPortal : ILevelData
     {
         public SpeedPortalTypes PortalType { get; }
         public double PositionX { get; }

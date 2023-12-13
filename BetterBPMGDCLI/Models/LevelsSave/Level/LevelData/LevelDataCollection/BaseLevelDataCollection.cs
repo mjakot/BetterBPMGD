@@ -14,10 +14,11 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
 
         public object SyncRoot => throw new NotImplementedException();
 
-        public BaseLevelDataCollection()
-        {
-            collection = new List<ILevelData>();
-        }
+        public BaseLevelDataCollection() => collection = new List<ILevelData>();
+
+        public BaseLevelDataCollection(IEnumerable<ILevelData> collection) => this.collection = new(collection);
+
+        public BaseLevelDataCollection(List<ILevelData> collection) => this.collection = collection;
 
         public void CopyTo(Array array, int index)
         {
@@ -36,6 +37,8 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
         }
 
         public IEnumerator GetEnumerator() => collection.GetEnumerator();
+
+        public void Add(ILevelData levelData) => collection.Add(levelData);
 
         public abstract string Encode();
     }

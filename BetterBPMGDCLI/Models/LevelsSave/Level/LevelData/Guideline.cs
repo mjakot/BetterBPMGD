@@ -1,11 +1,11 @@
 ﻿namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData
 {
-    public struct Guideline : ILevelData
+    public class Guideline : ILevelData
     {
         public GuidelineColors GuidelineColor { get; }
-        public double Offset { get; }
+        public ulong Offset { get; }
 
-        public Guideline(GuidelineColors guidelineColor, double offset)
+        public Guideline(GuidelineColors guidelineColor, ulong offset)
         {
             GuidelineColor = guidelineColor;
             Offset = offset;

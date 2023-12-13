@@ -4,38 +4,43 @@ using System.Text;
 
 namespace BetterBPMGDCLI.Models.LevelsSave.Level
 {
-    //TODO: Add CalculateGuidelines() and CalculateSpeedPortals()
-    public class LocalLevelData : Common.Level
+    //TODO: Add and CalculateSpeedPortals()
+    public class LocalLevelData : Level
     {
+        private GuidelinesCollection guidelines;
+        private SpeedPortalsCollection speedPortals;
+
         public string LevelData { get; }
 
-        public GuidelinesCollection GuideLines { get; }
-        public SpeedPortalsCollection SpeedPortals { get; }
+        public GuidelinesCollection GuideLines => guidelines;
+        public SpeedPortalsCollection SpeedPortals => speedPortals;
 
         public LocalLevelData(string levelData) : base()
         {
             LevelData = levelData;
-            GuideLines = new();
-            SpeedPortals = new();
+            guidelines = new();
+            speedPortals = new();
         }
 
-        public LocalLevelData(string levelData, IEnumerable<Timing> timings) : base(timings)
+        public LocalLevelData(string levelData, IEnumerable<Timing> timings, ulong songDurationMS) : base(timings, songDurationMS)
         {
             LevelData = levelData;
-            GuideLines = new();
-            SpeedPortals = new();
+            guidelines = new();
+            speedPortals = new();
         }
 
-        public LocalLevelData(string levelData, Timing timing) : base(timing)
+        public LocalLevelData(string levelData, Timing timing, ulong songDurationMS) : base(timing, songDurationMS)
         {
             LevelData = levelData;
-            GuideLines = new();
-            SpeedPortals = new();
+            guidelines = new();
+            speedPortals = new();
         }
 
         //TODO: add handling for when speedportals are disabled
         public string Encode(bool deleteOldGuideLines)
         {
+            guidelines = CalculateGuidelines();
+
             string[] splittedData = LevelData.Split(',');
 
             //TODO: add handling for situation when not found
