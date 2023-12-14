@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterBPMGD", "BetterBPMGD\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterBPMGDCLI", "BetterBPMGDCLI\BetterBPMGDCLI.csproj", "{D41093A0-1AB5-4FC2-9C51-BFC1178357B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{738F4027-6462-42AD-B29B-DB216152D902}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{738F4027-6462-42AD-B29B-DB216152D902}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{219431C3-5BDD-464E-B8BC-793388A9FBB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterBPMCLI.Tests", "BetterBPMCLI.Tests\BetterBPMCLI.Tests.csproj", "{C2D16413-3121-414D-9A48-B35C539D8EDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,16 @@ Global
 		{738F4027-6462-42AD-B29B-DB216152D902}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{738F4027-6462-42AD-B29B-DB216152D902}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{738F4027-6462-42AD-B29B-DB216152D902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2D16413-3121-414D-9A48-B35C539D8EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2D16413-3121-414D-9A48-B35C539D8EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2D16413-3121-414D-9A48-B35C539D8EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2D16413-3121-414D-9A48-B35C539D8EDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C2D16413-3121-414D-9A48-B35C539D8EDA} = {219431C3-5BDD-464E-B8BC-793388A9FBB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E0AAC37-50D5-4E9D-B7C4-51362D49376C}

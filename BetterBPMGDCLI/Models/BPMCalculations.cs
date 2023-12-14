@@ -6,6 +6,6 @@
 
         public static ulong CalculateTimingDuration(ulong firstTimingOffset, ulong secondTimingOffset) => secondTimingOffset - firstTimingOffset;
 
-        public static ulong CalculateBeatDuration(ulong timingDurationMS, double bpm) => (ulong)(MSinSec / bpm * timingDurationMS);
+        public static ulong CalculateBeatDuration(double bpm) => (ulong)(MSinSec / bpm);
     }
 }

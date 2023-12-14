@@ -22,9 +22,7 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level
             {
                 ulong nextOffset = (i + 1 < Timings.Count()) ? Timings.ElementAt(i + 1).OffsetMS : SongDurationMS;
 
-                ulong timingDuration = BPMCalculations.CalculateTimingDuration(Timings.ElementAt(i).OffsetMS, nextOffset);
-
-                ulong beatDuration = BPMCalculations.CalculateBeatDuration(timingDuration, Timings.ElementAt(i).Bpm);
+                ulong beatDuration = BPMCalculations.CalculateBeatDuration(Timings.ElementAt(i).Bpm);
 
                 ulong beatOffset = Timings.ElementAt(i).OffsetMS;
 
