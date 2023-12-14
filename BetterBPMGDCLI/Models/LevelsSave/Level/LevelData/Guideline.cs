@@ -3,14 +3,14 @@
     public class Guideline : ILevelData
     {
         public GuidelineColors GuidelineColor { get; }
-        public ulong Offset { get; }
+        public ulong OffsetMs { get; }
 
         public Guideline(GuidelineColors guidelineColor, ulong offset)
         {
             GuidelineColor = guidelineColor;
-            Offset = offset;
+            OffsetMs = offset;
         }
 
-        public string Encode() => $"{Offset}~{GuidelineColor.GuidelineColor}";
+        public string Encode() => $"{(double)OffsetMs / 1000 / 60}~{GuidelineColor.GuidelineColor}";
     }
 }

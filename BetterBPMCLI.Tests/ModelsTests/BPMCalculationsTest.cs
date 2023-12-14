@@ -23,13 +23,12 @@ namespace BetterBPMCLI.Tests.ModelsTests
         [Fact]
         public void CalculateBeatDuration_OneBPM_ReturnsOneMinuteDuration()
         {
-            const ulong timingDurationMs = 60000; // Milliseconds in 1 minute
             const double bpm = 1;
-            const ulong expectedDuration = timingDurationMs;
+            const ulong expectedDuration = 60000; // Milliseconds in 1 minute
 
 
 
-            ulong actualDuration = BPMCalculations.CalculateBeatDuration(timingDurationMs, bpm);
+            ulong actualDuration = BPMCalculations.CalculateBeatDuration(bpm);
 
 
 
@@ -39,13 +38,12 @@ namespace BetterBPMCLI.Tests.ModelsTests
         [Fact]
         public void CalculateBeatDuration_TwoBPM_ReturnsTwoMinutesDuration()
         {
-            const ulong timingDurationMs = 60000; // Milliseconds in 1 minute
             const double bpm = 2;
-            const ulong expectedDuration = 30000; // Milliseconds in half a minute
+            const ulong expectedDuration = 60000 / 2; // Milliseconds in half a minute
 
 
 
-            ulong actualDuration = BPMCalculations.CalculateBeatDuration(timingDurationMs, bpm);
+            ulong actualDuration = BPMCalculations.CalculateBeatDuration(bpm);
 
 
 
