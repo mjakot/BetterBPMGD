@@ -5,7 +5,7 @@ namespace BetterBPMGDCLI.Models.Cache
     public class Cache
     {
         //TODO: get path from settings
-        private const string CachePath = "levels.xml";
+        private readonly string CachePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\cache.xml";
 
         public static SaveCacheResult SaveCache(XmlDocument xmlCache)
         {

@@ -2,6 +2,7 @@
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
+using BetterBPMGDCLI.Models.Settings;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -9,13 +10,14 @@ namespace BetterBPMGDCLI.Models
 {
     public class Controller
     {
-        //TODO: get this path from settings
-        private readonly string DefaulLevelsSavePath = $"{Environment.SpecialFolder.UserProfile}\\AppData\\Local\\GeometryDash\\CCLocalLevels.dat";
+        private readonly ISettings settings;
 
         public LocalLevel? Level { get; set; }
 
-        public Controller()
+        public Controller(ISettings settings)
         {
+            this.settings = settings;
+
             Level = null;
 
             Cache.Cache.SaveCache(PrepareCache());
@@ -61,7 +63,7 @@ namespace BetterBPMGDCLI.Models
 
         private string PrepareCache()
         {
-            string localLevels = File.ReadAllText(DefaulLevelsSavePath);
+            string localLevels = File.ReadAllText(settings.LevelsSavePath);
             LocalLevelsCipher data = new(localLevels);
             LocalLevelsCipher localLevelsCipher = LocalLevelsCipherFactory.Decode(data);
 
