@@ -32,7 +32,7 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level
 
                     GuidelineColors guidelinescolor = GuidelineColors.GetGuidelineColor(color);
 
-                    guidelines.Add(new Guideline(guidelinescolor, beatOffsetMs)); // bro why offset for guidelines in gd is in minutes wtf
+                    guidelines.Add(new Guideline(guidelinescolor, beatOffsetMs));
 
                     beatOffsetMs += beatDurationMs;
                 }

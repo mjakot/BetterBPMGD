@@ -11,6 +11,8 @@
             OffsetMs = offset;
         }
 
-        public string Encode() => $"{(double)OffsetMs / 1000 / 60}~{GuidelineColor.GuidelineColor}";
+        public string Encode() => $"{GetMinutes(OffsetMs)}~{GuidelineColor.GuidelineColor}";  // bro why offset for guidelines in gd is in minutes wtf
+
+        private static double GetMinutes(ulong milliseconds) => (double)milliseconds / 1000 / 60;
     }
 }
