@@ -26,11 +26,11 @@ namespace BetterBPMCLI.Tests.ModelsTests
 
         private class TestSettings : ISettings
         {
-            public string DefaultLevelsSavePath => @"path/to/levels/save";
+            public string DefaultLevelsSavePath => @"C:\SenaFolder\locallevels.xml";
 
             public string LevelsSavePath { get => DefaultLevelsSavePath; set => throw new NotImplementedException(); }
 
-            public string DefaultCachePath => @"path/to/cache";
+            public string DefaultCachePath => @"C:\SenaFolder\cachetest.xml";
 
             public string CachePath { get => DefaultCachePath; set => throw new NotImplementedException(); }
 
