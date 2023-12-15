@@ -3,7 +3,6 @@ using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
 using BetterBPMGDCLI.Models.Settings;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Models
@@ -20,14 +19,15 @@ namespace BetterBPMGDCLI.Models
 
             Level = null;
 
+            Cache.Cache.AddSettings(settings);
             Cache.Cache.SaveCache(PrepareCache());
         }
 
-        public bool LoadLocalLevel(string levelKey)
+        public async Task<bool> LoadLocalLevelAsync(string levelKey)
         {
-            XmlDocument localLevels = Cache.Cache.GetCacheXmlDocument();
+            XDocument localLevels = await Cache.Cache.GetCacheXDocumentAsync() ?? new();
 
-            XElement? xmlLevel = localLevels.ToXDocument().FindLevelByKey(levelKey);
+            XElement? xmlLevel = localLevels.FindLevelByKey(levelKey);
 
             if (xmlLevel is null) return false;
 
@@ -36,13 +36,13 @@ namespace BetterBPMGDCLI.Models
             return true;
         }
 
-        public bool SaveLocalLevel(string levelKey)
+        public async Task<bool> SaveLocalLevelAsync(string levelKey)
         {
             if (Level is null) return false;
 
-            XmlDocument localLevels = Cache.Cache.GetCacheXmlDocument();
+            XDocument localLevels = await Cache.Cache.GetCacheXDocumentAsync() ?? new();
 
-            XElement? xmlLevel = localLevels.ToXDocument().FindLevelByKey(levelKey);
+            XElement? xmlLevel = localLevels.FindLevelByKey(levelKey);
 
             xmlLevel?.ToXDocument().ModifyElementValue("k", "k4", "s", Level!.LevelData.Encode(true));
 
