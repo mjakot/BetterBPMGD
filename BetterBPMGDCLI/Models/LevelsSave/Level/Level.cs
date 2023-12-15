@@ -20,23 +20,21 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level
 
             for (int i = 0; i < Timings.Count(); i++)
             {
-                ulong nextOffset = (i + 1 < Timings.Count()) ? Timings.ElementAt(i + 1).OffsetMS : SongDurationMS;
+                ulong nextOffsetMs = (i + 1 < Timings.Count()) ? Timings.ElementAt(i + 1).OffsetMS : SongDurationMS;
 
-                ulong timingDuration = BPMCalculations.CalculateTimingDuration(Timings.ElementAt(i).OffsetMS, nextOffset);
+                ulong beatDurationMs = BPMCalculations.CalculateBeatDuration(Timings.ElementAt(i).Bpm);
 
-                ulong beatDuration = BPMCalculations.CalculateBeatDuration(timingDuration, Timings.ElementAt(i).Bpm);
+                ulong beatOffsetMs = Timings.ElementAt(i).OffsetMS;
 
-                ulong beatOffset = Timings.ElementAt(i).OffsetMS;
-
-                while (beatOffset < nextOffset)
+                while (beatOffsetMs < nextOffsetMs)
                 {
                     char color = Timings.ElementAt(i).ColorPattern[0];
 
                     GuidelineColors guidelinescolor = GuidelineColors.GetGuidelineColor(color);
 
-                    guidelines.Add(new Guideline(guidelinescolor, beatOffset));
+                    guidelines.Add(new Guideline(guidelinescolor, beatOffsetMs));
 
-                    beatOffset += beatDuration;
+                    beatOffsetMs += beatDurationMs;
                 }
             }
 
