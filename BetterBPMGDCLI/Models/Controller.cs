@@ -46,19 +46,13 @@ namespace BetterBPMGDCLI.Models
 
             xmlLevel?.ToXDocument().ModifyElementValue("k", "k4", "s", Level!.LevelData.Encode(true));
 
-            switch (Cache.Cache.SaveCache(localLevels))
+            return Cache.Cache.SaveCache(localLevels) switch
             {
-                case Cache.SaveCacheResult.Success:
-                    return true;
-
-                case Cache.SaveCacheResult.Fail:
-                    return false;
-
-                case Cache.SaveCacheResult.AlreadySaved:
-                    return true;
-
-                default: return false;
-            }
+                Cache.SaveCacheResult.Success => true,
+                Cache.SaveCacheResult.Fail => false,
+                Cache.SaveCacheResult.AlreadySaved => true,
+                _ => false,
+            };
         }
 
         private string PrepareCache()
