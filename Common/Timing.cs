@@ -12,7 +12,7 @@
         public SpeedPortalTypes Speed { get; set; }
         public string ColorPattern { get; set; }
 
-        public Timing() : this(0, 0, false, 1, SpeedPortalTypes.NORMAL, "o") { }
+        public Timing() : this(0, 0, false, 0, SpeedPortalTypes.NORMAL, "o") { }
 
         public Timing(int Id) : this()
         {
@@ -20,12 +20,12 @@
             this.Id = Id;
         }
 
-        public Timing(ulong offsetms, double bpm, bool includeInBetweenBeats, int beatSubdivision, SpeedPortalTypes speed, string colorPattern)
+        public Timing(ulong offsetMs, double bpm, bool subdivideBeats, int beatSubdivision, SpeedPortalTypes speed, string colorPattern)
         {
             Id = Counter++;
-            OffsetMS = offsetms;
+            OffsetMS = offsetMs;
             Bpm = bpm;
-            SubdivideBeats = includeInBetweenBeats;
+            SubdivideBeats = subdivideBeats;
             BeatSubdivisuon = beatSubdivision;
             Speed = speed;
             ColorPattern = colorPattern;
