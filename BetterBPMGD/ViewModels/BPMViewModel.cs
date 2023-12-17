@@ -71,7 +71,7 @@ namespace BetterBPMGD.ViewModels
 
             level.PropertyChanged += Level_PropertyChanged;
 
-            helpPopupDataContext = new("O - orange\nG - Green\nY - yellow", ToggleHelpPopup);
+            helpPopupDataContext = new("O - orange\nG - Green\nY - yellow\nfirst is bpm bar color\nsecond is subdivided beat color\nthird is even subdibided beats color", ToggleHelpPopup);
         }
 
         private void ToggleHelpPopup() => ShowHelpPopup = !ShowHelpPopup;
