@@ -156,6 +156,8 @@
                 </Grid>
             </Grid>
 
+            <!--rock fact #42-->
+            
             <ListView x:Name="TimingsListView" Grid.Column="1" Margin="5" SelectionMode="Single" ItemsSource="{Binding Timings}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <!--<ListViewItem/>
                 <ListViewItem/>
