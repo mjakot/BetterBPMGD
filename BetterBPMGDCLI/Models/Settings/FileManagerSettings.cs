@@ -2,23 +2,47 @@
 {
     public class FileManagerSettings : IFileManagerSettings
     {
-        private static string appName = "BetterBPMGD";
-        private static string appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        private static string BetterBPMGDAppDataFolderPath = Path.Combine(appDataFolderPath, appName);
+        public const string AppName = "BetterBPMGD";
+        public const string GameName = "GeometryDash";
+        public const string SaveFileName = "CCLocalLevels.dat";
+        public const string TemporaryFolderName = "Temp";
+        public static string AppDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        public static string BetterBPMGDAppDataFolderPath = Path.Combine(AppDataFolderPath, AppName);
+        public static string GDFolderPath = Path.Combine(AppDataFolderPath, GameName);
+        public static string BetterBPMGDTemporaryFolderPath = Path.Combine(AppDataFolderPath, TemporaryFolderName);
 
-        private static string GdLevelsSavePathDefault = Path.Combine(appDataFolderPath, "GeometryDash");
-        private static string LocalsLevelsCopyPathDefault = Path.Combine(BetterBPMGDAppDataFolderPath, "SaveCopy");
-        private static string TemporaryLevelPathDefault = Path.Combine(BetterBPMGDAppDataFolderPath, "Temp");
+        private static string gdLevelsSavePathDefault = Path.Combine(GDFolderPath, SaveFileName);
+        private static string localsLevelsCopyPathDefault = Path.Combine(BetterBPMGDTemporaryFolderPath, "LocalLevelsCopy.dat");
+        private static string decryptedLocalsLevelsCopyPathDefault = Path.Combine(BetterBPMGDTemporaryFolderPath, "LocalLevelsCopy.xlm");
+        private static string temporaryLevelPathDefault = Path.Combine(BetterBPMGDTemporaryFolderPath, "Level.xml");
+        private static string backupFolderPathDefault = Path.Combine(GDFolderPath, AppName + "Backups");
+        private static bool createLevelsBackupDefault = true;
 
         public string GdLevelsSavePath { get; set; }
-        public string LocalsLevelsCopyPath { get; set; }
+        public string LocalLevelsCopyPath { get; set; }
+        public string DecryptedLocalLevelsCopyPath { get; set; }
         public string TemporaryLevelPath { get; set; }
+        public string BackupFolderPath { get; set; }
+        public bool CreateLevelsBackup { get; set; }
 
         public FileManagerSettings()
         {
-            GdLevelsSavePath = string.Empty;
-            LocalsLevelsCopyPath = string.Empty;
-            TemporaryLevelPath = string.Empty;
+            GdLevelsSavePath = gdLevelsSavePathDefault;
+            LocalLevelsCopyPath = localsLevelsCopyPathDefault;
+            DecryptedLocalLevelsCopyPath = decryptedLocalsLevelsCopyPathDefault;
+            TemporaryLevelPath = temporaryLevelPathDefault;
+            BackupFolderPath = backupFolderPathDefault;
+            CreateLevelsBackup = createLevelsBackupDefault;
+        }
+
+        public FileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelPath, string temporaryLevelPath, string backupFolderPath, bool createLevelsBackup)
+        {
+            GdLevelsSavePath = gdLevelsSavePath;
+            LocalLevelsCopyPath = localLevelsCopyPath;
+            DecryptedLocalLevelsCopyPath = decryptedLocalLevelPath;
+            TemporaryLevelPath = temporaryLevelPath;
+            BackupFolderPath = backupFolderPath;
+            CreateLevelsBackup = createLevelsBackup;
         }
 
         public string? GetDefault(string propertyName)
@@ -34,9 +58,12 @@
 
         public void ResetAll()
         {
-            GdLevelsSavePath = GdLevelsSavePathDefault;
-            LocalsLevelsCopyPath = LocalsLevelsCopyPathDefault;
-            TemporaryLevelPath = TemporaryLevelPathDefault;
+            GdLevelsSavePath = gdLevelsSavePathDefault;
+            LocalLevelsCopyPath = localsLevelsCopyPathDefault;
+            DecryptedLocalLevelsCopyPath = decryptedLocalsLevelsCopyPathDefault;
+            TemporaryLevelPath = temporaryLevelPathDefault;
+            BackupFolderPath = backupFolderPathDefault;
+            CreateLevelsBackup = CreateLevelsBackup;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace BetterBPMGDCLI.Models.LevelsSave.Ciphers
 {
-    public abstract class BaseLocalLevelCipher
+    public abstract class BaseLocalLevelCipher : ILocalLevelCipher
     {
         protected string dataString;
         protected byte[] dataByteArray;
