@@ -1,6 +1,12 @@
-﻿using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
+﻿using BetterBPMGDCLI.Extensions;
+using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
+using BetterBPMGDCLI.Models.LevelsSave.Level;
+using BetterBPMGDCLI.Models.LevelsSave.Level.LevelData;
 using BetterBPMGDCLI.Models.Settings;
+using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Models.FileManagement
 {
@@ -25,11 +31,50 @@ namespace BetterBPMGDCLI.Models.FileManagement
         {
             string levels = ReadFile(settings.LocalLevelsCopyPath);
 
-            if (levels == string.Empty) return false;
+            if (string.IsNullOrEmpty(levels)) return false;
 
             ILocalLevelCipher localLevelCipher = levelCipherFactory.Decode(levels);
 
             return WriteToFile(settings.DecryptedLocalLevelsCopyPath, localLevelCipher.DataString);
+        }
+
+        public bool FindLocalLevel(string levelKey)
+        {
+            if (string.IsNullOrEmpty(levelKey)) return false;
+
+            XElement levels = XElement.Load(settings.DecryptedLocalLevelsCopyPath);
+
+            XElement? levelTag = levels.FindElementByKeyValue("k", levelKey, "d");
+
+            if (levelTag is null) return false;
+
+            XElement keyTag = new("k", levelKey);
+
+            keyTag.Add(levelTag);
+
+            try
+            {
+                using XmlWriter xmlWriter = XmlWriter.Create(settings.TemporaryLevelPath);
+
+                keyTag.Save(xmlWriter);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public LocalLevelData? GetLocalLevel()
+        {
+            XElement level = XElement.Load(settings.TemporaryLevelPath);
+            XElement? levelKey = level.Descendants("k").FirstOrDefault();
+            XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
+
+            if (levelKey is null || levelData is null) return null;
+
+            return new(levelKey.Value, levelData.Value);
         }
 
         private bool BackupFile(string filePath, string backupFolderPath)

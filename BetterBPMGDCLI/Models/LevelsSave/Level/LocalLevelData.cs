@@ -12,27 +12,31 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level
         private GuidelinesCollection guidelines;
         private SpeedPortalsCollection speedPortals;
 
+        public string LevelKey { get; }
         public string LevelData { get; }
 
         public GuidelinesCollection GuideLines => guidelines;
         public SpeedPortalsCollection SpeedPortals => speedPortals;
 
-        public LocalLevelData(string levelData) : base()
+        public LocalLevelData(string levelKey, string levelData) : base()
         {
+            LevelKey = levelKey;
             LevelData = levelData;
             guidelines = new();
             speedPortals = new();
         }
 
-        public LocalLevelData(string levelData, IEnumerable<Timing> timings, ulong songDurationMS) : base(timings, songDurationMS)
+        public LocalLevelData(string levelKey, string levelData, IEnumerable<Timing> timings, ulong songDurationMS) : base(timings, songDurationMS)
         {
+            LevelKey = levelKey;
             LevelData = levelData;
             guidelines = new();
             speedPortals = new();
         }
 
-        public LocalLevelData(string levelData, Timing timing, ulong songDurationMS) : base(timing, songDurationMS)
+        public LocalLevelData(string levelKey, string levelData, Timing timing, ulong songDurationMS) : base(timing, songDurationMS)
         {
+            LevelKey = levelKey;
             LevelData = levelData;
             guidelines = new();
             speedPortals = new();

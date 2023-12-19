@@ -6,15 +6,17 @@
         public const string GameName = "GeometryDash";
         public const string SaveFileName = "CCLocalLevels.dat";
         public const string TemporaryFolderName = "Temp";
+        public const string SavesCopiesFolderName = "Copies";
         public static string AppDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string BetterBPMGDAppDataFolderPath = Path.Combine(AppDataFolderPath, AppName);
         public static string GDFolderPath = Path.Combine(AppDataFolderPath, GameName);
         public static string BetterBPMGDTemporaryFolderPath = Path.Combine(AppDataFolderPath, TemporaryFolderName);
+        public static string BetterBPMGDLevelsSavesCopiesFolderPath = Path.Combine(AppDataFolderPath, SavesCopiesFolderName);
 
         private static string gdLevelsSavePathDefault = Path.Combine(GDFolderPath, SaveFileName);
-        private static string localsLevelsCopyPathDefault = Path.Combine(BetterBPMGDTemporaryFolderPath, "LocalLevelsCopy.dat");
-        private static string decryptedLocalsLevelsCopyPathDefault = Path.Combine(BetterBPMGDTemporaryFolderPath, "LocalLevelsCopy.xlm");
-        private static string temporaryLevelPathDefault = Path.Combine(BetterBPMGDTemporaryFolderPath, "Level.xml");
+        private static string localsLevelsCopyPathDefault = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.dat");
+        private static string decryptedLocalsLevelsCopyPathDefault = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.xlm");
+        private static string temporaryLevelPathDefault = Path.Combine(BetterBPMGDAppDataFolderPath, "Level.xml");
         private static string backupFolderPathDefault = Path.Combine(GDFolderPath, AppName + "Backups");
         private static bool createLevelsBackupDefault = true;
 
