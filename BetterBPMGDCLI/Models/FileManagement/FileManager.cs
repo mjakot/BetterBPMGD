@@ -4,7 +4,6 @@ using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
 using BetterBPMGDCLI.Models.LevelsSave.Level.LevelData;
 using BetterBPMGDCLI.Models.Settings;
-using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -52,29 +51,34 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             keyTag.Add(levelTag);
 
-            try
-            {
-                using XmlWriter xmlWriter = XmlWriter.Create(settings.TemporaryLevelPath);
-
-                keyTag.Save(xmlWriter);
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return SaveMinifiedXML(keyTag);
         }
 
-        public LocalLevelData? GetLocalLevel()
+        public LocalLevelData? GetLocalLevel(ILocalLevelCipherFactory localLevelDataCipherFactory)
         {
             XElement level = XElement.Load(settings.TemporaryLevelPath);
-            XElement? levelKey = level.Descendants("k").FirstOrDefault();
+            XElement? levelKey = level.FindElementbyTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
             if (levelKey is null || levelData is null) return null;
 
-            return new(levelKey.Value, levelData.Value);
+            ILocalLevelCipher localLevelDataCipher = localLevelDataCipherFactory.Decode(levelData.Value);
+
+            return new(levelKey.Value, localLevelDataCipher.DataString);
+        }
+
+        public bool SaveLocalLevel(LocalLevelData localLevelData)
+        {
+            XElement level = XElement.Load(settings.TemporaryLevelPath);
+            XElement? levelKey = level.FindElementbyTag("k");
+            XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
+
+            if (levelKey is null || levelData is null) return false;
+            if (levelKey.Value != localLevelData.LevelKey) return false;
+
+            levelData.Value = localLevelData.LevelData;
+
+            return SaveMinifiedXML(level);
         }
 
         private bool BackupFile(string filePath, string backupFolderPath)
@@ -141,6 +145,22 @@ namespace BetterBPMGDCLI.Models.FileManagement
                 using StreamWriter streamWriter = new(filePath);
 
                 streamWriter.Write(content);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private bool SaveMinifiedXML(XElement xml)
+        {
+            try
+            {
+                using XmlWriter xmlWriter = XmlWriter.Create(settings.TemporaryLevelPath);
+
+                xml.Save(xmlWriter);
 
                 return true;
             }
