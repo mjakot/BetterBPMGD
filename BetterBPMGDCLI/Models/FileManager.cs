@@ -56,7 +56,7 @@ namespace BetterBPMGDCLI.Models
         public LocalLevelData? GetLocalLevel(ILocalLevelCipherFactory localLevelDataCipherFactory)
         {
             XElement level = XElement.Load(settings.TemporaryLevelPath);
-            XElement? levelKey = level.FindElementbyTag("k");
+            XElement? levelKey = level.FindElementByTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
             if (levelKey is null || levelData is null) return null;
@@ -69,7 +69,7 @@ namespace BetterBPMGDCLI.Models
         public bool SaveLocalLevel(LocalLevelData localLevelData)
         {
             XElement level = XElement.Load(settings.TemporaryLevelPath);
-            XElement? levelKey = level.FindElementbyTag("k");
+            XElement? levelKey = level.FindElementByTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
             if (levelKey is null || levelData is null) return false;

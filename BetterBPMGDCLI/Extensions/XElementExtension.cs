@@ -4,7 +4,7 @@ namespace BetterBPMGDCLI.Extensions
 {
     public static class XElementExtension
     {
-        public static XElement? FindElementbyTag(this XElement xElement, string tag) => xElement.Descendants(tag).FirstOrDefault();
+        public static XElement? FindElementByTag(this XElement xElement, string tag) => xElement.Descendants(tag).FirstOrDefault();
 
         public static XElement? FindElementByKeyValue(this XElement xElement, string keyTag, string keyValue, string targetTag)
         {
