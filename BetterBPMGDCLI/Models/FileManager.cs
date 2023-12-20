@@ -2,12 +2,11 @@
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
-using BetterBPMGDCLI.Models.LevelsSave.Level.LevelData;
 using BetterBPMGDCLI.Models.Settings;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace BetterBPMGDCLI.Models.FileManagement
+namespace BetterBPMGDCLI.Models
 {
     public class FileManager
     {
