@@ -1,4 +1,6 @@
-﻿namespace BetterBPMGDCLI.Models.Settings
+﻿using BetterBPMGDCLI.Models.Settings.Interfaces;
+
+namespace BetterBPMGDCLI.Models.Settings
 {
     public class FileManagerSettings : IFileManagerSettings
     {
@@ -7,23 +9,27 @@
         public const string SaveFileName = "CCLocalLevels.dat";
         public const string TemporaryFolderName = "Temp";
         public const string SavesCopiesFolderName = "Copies";
+        public const string CurrentFolderName = "Current";
         public static string AppDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string BetterBPMGDAppDataFolderPath = Path.Combine(AppDataFolderPath, AppName);
         public static string GDFolderPath = Path.Combine(AppDataFolderPath, GameName);
         public static string BetterBPMGDTemporaryFolderPath = Path.Combine(AppDataFolderPath, TemporaryFolderName);
         public static string BetterBPMGDLevelsSavesCopiesFolderPath = Path.Combine(AppDataFolderPath, SavesCopiesFolderName);
+        public static string BetterBPMGDCurrentLevelFolderPath = Path.Combine(AppDataFolderPath, CurrentFolderName);
 
         private static string gdLevelsSavePathDefault = Path.Combine(GDFolderPath, SaveFileName);
         private static string localsLevelsCopyPathDefault = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.dat");
         private static string decryptedLocalsLevelsCopyPathDefault = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.xlm");
-        private static string temporaryLevelPathDefault = Path.Combine(BetterBPMGDAppDataFolderPath, "Level.xml");
+        private static string currentLevelPathDefault = Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Level.xml");
+        private static string minimalLevelPathDefault = Path.Combine(BetterBPMGDCurrentLevelFolderPath, "MinimalLevel.xml");
         private static string backupFolderPathDefault = Path.Combine(GDFolderPath, AppName + "Backups");
         private static bool createLevelsBackupDefault = true;
 
         public string GdLevelsSavePath { get; set; }
         public string LocalLevelsCopyPath { get; set; }
         public string DecryptedLocalLevelsCopyPath { get; set; }
-        public string TemporaryLevelPath { get; set; }
+        public string CurrentLevelPath { get; set; }
+        public string MinimalLevelPath { get; set; }
         public string BackupFolderPath { get; set; }
         public bool CreateLevelsBackup { get; set; }
 
@@ -32,17 +38,19 @@
             GdLevelsSavePath = gdLevelsSavePathDefault;
             LocalLevelsCopyPath = localsLevelsCopyPathDefault;
             DecryptedLocalLevelsCopyPath = decryptedLocalsLevelsCopyPathDefault;
-            TemporaryLevelPath = temporaryLevelPathDefault;
+            CurrentLevelPath = currentLevelPathDefault;
+            MinimalLevelPath = minimalLevelPathDefault;
             BackupFolderPath = backupFolderPathDefault;
             CreateLevelsBackup = createLevelsBackupDefault;
         }
 
-        public FileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelPath, string temporaryLevelPath, string backupFolderPath, bool createLevelsBackup)
+        public FileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelPath, string currentLevelPath, string minimalLevelPath, string backupFolderPath, bool createLevelsBackup)
         {
             GdLevelsSavePath = gdLevelsSavePath;
             LocalLevelsCopyPath = localLevelsCopyPath;
             DecryptedLocalLevelsCopyPath = decryptedLocalLevelPath;
-            TemporaryLevelPath = temporaryLevelPath;
+            CurrentLevelPath = currentLevelPath;
+            MinimalLevelPath = minimalLevelPath;
             BackupFolderPath = backupFolderPath;
             CreateLevelsBackup = createLevelsBackup;
         }
@@ -63,7 +71,8 @@
             GdLevelsSavePath = gdLevelsSavePathDefault;
             LocalLevelsCopyPath = localsLevelsCopyPathDefault;
             DecryptedLocalLevelsCopyPath = decryptedLocalsLevelsCopyPathDefault;
-            TemporaryLevelPath = temporaryLevelPathDefault;
+            CurrentLevelPath = currentLevelPathDefault;
+            MinimalLevelPath = minimalLevelPathDefault;
             BackupFolderPath = backupFolderPathDefault;
             CreateLevelsBackup = CreateLevelsBackup;
         }

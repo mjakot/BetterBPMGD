@@ -1,4 +1,4 @@
-﻿namespace BetterBPMGDCLI.Models.Settings
+﻿namespace BetterBPMGDCLI.Models.Settings.Interfaces
 {
     public interface ISettings
     {

@@ -2,7 +2,7 @@
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
-using BetterBPMGDCLI.Models.Settings;
+using BetterBPMGDCLI.Models.Settings.Interfaces;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -53,9 +53,23 @@ namespace BetterBPMGDCLI.Models
             return SaveMinifiedXML(keyTag);
         }
 
+        public bool CreateNewLevel(string levelName)
+        {
+            if (string.IsNullOrEmpty(levelName)) return false;
+
+            XElement minimalLevel = XElement.Load(settings.MinimalLevelPath);
+            XElement? levelNmaeTag = minimalLevel.FindElementByKeyValue("k", "2", "s");
+
+            if (levelNmaeTag is null) return false;
+
+            levelNmaeTag.Value = levelName;
+
+            return SaveMinifiedXML(minimalLevel);
+        }
+
         public LocalLevelData? GetLocalLevel(ILocalLevelCipherFactory localLevelDataCipherFactory)
         {
-            XElement level = XElement.Load(settings.TemporaryLevelPath);
+            XElement level = XElement.Load(settings.CurrentLevelPath);
             XElement? levelKey = level.FindElementByTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
@@ -68,7 +82,7 @@ namespace BetterBPMGDCLI.Models
 
         public bool SaveLocalLevel(LocalLevelData localLevelData)
         {
-            XElement level = XElement.Load(settings.TemporaryLevelPath);
+            XElement level = XElement.Load(settings.CurrentLevelPath);
             XElement? levelKey = level.FindElementByTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
@@ -157,7 +171,7 @@ namespace BetterBPMGDCLI.Models
         {
             try
             {
-                using XmlWriter xmlWriter = XmlWriter.Create(settings.TemporaryLevelPath);
+                using XmlWriter xmlWriter = XmlWriter.Create(settings.CurrentLevelPath);
 
                 xml.Save(xmlWriter);
 
