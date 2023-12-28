@@ -10,28 +10,33 @@ namespace BetterBPMGDCLI.Models.Settings
         public const string TemporaryFolderName = "Temp";
         public const string SavesCopiesFolderName = "Copies";
         public const string CurrentFolderName = "Current";
-        public static string AppDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        public static string BetterBPMGDAppDataFolderPath = Path.Combine(AppDataFolderPath, AppName);
-        public static string GDFolderPath = Path.Combine(AppDataFolderPath, GameName);
-        public static string BetterBPMGDTemporaryFolderPath = Path.Combine(AppDataFolderPath, TemporaryFolderName);
-        public static string BetterBPMGDLevelsSavesCopiesFolderPath = Path.Combine(AppDataFolderPath, SavesCopiesFolderName);
-        public static string BetterBPMGDCurrentLevelFolderPath = Path.Combine(AppDataFolderPath, CurrentFolderName);
+        public const string ProjectsFolderName = "Projects";
+        public string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        public string BetterBPMGDAppDataFolderPath => Path.Combine(AppDataFolderPath, AppName);
+        public string GDFolderPath => Path.Combine(AppDataFolderPath, GameName);
+        public string BetterBPMGDTemporaryFolderPath => Path.Combine(AppDataFolderPath, TemporaryFolderName);
+        public string BetterBPMGDLevelsSavesCopiesFolderPath => Path.Combine(AppDataFolderPath, SavesCopiesFolderName);
+        public string BetterBPMGDCurrentLevelFolderPath => Path.Combine(AppDataFolderPath, CurrentFolderName);
 
-        private static string gdLevelsSavePathDefault = Path.Combine(GDFolderPath, SaveFileName);
-        private static string localsLevelsCopyPathDefault = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.dat");
-        private static string decryptedLocalsLevelsCopyPathDefault = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.xlm");
-        private static string currentLevelPathDefault = Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Level.xml");
-        private static string minimalLevelPathDefault = Path.Combine(BetterBPMGDCurrentLevelFolderPath, "MinimalLevel.xml");
-        private static string backupFolderPathDefault = Path.Combine(GDFolderPath, AppName + "Backups");
-        private static bool createLevelsBackupDefault = true;
+        private string gdLevelsSavePathDefault => Path.Combine(GDFolderPath, SaveFileName);
+        private string localsLevelsCopyPathDefault => Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.dat");
+        private string decryptedLocalsLevelsCopyPathDefault => Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.xlm");
+        private string currentLevelPathDefault => Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Level.xml");
+        private string minimalLevelPathDefault => Path.Combine(BetterBPMGDCurrentLevelFolderPath, "MinimalLevel.xml");
+        private string projectsFolderPathDefault => Path.Combine(AppDataFolderPath, ProjectsFolderName);
+        private string backupFolderPathDefault => Path.Combine(GDFolderPath, AppName + "Backups");
+        private bool createLevelsBackupDefault => true;
+        private bool autoSongIdDefault => true;
 
         public string GdLevelsSavePath { get; set; }
         public string LocalLevelsCopyPath { get; set; }
         public string DecryptedLocalLevelsCopyPath { get; set; }
         public string CurrentLevelPath { get; set; }
         public string MinimalLevelPath { get; set; }
+        public string ProjectsFolderPath { get; set; }
         public string BackupFolderPath { get; set; }
         public bool CreateLevelsBackup { get; set; }
+        public bool AutoSongId { get; set; }
 
         public FileManagerSettings()
         {
@@ -40,11 +45,13 @@ namespace BetterBPMGDCLI.Models.Settings
             DecryptedLocalLevelsCopyPath = decryptedLocalsLevelsCopyPathDefault;
             CurrentLevelPath = currentLevelPathDefault;
             MinimalLevelPath = minimalLevelPathDefault;
+            ProjectsFolderPath = projectsFolderPathDefault;
             BackupFolderPath = backupFolderPathDefault;
             CreateLevelsBackup = createLevelsBackupDefault;
+            AutoSongId = autoSongIdDefault;
         }
 
-        public FileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelPath, string currentLevelPath, string minimalLevelPath, string backupFolderPath, bool createLevelsBackup)
+        public FileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelPath, string currentLevelPath, string minimalLevelPath, string projectsFolderPath, string backupFolderPath, bool createLevelsBackup, bool autoSongId)
         {
             GdLevelsSavePath = gdLevelsSavePath;
             LocalLevelsCopyPath = localLevelsCopyPath;
@@ -53,6 +60,8 @@ namespace BetterBPMGDCLI.Models.Settings
             MinimalLevelPath = minimalLevelPath;
             BackupFolderPath = backupFolderPath;
             CreateLevelsBackup = createLevelsBackup;
+            ProjectsFolderPath = projectsFolderPath;
+            AutoSongId = autoSongId;
         }
 
         public string? GetDefault(string propertyName)
@@ -75,6 +84,8 @@ namespace BetterBPMGDCLI.Models.Settings
             MinimalLevelPath = minimalLevelPathDefault;
             BackupFolderPath = backupFolderPathDefault;
             CreateLevelsBackup = CreateLevelsBackup;
+            ProjectsFolderPath = projectsFolderPathDefault;
+            AutoSongId = autoSongIdDefault;
         }
     }
 }

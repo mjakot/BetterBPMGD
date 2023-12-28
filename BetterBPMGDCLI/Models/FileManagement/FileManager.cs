@@ -6,13 +6,27 @@ using BetterBPMGDCLI.Models.Settings.Interfaces;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace BetterBPMGDCLI.Models
+namespace BetterBPMGDCLI.Models.FileManagement
 {
     public class FileManager
     {
         IFileManagerSettings settings;
 
         public FileManager(IFileManagerSettings settings) => this.settings = settings;
+
+        public bool CreateNewProject(string projectName, ulong songId)
+        {
+            string songPath = Path.Combine(settings.GDFolderPath, songId.ToString() + "mp3");
+
+            if (!File.Exists(songPath)) return false;
+
+            return CreateNewProject(projectName, songPath);
+        }
+
+        public bool CreateNewProject(string projectName, Uri songPath, SongSourceType sourceType, ulong songId = 0)
+        {
+            return false;
+        }
 
         public bool CopyLocalLevels() => CopyTo(settings.GdLevelsSavePath, settings.LocalLevelsCopyPath);
 
@@ -101,8 +115,7 @@ namespace BetterBPMGDCLI.Models
 
             if (File.Exists(destinationPath))
             {
-                string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss_fff");
-                string newFileName = $"{fileName}_{timestamp}";
+                string newFileName = $"{fileName}_{GenerateTimestamp()}";
 
                 destinationPath = Path.Combine(destinationPath, newFileName);
             }
@@ -182,5 +195,26 @@ namespace BetterBPMGDCLI.Models
                 return false;
             }
         }
+
+        private bool CreateNewProject(string projectName, string songPath)
+        {
+            if (string.IsNullOrEmpty(projectName) || string.IsNullOrEmpty(songPath)) return false;
+
+            string songName = Path.GetFileName(songPath);
+            string fullProjectPath = Path.Combine(settings.ProjectsFolderPath, projectName);
+
+            if (Directory.Exists(fullProjectPath))
+            {
+                string newProjectName = $"{projectName}_{GenerateTimestamp()}";
+
+                fullProjectPath = Path.Combine(settings.ProjectsFolderPath, newProjectName);
+            }
+
+            Directory.CreateDirectory(fullProjectPath);
+
+            return CopyTo(songPath, Path.Combine(fullProjectPath, songName));
+        }
+
+        private string GenerateTimestamp() => DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss_fff");
     }
 }
