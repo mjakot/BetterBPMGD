@@ -1,19 +1,22 @@
 ﻿using BetterBPMGDCLI.Models.FileManagement;
+using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.Settings.Interfaces;
 
 namespace BetterBPMCLI.Tests.ModelsFileManagementTests
 {
+    [Collection("FixtureCollection")]
     public class FileManagerTest
     {
+        private readonly FileManagerFixture fixture;
+
+        public FileManagerTest(FileManagerFixture fixture) => this.fixture = fixture;
+
         [Fact]
         public void CreateNewProject_ValidInputs_EmptyProject()
         {
-            IFileManagerSettings settings = SetupFileSystem();
+            IFileManagerSettings settings = fixture.CreateEnvironment();
 
-            FileStream fs = File.Create(Path.Combine(settings.GDFolderPath, "0.mp3"));
-            fs.Dispose();
-
-            FileManager manager = new FileManager(settings);
+            FileManager manager = new(settings);
 
             string projectname = "test";
             string expectedDirectory = Path.Combine(settings.ProjectsFolderPath, "test");
@@ -33,84 +36,55 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
             Assert.True(File.Exists(expectedAudio));
         }
 
-        private IFileManagerSettings SetupFileSystem()
+        [Fact]
+        public void CopyLocalLevels_LocalLevels_CopiedLocalLevels()
         {
-            IFileManagerSettings settings = new TestFileManagerSettings();
+            IFileManagerSettings settings = fixture.CreateEnvironment();
 
-            Directory.CreateDirectory(settings.AppDataFolderPath);
-            Directory.CreateDirectory(settings.BetterBPMGDAppDataFolderPath);
-            Directory.CreateDirectory(settings.GDFolderPath);
-            Directory.CreateDirectory(settings.BetterBPMGDTemporaryFolderPath);
-            Directory.CreateDirectory(settings.BetterBPMGDLevelsSavesCopiesFolderPath);
-            Directory.CreateDirectory(settings.BetterBPMGDCurrentLevelFolderPath);
-            Directory.CreateDirectory(settings.ProjectsFolderPath);
-            Directory.CreateDirectory(settings.BackupFolderPath);
+            FileManager fileManager = new(settings);
 
-            File.Create(settings.GdLevelsSavePath);
-            File.Create(settings.LocalLevelsCopyPath);
-            File.Create(settings.DecryptedLocalLevelsCopyPath);
-            File.Create(settings.CurrentLevelPath);
-            File.Create(settings.MinimalLevelPath);
 
-            return settings;
+
+            bool copied = fileManager.CopyLocalLevels();
+
+
+
+            Assert.True(copied);
+            Assert.True(File.Exists(settings.LocalLevelsCopyPath));
         }
 
-        private class TestFileManagerSettings : IFileManagerSettings
+        [Fact]
+        public void DecryptLocalLevels_ValidLocalLevels_ValidDecryptedLocalLevels()
         {
-            public string AppDataFolderPath => "c:\\BetterBPMTest\\";
+            IFileManagerSettings settings = fixture.CreateEnvironment();
 
-            public string BetterBPMGDAppDataFolderPath => Path.Combine(AppDataFolderPath, "BetterBPMProgram\\");
+            FileManager fileManager = new(settings);
 
-            public string GDFolderPath => Path.Combine(AppDataFolderPath, "GDProgram\\");
+            LocalLevelsCipherFactory factory = new LocalLevelsCipherFactory();
 
-            public string BetterBPMGDTemporaryFolderPath => Path.Combine(BetterBPMGDAppDataFolderPath, "Temp\\");
+            string expectedDecryptedLocalLevels = FileManagerFixture.MinimalLevelsDecrypted;
 
-            public string BetterBPMGDLevelsSavesCopiesFolderPath => Path.Combine(BetterBPMGDAppDataFolderPath, "Copies\\");
+            fileManager.CopyLocalLevels();
 
-            public string BetterBPMGDCurrentLevelFolderPath => Path.Combine(BetterBPMGDAppDataFolderPath, "Current\\");
 
-            public string GdLevelsSavePath { get; set; }
-            public string LocalLevelsCopyPath { get; set; }
-            public string DecryptedLocalLevelsCopyPath { get; set; }
-            public string CurrentLevelPath { get; set; }
-            public string MinimalLevelPath { get; set; }
-            public string ProjectsFolderPath { get; set; }
-            public string BackupFolderPath { get; set; }
-            public bool CreateLevelsBackup { get; set; }
-            public bool AutoSongId { get; set; }
 
-            public TestFileManagerSettings() => ResetAll();
+            bool decrypted = fileManager.DecryptLocalLevels(factory);
 
-            public TestFileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelsCopyPath, string currentLevelPath, string minimalLevelPath, string projectsFolderPath, string backupFolderPath, bool createLevelsBackup, bool autoSongId)
-            {
-                GdLevelsSavePath = gdLevelsSavePath;
-                LocalLevelsCopyPath = localLevelsCopyPath;
-                DecryptedLocalLevelsCopyPath = decryptedLocalLevelsCopyPath;
-                CurrentLevelPath = currentLevelPath;
-                MinimalLevelPath = minimalLevelPath;
-                ProjectsFolderPath = projectsFolderPath;
-                BackupFolderPath = backupFolderPath;
-                CreateLevelsBackup = createLevelsBackup;
-                AutoSongId = autoSongId;
-            }
 
-            public string? GetDefault(string propertyName)
-            {
-                throw new NotImplementedException();
-            }
 
-            public void ResetAll()
-            {
-                GdLevelsSavePath = Path.Combine(GDFolderPath, "Levels.dat");
-                LocalLevelsCopyPath = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LevelsCopy.dat");
-                DecryptedLocalLevelsCopyPath = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LevelsCopy.xml");
-                CurrentLevelPath = Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Level.xml");
-                MinimalLevelPath = Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Minimal.xml");
-                ProjectsFolderPath = Path.Combine(BetterBPMGDAppDataFolderPath, "Projects\\");
-                BackupFolderPath = Path.Combine(GDFolderPath, "Backups\\");
-                CreateLevelsBackup = true;
-                AutoSongId = false;
-            }
+            Assert.True(decrypted);
+            Assert.True(File.Exists(settings.DecryptedLocalLevelsCopyPath));
+            Assert.Equal(expectedDecryptedLocalLevels, File.ReadAllText(settings.DecryptedLocalLevelsCopyPath));
+        }
+
+        [Fact(Skip = "later")]
+        public void UpdateLocalLevels_ValidChange_SavesLevel()
+        {
+            IFileManagerSettings settings = fixture.CreateEnvironment();
+
+            FileManager fileManager = new(settings);
+
+            string le;
         }
     }
 }
