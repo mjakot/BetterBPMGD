@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Models.Settings.Interfaces;
+﻿using BetterBPMGDCLI.Models.FileManagement;
+using BetterBPMGDCLI.Models.Settings.Interfaces;
 
 namespace BetterBPMCLI.Tests.ModelsFileManagementTests
 {
@@ -7,7 +8,51 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
         [Fact]
         public void CreateNewProject_ValidInputs_EmptyProject()
         {
+            IFileManagerSettings settings = SetupFileSystem();
 
+            FileStream fs = File.Create(Path.Combine(settings.GDFolderPath, "0.mp3"));
+            fs.Dispose();
+
+            FileManager manager = new FileManager(settings);
+
+            string projectname = "test";
+            string expectedDirectory = Path.Combine(settings.ProjectsFolderPath, "test");
+            string expectedAudio = Path.Combine(expectedDirectory, "0.mp3");
+
+            ulong songId = 0;
+
+
+
+            bool created = manager.CreateNewProject(projectname, songId);
+
+
+            
+
+            Assert.True(created);
+            Assert.True(Directory.Exists(expectedDirectory));
+            Assert.True(File.Exists(expectedAudio));
+        }
+
+        private IFileManagerSettings SetupFileSystem()
+        {
+            IFileManagerSettings settings = new TestFileManagerSettings();
+
+            Directory.CreateDirectory(settings.AppDataFolderPath);
+            Directory.CreateDirectory(settings.BetterBPMGDAppDataFolderPath);
+            Directory.CreateDirectory(settings.GDFolderPath);
+            Directory.CreateDirectory(settings.BetterBPMGDTemporaryFolderPath);
+            Directory.CreateDirectory(settings.BetterBPMGDLevelsSavesCopiesFolderPath);
+            Directory.CreateDirectory(settings.BetterBPMGDCurrentLevelFolderPath);
+            Directory.CreateDirectory(settings.ProjectsFolderPath);
+            Directory.CreateDirectory(settings.BackupFolderPath);
+
+            File.Create(settings.GdLevelsSavePath);
+            File.Create(settings.LocalLevelsCopyPath);
+            File.Create(settings.DecryptedLocalLevelsCopyPath);
+            File.Create(settings.CurrentLevelPath);
+            File.Create(settings.MinimalLevelPath);
+
+            return settings;
         }
 
         private class TestFileManagerSettings : IFileManagerSettings
@@ -34,9 +79,7 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
             public bool CreateLevelsBackup { get; set; }
             public bool AutoSongId { get; set; }
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
             public TestFileManagerSettings() => ResetAll();
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
             public TestFileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelsCopyPath, string currentLevelPath, string minimalLevelPath, string projectsFolderPath, string backupFolderPath, bool createLevelsBackup, bool autoSongId)
             {
@@ -61,8 +104,8 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
                 GdLevelsSavePath = Path.Combine(GDFolderPath, "Levels.dat");
                 LocalLevelsCopyPath = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LevelsCopy.dat");
                 DecryptedLocalLevelsCopyPath = Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LevelsCopy.xml");
-                CurrentLevelPath = Path.Combine(CurrentLevelPath, "Level.xml");
-                MinimalLevelPath = Path.Combine(CurrentLevelPath, "Minimal.xml");
+                CurrentLevelPath = Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Level.xml");
+                MinimalLevelPath = Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Minimal.xml");
                 ProjectsFolderPath = Path.Combine(BetterBPMGDAppDataFolderPath, "Projects\\");
                 BackupFolderPath = Path.Combine(GDFolderPath, "Backups\\");
                 CreateLevelsBackup = true;

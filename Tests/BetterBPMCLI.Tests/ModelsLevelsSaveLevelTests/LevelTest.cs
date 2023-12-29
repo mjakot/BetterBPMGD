@@ -11,7 +11,7 @@ namespace BetterBPMCLI.Tests.ModelsLevelsSaveLevelTests
         [Fact]
         public void CalculateGuidelines_ValidTiming_ReturnValidGuidelinesCollectionWithCorrectOffset()
         {
-            Timing timing = new(0, 1, false, new(1, 1), SpeedPortalTypes.NORMAL, "o");
+            Timing timing = new(0, 1, false, 0, SpeedPortalTypes.NORMAL, "o");
 
             Level level = new(timing, MillisecondsInMinute);
 
@@ -31,9 +31,9 @@ namespace BetterBPMCLI.Tests.ModelsLevelsSaveLevelTests
         [Fact]
         public void CalculateGuidelines_ValidTimings_ReturnValidGuidelinesCollectionWithCorrectOffsets()
         {
-            Timing sampleTiming1 = new(0, 1, false, new(1, 1), SpeedPortalTypes.NORMAL, "o"); // 0~0.8~
-            Timing sampleTiming2 = new(MillisecondsInMinute / 2, 2, false, new(1, 1), SpeedPortalTypes.NORMAL, "y"); // 0.5~0.9~
-            Timing sampleTiming3 = new(MillisecondsInMinute, 4, false, new(1, 1), SpeedPortalTypes.NORMAL, "g"); // 1~1~1.25~1~1.5~1~1.75~1~
+            Timing sampleTiming1 = new(0, 1, false, 0, SpeedPortalTypes.NORMAL, "o"); // 0~0.8~
+            Timing sampleTiming2 = new(MillisecondsInMinute / 2, 2, false, 0, SpeedPortalTypes.NORMAL, "y"); // 0.5~0.9~
+            Timing sampleTiming3 = new(MillisecondsInMinute, 4, false, 0, SpeedPortalTypes.NORMAL, "g"); // 1~1~1.25~1~1.5~1~1.75~1~
 
             Timing[] timings = [ sampleTiming1, sampleTiming2, sampleTiming3 ];
 

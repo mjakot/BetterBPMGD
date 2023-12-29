@@ -13,9 +13,11 @@ namespace BetterBPMCLI.Tests.ModelsLevelsSaveCiphersFactoriesTests
 
             LocalLevelsCipher localLevelsCipher = new(validMinimalLevelString);
 
+            ILocalLevelCipherFactory factory = new LocalLevelsCipherFactory();
+
 
             
-            LocalLevelsCipher localLevelsCipherFactoryResult = LocalLevelsCipherFactory.Decode(localLevelsCipher);
+            LocalLevelsCipher localLevelsCipherFactoryResult = (LocalLevelsCipher)factory.Decode(localLevelsCipher);
 
             string actual = localLevelsCipherFactoryResult.DataString;
 
@@ -32,9 +34,11 @@ namespace BetterBPMCLI.Tests.ModelsLevelsSaveCiphersFactoriesTests
 
             LocalLevelsCipher localLevelsCipher = new(emptyEntry);
 
+            ILocalLevelCipherFactory factory = new LocalLevelsCipherFactory();
 
 
-            LocalLevelsCipher localLevelsCipherFactoryResult = LocalLevelsCipherFactory.Decode(localLevelsCipher);
+
+            LocalLevelsCipher localLevelsCipherFactoryResult = (LocalLevelsCipher)factory.Decode(localLevelsCipher);
 
             string actual = localLevelsCipherFactoryResult.DataString;
 

@@ -16,7 +16,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
         public bool CreateNewProject(string projectName, ulong songId)
         {
-            string songPath = Path.Combine(settings.GDFolderPath, songId.ToString() + "mp3");
+            string songPath = Path.Combine(settings.GDFolderPath, songId.ToString() + ".mp3");
 
             if (!File.Exists(songPath)) return false;
 
