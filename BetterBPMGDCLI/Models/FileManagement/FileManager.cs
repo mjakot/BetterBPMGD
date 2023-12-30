@@ -168,7 +168,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
             try
             {
                 using FileStream fileStream = new(filePath, fileMode, FileAccess.Write);
-                using StreamWriter streamWriter = new(filePath);
+                using StreamWriter streamWriter = new(fileStream);
 
                 streamWriter.Write(content);
 
