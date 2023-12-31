@@ -14,7 +14,7 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
         [Fact]
         public void CreateNewProject_ValidInputs_EmptyProject()
         {
-            IFileManagerSettings settings = fixture.CreateEnvironment();
+            IFileManagerSettings settings = fixture.CreateEnvironment(nameof(CreateNewProject_ValidInputs_EmptyProject));
 
             FileManager manager = new(settings);
 
@@ -39,7 +39,7 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
         [Fact]
         public void CopyLocalLevels_LocalLevels_CopiedLocalLevels()
         {
-            IFileManagerSettings settings = fixture.CreateEnvironment();
+            IFileManagerSettings settings = fixture.CreateEnvironment(nameof(CopyLocalLevels_LocalLevels_CopiedLocalLevels));
 
             FileManager fileManager = new(settings);
 
@@ -56,7 +56,7 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
         [Fact]
         public void DecryptLocalLevels_ValidLocalLevels_ValidDecryptedLocalLevels()
         {
-            IFileManagerSettings settings = fixture.CreateEnvironment();
+            IFileManagerSettings settings = fixture.CreateEnvironment(nameof(DecryptLocalLevels_ValidLocalLevels_ValidDecryptedLocalLevels));
 
             FileManager fileManager = new(settings);
 
@@ -77,14 +77,43 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
             Assert.Equal(expectedDecryptedLocalLevels, File.ReadAllText(settings.DecryptedLocalLevelsCopyPath));
         }
 
-        [Fact(Skip = "later")]
-        public void UpdateLocalLevels_ValidChange_SavesLevel()
+        [Fact]
+        public void FindLocalLevel_ValidKey_SavesToCurrentFolder()
         {
-            IFileManagerSettings settings = fixture.CreateEnvironment();
+            IFileManagerSettings settings = fixture.CreateEnvironment(nameof(FindLocalLevel_ValidKey_SavesToCurrentFolder));
 
             FileManager fileManager = new(settings);
 
-            string le;
+            LocalLevelsCipherFactory factory = new LocalLevelsCipherFactory();
+
+            string expectedLevel = FileManagerFixture.MinimalLevel;
+            string key = "k_0";
+
+            fileManager.CopyLocalLevels();
+
+            fileManager.DecryptLocalLevels(factory);
+
+
+
+            bool found = fileManager.FindLocalLevel(key);
+
+
+
+            Assert.True(found);
+            Assert.True(File.Exists(settings.CurrentLevelPath));
+            Assert.Equal(expectedLevel, File.ReadAllText(settings.CurrentLevelPath));
+        }
+
+        [Fact(Skip = "later")]
+        public void UpdateLocalLevels_BackupLevelsTrue_SavesLevelAndBackupPrevious()
+        {
+            IFileManagerSettings settings = fixture.CreateEnvironment(nameof(UpdateLocalLevels_BackupLevelsTrue_SavesLevelAndBackupPrevious));
+
+            FileManager fileManager = new(settings);
+
+            LocalLevelsCipherFactory factory = new LocalLevelsCipherFactory();
+
+
         }
     }
 }

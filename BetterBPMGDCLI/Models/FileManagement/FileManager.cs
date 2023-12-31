@@ -60,11 +60,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             if (levelTag is null) return false;
 
-            XElement keyTag = new("k", levelKey);
-
-            keyTag.Add(levelTag);
-
-            return SaveMinifiedXML(keyTag);
+            return SaveMinifiedXML(levelTag);
         }
 
         public bool CreateNewLevel(string levelName)
@@ -184,7 +180,13 @@ namespace BetterBPMGDCLI.Models.FileManagement
         {
             try
             {
-                using XmlWriter xmlWriter = XmlWriter.Create(settings.CurrentLevelPath);
+                XmlWriterSettings writerSettings = new()
+                {
+                    OmitXmlDeclaration = true,
+                    Indent = false
+                };
+
+                using XmlWriter xmlWriter = XmlWriter.Create(settings.CurrentLevelPath, writerSettings);
 
                 xml.Save(xmlWriter);
 
