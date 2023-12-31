@@ -68,11 +68,13 @@ namespace BetterBPMGDCLI.Models.FileManagement
             if (string.IsNullOrEmpty(levelName)) return false;
 
             XElement minimalLevel = XElement.Load(settings.MinimalLevelPath);
-            XElement? levelNmaeTag = minimalLevel.FindElementByKeyValue("k", "2", "s");
+            XElement? levelNameTag = minimalLevel.FindElementByKeyValue("k", "2", "s");
 
-            if (levelNmaeTag is null) return false;
+            if (levelNameTag is null) return false;
 
-            levelNmaeTag.Value = levelName;
+            levelNameTag.Value = levelName;
+
+            minimalLevel.Elements("s").FirstOrDefault()?.ReplaceWith(levelNameTag);
 
             return SaveMinifiedXML(minimalLevel);
         }
