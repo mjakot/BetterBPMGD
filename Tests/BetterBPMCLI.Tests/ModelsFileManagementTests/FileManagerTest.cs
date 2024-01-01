@@ -143,12 +143,46 @@ namespace BetterBPMCLI.Tests.ModelsFileManagementTests
 
             LocalLevelData? actualLocalLevelData = fileManager.GetLocalLevel(factory);
 
+
+
             string? actualLocalLevelDataString = actualLocalLevelData?.LevelData;
-
-
 
             Assert.NotNull(actualLocalLevelData);
             Assert.Equal(expectedLevelDataString, actualLocalLevelDataString);
+        }
+
+        [Fact]
+        public void SaveLocalLevel_ValidChange_SavesChangesLevelData()
+        {
+            IFileManagerSettings settings = fixture.CreateEnvironment(nameof(SaveLocalLevel_ValidChange_SavesChangesLevelData));
+
+            ILocalLevelCipherFactory factory = new LocalLevelDataCipherFactory();
+
+            string block = """1,1,2,0,3,0;"""; // block of type 1 with x = 0 and y = 0
+
+            FileManager fileManager = new(settings);
+
+            fileManager.CreateNewLevel("test");
+
+            LocalLevelData? localLevelData = fileManager.GetLocalLevel(factory);
+
+            string newLocalLeveDataString = localLevelData?.LevelData + block;
+
+            LocalLevelData newLocalLevelData = new(localLevelData!.LevelKey, newLocalLeveDataString);
+
+
+
+            bool saved = fileManager.SaveLocalLevel(newLocalLevelData);
+
+
+
+            LocalLevelData? actualLocalLevelData = fileManager.GetLocalLevel(factory);
+
+            string? actualLocalLevelDataString = actualLocalLevelData?.LevelData;
+
+            Assert.NotNull(actualLocalLevelDataString);
+            Assert.True(saved);
+            Assert.Equal(newLocalLeveDataString, actualLocalLevelDataString);
         }
 
         [Fact(Skip = "later")]

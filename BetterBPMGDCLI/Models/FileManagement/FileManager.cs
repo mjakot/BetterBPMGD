@@ -86,9 +86,16 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             if (levelData is null) return null;
 
-            ILocalLevelCipher localLevelDataCipher = localLevelDataCipherFactory.Decode(levelData.Value);
+            try
+            {
+                ILocalLevelCipher localLevelDataCipher = localLevelDataCipherFactory.Decode(levelData.Value);
 
-            return new("k_0", localLevelDataCipher.DataString);
+                return new("k_0", localLevelDataCipher.DataString);
+            }
+            catch (Exception)
+            {
+                return new("k_0", levelData.Value);
+            }
         }
 
         public bool SaveLocalLevel(LocalLevelData localLevelData)
