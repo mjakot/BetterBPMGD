@@ -1,7 +1,6 @@
 ﻿using BetterBPMGDCLI.Models.FileManagement;
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
-using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Models.Settings.Interfaces;
 
 namespace BetterBPMGDCLI.Models
@@ -9,16 +8,15 @@ namespace BetterBPMGDCLI.Models
     public class Controller
     {
         private IControllerSettings settings;
-        private IFileManagerSettings fileManagerSettings;
 
         private FileManager fileManager;
 
         public LocalLevelData? level { get; private set; }
 
-        public Controller(IControllerSettings settings)
+        public Controller(IFileManagerSettings fileManagerSettings, IControllerSettings settings)
         {
             this.settings = settings;
-            fileManagerSettings = new FileManagerSettings();
+
             fileManager = new FileManager(fileManagerSettings);
         }
 
@@ -41,6 +39,8 @@ namespace BetterBPMGDCLI.Models
             if (level is null) return false;
 
             bool result = fileManager.SaveLocalLevel(level);
+
+            result &= fileManager.InsertLocalLevel();
 
             return result &= fileManager.UpdateLocalLevels();
         }

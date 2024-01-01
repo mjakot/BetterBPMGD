@@ -16,7 +16,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
         public bool CreateNewProject(string projectName, ulong songId)
         {
-            string songPath = Path.Combine(settings.GDFolderPath, songId.ToString() + "mp3");
+            string songPath = Path.Combine(settings.GDFolderPath, songId.ToString() + ".mp3");
 
             if (!File.Exists(songPath)) return false;
 
@@ -29,6 +29,17 @@ namespace BetterBPMGDCLI.Models.FileManagement
         }
 
         public bool CopyLocalLevels() => CopyTo(settings.GdLevelsSavePath, settings.LocalLevelsCopyPath);
+
+        public bool InsertLocalLevel()
+        {
+            XElement levels = XElement.Load(settings.DecryptedLocalLevelsCopyPath);
+            XElement currentLevel = XElement.Load(settings.CurrentLevelPath);
+            XElement keyTag = new("k", "k_0");
+
+            levels.Descendants().Where(e => e.IsEmpty && !e.HasAttributes).FirstOrDefault()?.AddAfterSelf(keyTag, currentLevel);
+
+            return SaveMinifiedXML(levels, settings.DecryptedLocalLevelsCopyPath);
+        }
 
         public bool UpdateLocalLevels()
         {
@@ -60,11 +71,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             if (levelTag is null) return false;
 
-            XElement keyTag = new("k", levelKey);
-
-            keyTag.Add(levelTag);
-
-            return SaveMinifiedXML(keyTag);
+            return SaveMinifiedXML(levelTag, settings.CurrentLevelPath);
         }
 
         public bool CreateNewLevel(string levelName)
@@ -72,40 +79,46 @@ namespace BetterBPMGDCLI.Models.FileManagement
             if (string.IsNullOrEmpty(levelName)) return false;
 
             XElement minimalLevel = XElement.Load(settings.MinimalLevelPath);
-            XElement? levelNmaeTag = minimalLevel.FindElementByKeyValue("k", "2", "s");
+            XElement? levelNameTag = minimalLevel.FindElementByKeyValue("k", "k2", "s");
 
-            if (levelNmaeTag is null) return false;
+            if (levelNameTag is null) return false;
 
-            levelNmaeTag.Value = levelName;
+            levelNameTag.Value = levelName;
 
-            return SaveMinifiedXML(minimalLevel);
+            minimalLevel.Elements("s").FirstOrDefault()?.ReplaceWith(levelNameTag);
+
+            return SaveMinifiedXML(minimalLevel, settings.CurrentLevelPath);
         }
 
         public LocalLevelData? GetLocalLevel(ILocalLevelCipherFactory localLevelDataCipherFactory)
         {
             XElement level = XElement.Load(settings.CurrentLevelPath);
-            XElement? levelKey = level.FindElementByTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
-            if (levelKey is null || levelData is null) return null;
+            if (levelData is null) return null;
 
-            ILocalLevelCipher localLevelDataCipher = localLevelDataCipherFactory.Decode(levelData.Value);
+            try
+            {
+                ILocalLevelCipher localLevelDataCipher = localLevelDataCipherFactory.Decode(levelData.Value);
 
-            return new(levelKey.Value, localLevelDataCipher.DataString);
+                return new("k_0", localLevelDataCipher.DataString);
+            }
+            catch (Exception)
+            {
+                return new("k_0", levelData.Value);
+            }
         }
 
         public bool SaveLocalLevel(LocalLevelData localLevelData)
         {
             XElement level = XElement.Load(settings.CurrentLevelPath);
-            XElement? levelKey = level.FindElementByTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
-            if (levelKey is null || levelData is null) return false;
-            if (levelKey.Value != localLevelData.LevelKey) return false;
+            if (levelData is null) return false;
 
             levelData.Value = localLevelData.LevelData;
 
-            return SaveMinifiedXML(level);
+            return SaveMinifiedXML(level, settings.CurrentLevelPath);
         }
 
         private bool BackupFile(string filePath, string backupFolderPath)
@@ -168,7 +181,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
             try
             {
                 using FileStream fileStream = new(filePath, fileMode, FileAccess.Write);
-                using StreamWriter streamWriter = new(filePath);
+                using StreamWriter streamWriter = new(fileStream);
 
                 streamWriter.Write(content);
 
@@ -180,11 +193,17 @@ namespace BetterBPMGDCLI.Models.FileManagement
             }
         }
 
-        private bool SaveMinifiedXML(XElement xml)
+        private bool SaveMinifiedXML(XElement xml, string path)
         {
             try
             {
-                using XmlWriter xmlWriter = XmlWriter.Create(settings.CurrentLevelPath);
+                XmlWriterSettings writerSettings = new()
+                {
+                    OmitXmlDeclaration = true,
+                    Indent = false
+                };
+
+                using XmlWriter xmlWriter = XmlWriter.Create(path, writerSettings);
 
                 xml.Save(xmlWriter);
 
