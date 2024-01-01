@@ -30,6 +30,17 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
         public bool CopyLocalLevels() => CopyTo(settings.GdLevelsSavePath, settings.LocalLevelsCopyPath);
 
+        public bool InsertLocalLevel()
+        {
+            XElement levels = XElement.Load(settings.DecryptedLocalLevelsCopyPath);
+            XElement currentLevel = XElement.Load(settings.CurrentLevelPath);
+            XElement keyTag = new("k", "k_0");
+
+            levels.Descendants().Where(e => e.IsEmpty && !e.HasAttributes).FirstOrDefault()?.AddAfterSelf(keyTag, currentLevel);
+
+            return SaveMinifiedXML(levels, settings.DecryptedLocalLevelsCopyPath);
+        }
+
         public bool UpdateLocalLevels()
         {
             bool result = true;
@@ -60,7 +71,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             if (levelTag is null) return false;
 
-            return SaveMinifiedXML(levelTag);
+            return SaveMinifiedXML(levelTag, settings.CurrentLevelPath);
         }
 
         public bool CreateNewLevel(string levelName)
@@ -76,7 +87,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             minimalLevel.Elements("s").FirstOrDefault()?.ReplaceWith(levelNameTag);
 
-            return SaveMinifiedXML(minimalLevel);
+            return SaveMinifiedXML(minimalLevel, settings.CurrentLevelPath);
         }
 
         public LocalLevelData? GetLocalLevel(ILocalLevelCipherFactory localLevelDataCipherFactory)
@@ -107,7 +118,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             levelData.Value = localLevelData.LevelData;
 
-            return SaveMinifiedXML(level);
+            return SaveMinifiedXML(level, settings.CurrentLevelPath);
         }
 
         private bool BackupFile(string filePath, string backupFolderPath)
@@ -182,7 +193,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
             }
         }
 
-        private bool SaveMinifiedXML(XElement xml)
+        private bool SaveMinifiedXML(XElement xml, string path)
         {
             try
             {
@@ -192,7 +203,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
                     Indent = false
                 };
 
-                using XmlWriter xmlWriter = XmlWriter.Create(settings.CurrentLevelPath, writerSettings);
+                using XmlWriter xmlWriter = XmlWriter.Create(path, writerSettings);
 
                 xml.Save(xmlWriter);
 
