@@ -82,24 +82,21 @@ namespace BetterBPMGDCLI.Models.FileManagement
         public LocalLevelData? GetLocalLevel(ILocalLevelCipherFactory localLevelDataCipherFactory)
         {
             XElement level = XElement.Load(settings.CurrentLevelPath);
-            XElement? levelKey = level.FindElementByTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
-            if (levelKey is null || levelData is null) return null;
+            if (levelData is null) return null;
 
             ILocalLevelCipher localLevelDataCipher = localLevelDataCipherFactory.Decode(levelData.Value);
 
-            return new(levelKey.Value, localLevelDataCipher.DataString);
+            return new("k_0", localLevelDataCipher.DataString);
         }
 
         public bool SaveLocalLevel(LocalLevelData localLevelData)
         {
             XElement level = XElement.Load(settings.CurrentLevelPath);
-            XElement? levelKey = level.FindElementByTag("k");
             XElement? levelData = level.FindElementByKeyValue("k", "k4", "s");
 
-            if (levelKey is null || levelData is null) return false;
-            if (levelKey.Value != localLevelData.LevelKey) return false;
+            if (levelData is null) return false;
 
             levelData.Value = localLevelData.LevelData;
 
