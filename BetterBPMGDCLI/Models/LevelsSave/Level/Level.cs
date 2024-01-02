@@ -14,6 +14,8 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level
 
         public void Add(Timing timing) => timings.Add(timing);
 
+        public void Add(IEnumerable<Timing> timings) => base.timings.AddRange(timings);
+
         public GuidelinesCollection CalculateGuidelines()
         {
             GuidelinesCollection guidelines = new();

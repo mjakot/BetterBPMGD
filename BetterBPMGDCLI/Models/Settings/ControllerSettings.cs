@@ -4,7 +4,7 @@ namespace BetterBPMGDCLI.Models.Settings
 {
     public class ControllerSettings : IControllerSettings
     {
-        private static bool createNewLevelDefault = false;
+        private static bool createNewLevelDefault = true;
 
         public bool CreateNewLevel { get; set; }
 

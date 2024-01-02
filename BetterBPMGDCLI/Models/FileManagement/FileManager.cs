@@ -3,6 +3,8 @@ using BetterBPMGDCLI.Models.LevelsSave.Ciphers;
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
 using BetterBPMGDCLI.Models.Settings.Interfaces;
+using Common;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -26,6 +28,39 @@ namespace BetterBPMGDCLI.Models.FileManagement
         public bool CreateNewProject(string projectName, Uri songPath, SongSourceType sourceType, ulong songId = 0)
         {
             return false;
+        }
+
+        public bool AddTiming(string projectName, Timing timing)
+        {
+            string path = Path.Combine(settings.ProjectsFolderPath, $"{projectName}\\", settings.TimingsListPath);
+
+            if (!File.Exists(path)) return false;
+
+            return WriteToFile(path, timing.Serialize(), FileMode.Append);
+        }
+
+        public bool AddTimings(string projectName, IEnumerable<Timing> timings)
+        {
+            string path = Path.Combine(settings.ProjectsFolderPath, $"{projectName}\\", settings.TimingsListPath);
+
+            if (!File.Exists(path)) return false;
+
+            StringBuilder content = new();
+
+            foreach (Timing timing in timings) content.AppendLine(timing.Serialize());
+
+            return WriteToFile(path, content.ToString(), FileMode.Append);
+        }
+
+        public IEnumerable<Timing>? GetTimings(string projectName)
+        {
+            string path = Path.Combine(settings.ProjectsFolderPath, $"{projectName}\\", settings.TimingsListPath);
+
+            if (!File.Exists(path)) yield break;
+
+            string[] serializedTimings = ReadFromFile(path).Split(Environment.NewLine);
+
+            foreach (string timing in serializedTimings) yield return TimingExtension.Deserialize(timing);
         }
 
         public bool CopyLocalLevels() => CopyTo(settings.GdLevelsSavePath, settings.LocalLevelsCopyPath);
@@ -52,7 +87,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
         public bool DecryptLocalLevels(ILocalLevelCipherFactory levelCipherFactory)
         {
-            string levels = ReadFile(settings.LocalLevelsCopyPath);
+            string levels = ReadFromFile(settings.LocalLevelsCopyPath);
 
             if (string.IsNullOrEmpty(levels)) return false;
 
@@ -159,7 +194,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
             return true;
         }
 
-        private string ReadFile(string filePath)
+        private string ReadFromFile(string filePath)
         {
             if (!File.Exists(filePath)) return string.Empty;
 
@@ -221,6 +256,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             string songName = Path.GetFileName(songPath);
             string fullProjectPath = Path.Combine(settings.ProjectsFolderPath, projectName);
+            string timingsPath = Path.Combine(fullProjectPath, settings.TimingsListPath);
 
             if (Directory.Exists(fullProjectPath))
             {
@@ -230,6 +266,8 @@ namespace BetterBPMGDCLI.Models.FileManagement
             }
 
             Directory.CreateDirectory(fullProjectPath);
+
+            File.Create(timingsPath).Close();
 
             return CopyTo(songPath, Path.Combine(fullProjectPath, songName));
         }

@@ -15,6 +15,7 @@
         string CurrentLevelPath { get; set; }
         string MinimalLevelPath { get; set; }
         string ProjectsFolderPath { get; set; }
+        string TimingsListPath { get; set; }
         string BackupFolderPath { get; set; }
         bool CreateLevelsBackup { get; set; }
         bool AutoSongId { get; set; }

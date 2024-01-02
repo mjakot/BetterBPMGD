@@ -2,6 +2,7 @@
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
 using BetterBPMGDCLI.Models.Settings.Interfaces;
+using Common;
 
 namespace BetterBPMGDCLI.Models
 {
@@ -20,25 +21,28 @@ namespace BetterBPMGDCLI.Models
             fileManager = new FileManager(fileManagerSettings);
         }
 
-        public bool Begin(string levelID = "k_0")
+        public bool CreateNewProject(string projectName, ulong songId) => fileManager.CreateNewProject(projectName, songId);
+
+        public bool AddTiming(string projectName, Timing timing) => fileManager.AddTiming(projectName, timing);
+
+        public bool AddTimings(string projectName, IEnumerable<Timing> timings) => fileManager.AddTimings(projectName, timings);
+
+        public bool InjectTimings(string projectName, string levelKey = "k_0", string levelName = "newLevel")
         {
+            ILocalLevelCipherFactory localLevelCipherFactory = new LocalLevelsCipherFactory();
+            ILocalLevelCipherFactory localLevelDataCipherFactory = new LocalLevelDataCipherFactory();
+
             bool result = fileManager.CopyLocalLevels();
+            result &= fileManager.DecryptLocalLevels(localLevelCipherFactory);
 
-            result &= fileManager.DecryptLocalLevels(new LocalLevelsCipherFactory());
+            if (settings.CreateNewLevel) result &= fileManager.CreateNewLevel(levelKey);
+            else result &= fileManager.FindLocalLevel(levelName);
 
-            if (settings.CreateNewLevel) result &= fileManager.CreateNewLevel(levelID);
-            else result &= fileManager.FindLocalLevel(levelID);
+            level = fileManager.GetLocalLevel(localLevelDataCipherFactory);
 
-            level = fileManager.GetLocalLevel(new LocalLevelDataCipherFactory());
+            level?.Add(fileManager.GetTimings(projectName) ?? []);
 
-            return result;
-        }
-
-        public bool End()
-        {
-            if (level is null) return false;
-
-            bool result = fileManager.SaveLocalLevel(level);
+            result &= fileManager.SaveLocalLevel(level ?? new(string.Empty, string.Empty));
 
             result &= fileManager.InsertLocalLevel();
 

@@ -24,6 +24,7 @@ namespace BetterBPMGDCLI.Models.Settings
         private string currentLevelPathDefault => Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Level.xml");
         private string minimalLevelPathDefault => Path.Combine(BetterBPMGDCurrentLevelFolderPath, "MinimalLevel.xml");
         private string projectsFolderPathDefault => Path.Combine(AppDataFolderPath, ProjectsFolderName);
+        private string timingsListPathDefault => "Timings.txt";
         private string backupFolderPathDefault => Path.Combine(GDFolderPath, AppName + "Backups");
         private bool createLevelsBackupDefault => true;
         private bool autoSongIdDefault => true;
@@ -34,6 +35,7 @@ namespace BetterBPMGDCLI.Models.Settings
         public string CurrentLevelPath { get; set; }
         public string MinimalLevelPath { get; set; }
         public string ProjectsFolderPath { get; set; }
+        public string TimingsListPath { get; set; }
         public string BackupFolderPath { get; set; }
         public bool CreateLevelsBackup { get; set; }
         public bool AutoSongId { get; set; }
@@ -42,7 +44,7 @@ namespace BetterBPMGDCLI.Models.Settings
         public FileManagerSettings() => ResetAll();
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-        public FileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelPath, string currentLevelPath, string minimalLevelPath, string projectsFolderPath, string backupFolderPath, bool createLevelsBackup, bool autoSongId)
+        public FileManagerSettings(string gdLevelsSavePath, string localLevelsCopyPath, string decryptedLocalLevelPath, string currentLevelPath, string minimalLevelPath, string projectsFolderPath, string timingsListPath, string backupFolderPath, bool createLevelsBackup, bool autoSongId)
         {
             GdLevelsSavePath = gdLevelsSavePath;
             LocalLevelsCopyPath = localLevelsCopyPath;
@@ -50,8 +52,9 @@ namespace BetterBPMGDCLI.Models.Settings
             CurrentLevelPath = currentLevelPath;
             MinimalLevelPath = minimalLevelPath;
             BackupFolderPath = backupFolderPath;
-            CreateLevelsBackup = createLevelsBackup;
             ProjectsFolderPath = projectsFolderPath;
+            TimingsListPath = timingsListPath;
+            CreateLevelsBackup = createLevelsBackup;
             AutoSongId = autoSongId;
         }
 
@@ -74,8 +77,9 @@ namespace BetterBPMGDCLI.Models.Settings
             CurrentLevelPath = currentLevelPathDefault;
             MinimalLevelPath = minimalLevelPathDefault;
             BackupFolderPath = backupFolderPathDefault;
-            CreateLevelsBackup = createLevelsBackupDefault;
             ProjectsFolderPath = projectsFolderPathDefault;
+            TimingsListPath = timingsListPathDefault;
+            CreateLevelsBackup = createLevelsBackupDefault;
             AutoSongId = autoSongIdDefault;
         }
     }

@@ -89,10 +89,10 @@ namespace BetterBPMGD.ViewModels
         
         public int BeatSubdivisionEditable
         {
-            get => Timing.BeatSubdivisuon;
+            get => Timing.BeatSubdivision;
             set
             {
-                Timing.BeatSubdivisuon = value;
+                Timing.BeatSubdivision = value;
                 OnPropertyChanged(nameof(BeatSubdivisionEditable));
                 OnPropertyChanged(nameof(BeatSubdivisionDisplayable));
             }
@@ -140,7 +140,7 @@ namespace BetterBPMGD.ViewModels
             }
         }
         public double BpmDisplayable => Timing.Bpm;
-        public int BeatSubdivisionDisplayable => Timing.BeatSubdivisuon;
+        public int BeatSubdivisionDisplayable => Timing.BeatSubdivision;
         public string SpeedDisplayable
         {
             get

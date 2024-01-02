@@ -8,7 +8,7 @@
         public ulong OffsetMS { get; set; }
         public double Bpm { get; set; }
         public bool SubdivideBeats { get; set; }
-        public int BeatSubdivisuon { get; set; }
+        public int BeatSubdivision { get; set; }
         public SpeedPortalTypes Speed { get; set; }
         public string ColorPattern { get; set; }
 
@@ -26,7 +26,7 @@
             OffsetMS = offsetMs;
             Bpm = bpm;
             SubdivideBeats = subdivideBeats;
-            BeatSubdivisuon = beatSubdivision;
+            BeatSubdivision = beatSubdivision;
             Speed = speed;
             ColorPattern = colorPattern;
         }
