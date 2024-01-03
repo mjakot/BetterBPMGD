@@ -4,13 +4,13 @@ namespace BetterBPMGDCLI.Models.Settings
 {
     public class FileManagerSettings : IFileManagerSettings
     {
-        public const string AppName = "BetterBPMGD";
-        public const string GameName = "GeometryDash";
+        public const string AppName = "BetterBPMGD\\";
+        public const string GameName = "GeometryDash\\";
         public const string SaveFileName = "CCLocalLevels.dat";
-        public const string TemporaryFolderName = "Temp";
-        public const string SavesCopiesFolderName = "Copies";
-        public const string CurrentFolderName = "Current";
-        public const string ProjectsFolderName = "Projects";
+        public const string TemporaryFolderName = "Temp\\";
+        public const string SavesCopiesFolderName = "Copies\\";
+        public const string CurrentFolderName = "Current\\";
+        public const string ProjectsFolderName = "Projects\\";
         public string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public string BetterBPMGDAppDataFolderPath => Path.Combine(AppDataFolderPath, AppName);
         public string GDFolderPath => Path.Combine(AppDataFolderPath, GameName);
