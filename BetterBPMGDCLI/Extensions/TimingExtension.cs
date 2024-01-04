@@ -4,7 +4,9 @@ namespace BetterBPMGDCLI.Extensions
 {
     public static class TimingExtension
     {
-        public static string Serialize(this Timing timing) => $"offset={timing.OffsetMS},pm={timing.Bpm},subdivide={timing.SubdivideBeats},subdivision={timing.BeatSubdivision},speed={timing.Speed},pattern={timing.ColorPattern}{Environment.NewLine}";
+        public static IEnumerable<Timing> Sort(IEnumerable<Timing> timings) => timings.OrderBy(timings => timings.OffsetMS);
+
+        public static string Serialize(this Timing timing) => $"offset={timing.OffsetMS},bpm={timing.Bpm},subdivide={timing.SubdivideBeats},subdivision={timing.BeatSubdivision},speed={timing.Speed},pattern={timing.ColorPattern}{Environment.NewLine}";
 
         public static Timing Deserialize(string timing)
         {

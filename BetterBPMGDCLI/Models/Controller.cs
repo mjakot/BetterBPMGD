@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Models.FileManagement;
+﻿using BetterBPMGDCLI.Extensions;
+using BetterBPMGDCLI.Models.FileManagement;
 using BetterBPMGDCLI.Models.LevelsSave.Ciphers.Factories;
 using BetterBPMGDCLI.Models.LevelsSave.Level;
 using BetterBPMGDCLI.Models.Settings.Interfaces;
@@ -40,7 +41,13 @@ namespace BetterBPMGDCLI.Models
 
             level = fileManager.GetLocalLevel(localLevelDataCipherFactory);
 
-            level?.Add(fileManager.GetTimings(projectName) ?? []);
+            if (level is null) return false;
+
+            IEnumerable<Timing> timings = TimingExtension.Sort(fileManager.GetTimings(projectName) ?? []);
+
+            level.Add(timings);
+            level.SongDurationMS = 10000000;
+            level.Encode(true);
 
             result &= fileManager.SaveLocalLevel(level ?? new(string.Empty, string.Empty));
 
@@ -50,3 +57,4 @@ namespace BetterBPMGDCLI.Models
         }
     }
 }
+ 

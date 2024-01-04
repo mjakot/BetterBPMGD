@@ -6,7 +6,7 @@ namespace BetterBPMGDCLI.Models
 {
     public static class Setup
     {
-        private const string MinimalLevelInitialPath = ".\\MinimalLevel.xml";
+        private const string MinimalLevelInitialPath = "MinimalLevel.xml";
         private const string ConfigPath = ".config";
 
         private static IFileManagerSettings? fileManagerSettings;
@@ -17,7 +17,20 @@ namespace BetterBPMGDCLI.Models
             fileManagerSettings = new FileManagerSettings();
             controllerSettings = new ControllerSettings();
 
+            SetupFiles();
+
             return new(fileManagerSettings, controllerSettings);
+        }
+
+        public static bool Delete()
+        {
+            fileManagerSettings = new FileManagerSettings();
+            controllerSettings = new ControllerSettings();
+
+            Directory.Delete(fileManagerSettings.BetterBPMGDAppDataFolderPath, true);
+            Directory.Delete(fileManagerSettings.BackupFolderPath, true);
+
+            return true;
         }
 
         private static bool SetupFiles()
@@ -42,7 +55,7 @@ namespace BetterBPMGDCLI.Models
                 fs.Write(minimalLevelBytes, 0, minimalLevelBytes.Length);
             }
 
-
+            return true;
         }
 
         private static void GetSettings()

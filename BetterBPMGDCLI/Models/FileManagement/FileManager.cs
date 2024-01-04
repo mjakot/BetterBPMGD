@@ -60,7 +60,9 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             string[] serializedTimings = ReadFromFile(path).Split(Environment.NewLine);
 
-            foreach (string timing in serializedTimings) yield return TimingExtension.Deserialize(timing);
+            foreach (string timing in serializedTimings)
+                if (timing != string.Empty)
+                    yield return TimingExtension.Deserialize(timing);
         }
 
         public bool CopyLocalLevels() => CopyTo(settings.GdLevelsSavePath, settings.LocalLevelsCopyPath);

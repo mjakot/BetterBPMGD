@@ -14,16 +14,16 @@ namespace BetterBPMGDCLI.Models.Settings
         public string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public string BetterBPMGDAppDataFolderPath => Path.Combine(AppDataFolderPath, AppName);
         public string GDFolderPath => Path.Combine(AppDataFolderPath, GameName);
-        public string BetterBPMGDTemporaryFolderPath => Path.Combine(AppDataFolderPath, TemporaryFolderName);
-        public string BetterBPMGDLevelsSavesCopiesFolderPath => Path.Combine(AppDataFolderPath, SavesCopiesFolderName);
-        public string BetterBPMGDCurrentLevelFolderPath => Path.Combine(AppDataFolderPath, CurrentFolderName);
+        public string BetterBPMGDTemporaryFolderPath => Path.Combine(BetterBPMGDAppDataFolderPath, TemporaryFolderName);
+        public string BetterBPMGDLevelsSavesCopiesFolderPath => Path.Combine(BetterBPMGDAppDataFolderPath, SavesCopiesFolderName);
+        public string BetterBPMGDCurrentLevelFolderPath => Path.Combine(BetterBPMGDAppDataFolderPath, CurrentFolderName);
 
         private string gdLevelsSavePathDefault => Path.Combine(GDFolderPath, SaveFileName);
         private string localsLevelsCopyPathDefault => Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.dat");
         private string decryptedLocalsLevelsCopyPathDefault => Path.Combine(BetterBPMGDLevelsSavesCopiesFolderPath, "LocalLevelsCopy.xlm");
         private string currentLevelPathDefault => Path.Combine(BetterBPMGDCurrentLevelFolderPath, "Level.xml");
         private string minimalLevelPathDefault => Path.Combine(BetterBPMGDCurrentLevelFolderPath, "MinimalLevel.xml");
-        private string projectsFolderPathDefault => Path.Combine(AppDataFolderPath, ProjectsFolderName);
+        private string projectsFolderPathDefault => Path.Combine(BetterBPMGDAppDataFolderPath, ProjectsFolderName);
         private string timingsListPathDefault => "Timings.txt";
         private string backupFolderPathDefault => Path.Combine(GDFolderPath, AppName + "Backups");
         private bool createLevelsBackupDefault => true;

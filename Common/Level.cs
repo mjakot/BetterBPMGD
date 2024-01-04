@@ -3,12 +3,12 @@
     public class Level
     {
         protected readonly List<Timing> timings;
-        
-        protected readonly ulong songDurationMS;
+
+        protected ulong songDurationMS;
 
         public virtual IEnumerable<Timing> Timings => timings;
 
-        public virtual ulong SongDurationMS => songDurationMS;
+        public virtual ulong SongDurationMS { get => songDurationMS; set => songDurationMS = value; }
 
         public Level()
         {
