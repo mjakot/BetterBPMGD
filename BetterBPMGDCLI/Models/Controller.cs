@@ -36,8 +36,8 @@ namespace BetterBPMGDCLI.Models
             bool result = fileManager.CopyLocalLevels();
             result &= fileManager.DecryptLocalLevels(localLevelCipherFactory);
 
-            if (settings.CreateNewLevel) result &= fileManager.CreateNewLevel(levelKey);
-            else result &= fileManager.FindLocalLevel(levelName);
+            if (settings.CreateNewLevel) result &= fileManager.CreateNewLevel(levelName);
+            else result &= fileManager.FindLocalLevel(levelKey);
 
             level = fileManager.GetLocalLevel(localLevelDataCipherFactory);
 
