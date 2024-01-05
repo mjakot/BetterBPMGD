@@ -2,9 +2,19 @@
 {
     public class LocalLevelDataCipherFactory : ILocalLevelCipherFactory
     {
-        private static LocalLevelDataCipher DecodeLocalLevelDataCipher(LocalLevelDataCipher data) => data.FromBase64UrlToBase64()
-                                                                                                        .FromBase64ToByteArray()
-                                                                                                        .GZIPDecompress();
+        private static LocalLevelDataCipher DecodeLocalLevelDataCipher(LocalLevelDataCipher data)
+        {
+            try
+            {
+                return data.FromBase64UrlToBase64()
+                            .FromBase64ToByteArray()
+                            .GZIPDecompress();
+            }
+            catch (Exception)
+            {
+                return data;
+            }
+        }
 
         public ILocalLevelCipher Decode(ILocalLevelCipher data) => DecodeLocalLevelDataCipher((LocalLevelDataCipher)data);
 

@@ -20,7 +20,7 @@ namespace BetterBPMGDCLI
             result &= controller.AddTiming("test", new(60, 200, true, 4, Common.SpeedPortalTypes.NORMAL, "o"));
             result &= controller.AddTiming("test", new(30, 300, true, 4, Common.SpeedPortalTypes.NORMAL, "o"));
 
-            result &= controller.InjectTimings("test");
+            result &= controller.InjectTimings("test", "k_0", "newLevel_Test");
 
             Console.WriteLine(result);
             

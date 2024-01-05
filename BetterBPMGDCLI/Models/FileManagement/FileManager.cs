@@ -75,7 +75,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
 
             levels.Descendants().Where(e => e.IsEmpty && !e.HasAttributes).FirstOrDefault()?.AddAfterSelf(keyTag, currentLevel);
 
-            return SaveMinifiedXML(levels, settings.DecryptedLocalLevelsCopyPath);
+            return SaveMinifiedXML(levels, settings.DecryptedLocalLevelsCopyPath, false);
         }
 
         public bool UpdateLocalLevels()
@@ -230,13 +230,13 @@ namespace BetterBPMGDCLI.Models.FileManagement
             }
         }
 
-        private bool SaveMinifiedXML(XElement xml, string path)
+        private bool SaveMinifiedXML(XElement xml, string path, bool omitXmlDeclaration = true)
         {
             try
             {
                 XmlWriterSettings writerSettings = new()
                 {
-                    OmitXmlDeclaration = true,
+                    OmitXmlDeclaration = omitXmlDeclaration,
                     Indent = false
                 };
 
