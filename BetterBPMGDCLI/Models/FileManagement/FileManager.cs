@@ -71,7 +71,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
         {
             XElement levels = XElement.Load(settings.DecryptedLocalLevelsCopyPath);
             XElement currentLevel = XElement.Load(settings.CurrentLevelPath);
-            XElement keyTag = new("k", "k_0");
+            XElement keyTag = new("k", "k_-1");
 
             levels.Descendants().Where(e => e.IsEmpty && !e.HasAttributes).FirstOrDefault()?.AddAfterSelf(keyTag, currentLevel);
 
