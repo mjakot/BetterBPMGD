@@ -4,7 +4,7 @@
     {
         public readonly double GuidelineColor { get; }
 
-        public static GuidelineColors None => new(0.0);
+        public static GuidelineColors None => new(0.1);
         public static GuidelineColors Orange => new(0.8);
         public static GuidelineColors Yellow => new(0.9);
         public static GuidelineColors Green => new(1.0);

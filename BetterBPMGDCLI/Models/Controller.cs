@@ -46,10 +46,10 @@ namespace BetterBPMGDCLI.Models
             IEnumerable<Timing> timings = TimingExtension.Sort(fileManager.GetTimings(projectName) ?? []);
 
             level.Add(timings);
-            level.SongDurationMS = 10000000;
-            level.Encode(true);
+            level.SongDurationMS = 65000;
+            LocalLevelData data = new("k_-1", level.Encode(true));
 
-            result &= fileManager.SaveLocalLevel(level ?? new(string.Empty, string.Empty));
+            result &= fileManager.SaveLocalLevel(data ?? new(string.Empty, string.Empty));
 
             result &= fileManager.InsertLocalLevel();
 

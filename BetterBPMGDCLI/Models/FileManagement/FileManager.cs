@@ -138,7 +138,7 @@ namespace BetterBPMGDCLI.Models.FileManagement
             {
                 ILocalLevelCipher localLevelDataCipher = localLevelDataCipherFactory.Decode(levelData.Value);
 
-                return new("k_0", localLevelDataCipher.DataString);
+                return new("k_0", localLevelDataCipher.DataString.Replace("=", string.Empty));
             }
             catch (Exception)
             {
