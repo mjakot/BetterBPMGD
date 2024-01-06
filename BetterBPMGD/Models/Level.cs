@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace BetterBPMGD.Models
 {
-    public class Level : Common.Level
+    public class Level : Common.TimingProject
     {
         private new readonly List<Timing> timings;
 

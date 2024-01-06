@@ -1,42 +1,25 @@
-﻿using BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection;
+﻿using BetterBPMGDCLI.Models.LevelManagement.Level;
+using BetterBPMGDCLI.Models.LevelManagement.Level.LevelDataCollection;
 using Common;
 using System.Text;
 
 namespace BetterBPMGDCLI.Models.LevelsSave.Level
 {
     //TODO: Add and CalculateSpeedPortals()
-    public class LocalLevelData : Level
+    public class LocalLevelData : LevelDataBase
     {
         private const string GuidelinesKey = "kA14";
 
         private GuidelinesCollection guidelines;
         private SpeedPortalsCollection speedPortals;
 
-        public string LevelKey { get; }
         public string LevelData { get; }
 
         public GuidelinesCollection GuideLines => guidelines;
         public SpeedPortalsCollection SpeedPortals => speedPortals;
 
-        public LocalLevelData(string levelKey, string levelData) : base()
+        public LocalLevelData(string levelData) : base()
         {
-            LevelKey = levelKey;
-            LevelData = levelData;
-            guidelines = new();
-            speedPortals = new();
-        }
-
-        public LocalLevelData(string levelKey, string levelData, IEnumerable<Timing> timings, ulong songDurationMS) : base(timings, songDurationMS)
-        {
-            LevelKey = levelKey;
-            LevelData = levelData;
-            guidelines = new();
-            speedPortals = new();
-        }
-
-        public LocalLevelData(string levelKey, string levelData, Timing timing, ulong songDurationMS) : base(timing, songDurationMS)
-        {
-            LevelKey = levelKey;
             LevelData = levelData;
             guidelines = new();
             speedPortals = new();
@@ -71,6 +54,35 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level
             return result.ToString();
         }
 
+        private GuidelinesCollection CalculateGuidelines(IEnumerable<Timing> timings, ulong songDurationMS)
+        {
+            int timingsCount = timings.Count();
+            
+            GuidelinesCollection guidelines = new();
+
+            for (int i = 0; i < timingsCount; i++)
+            {
+                ulong nextOffsetMs = (i + 1 < timingsCount) ? timings.ElementAt(i + 1).OffsetMS : songDurationMS;
+
+                ulong beatDurationMs = BPMCalculations.CalculateBeatDuration(timings.ElementAt(i).Bpm);
+
+                ulong beatOffsetMs = timings.ElementAt(i).OffsetMS;
+
+                while (beatOffsetMs < nextOffsetMs)
+                {
+                    char color = timings.ElementAt(i).ColorPattern[0];
+
+                    GuidelineColors guidelinescolor = GuidelineColors.GetGuidelineColor(color);
+
+                    guidelines.Add(new Guideline(guidelinescolor, beatOffsetMs));
+
+                    beatOffsetMs += beatDurationMs;
+                }
+            }
+
+            return guidelines;
+        }
+
         private static int FindGuideLinesKeyIndex(string[] splittedData)
         {
             for (int i = 0; i < splittedData.Length; i++)
@@ -88,6 +100,16 @@ namespace BetterBPMGDCLI.Models.LevelsSave.Level
             splittedDataList.Insert(guidelinesKeyIndex + 1, "0");
 
             return splittedDataList.ToArray();
+        }
+
+        public override string Encode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public new static ILevelData? Parse(string data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

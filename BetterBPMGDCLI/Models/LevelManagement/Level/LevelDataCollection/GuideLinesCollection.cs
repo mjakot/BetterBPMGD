@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
+namespace BetterBPMGDCLI.Models.LevelManagement.Level.LevelDataCollection
 {
     public class GuidelinesCollection : BaseLevelDataCollection
     {

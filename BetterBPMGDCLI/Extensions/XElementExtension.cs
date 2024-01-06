@@ -6,13 +6,15 @@ namespace BetterBPMGDCLI.Extensions
     {
         public static XElement? FindElementByTag(this XElement xElement, string tag) => xElement.Descendants(tag).FirstOrDefault();
 
-        public static XElement? FindElementByKeyValue(this XElement xElement, string keyTag, string keyValue, string targetTag)
+        public static XElement? FindElementByKeyValue(this XElement xElement, string keyTag, string keyValue, string targetTag) => xElement.FindElementsByKeyValue(keyTag, keyValue, targetTag)?.FirstOrDefault();
+
+        public static IEnumerable<XElement>? FindElementsByKeyValue(this XElement xElement, string keyTag, string keyValue, string targetTag)
         {
             XElement? keyElement = xElement.Descendants(keyTag).FirstOrDefault(e => (string)e == keyValue);
 
             if (keyElement is null) return null;
 
-            return keyElement.ElementsAfterSelf(targetTag).FirstOrDefault();
+            return keyElement.ElementsAfterSelf(targetTag);
         }
     }
 }

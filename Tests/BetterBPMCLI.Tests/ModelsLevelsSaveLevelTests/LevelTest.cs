@@ -1,4 +1,4 @@
-﻿using BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection;
+﻿using BetterBPMGDCLI.Models.LevelManagement.Level.LevelDataCollection;
 using Common;
 using Level = BetterBPMGDCLI.Models.LevelsSave.Level.Level;
 

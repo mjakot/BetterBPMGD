@@ -2,7 +2,8 @@
 {
     public interface ILocalLevelCipher
     {
-        string DataString { get; }
-        byte[] DataByteArray { get; }
+        string DataString { get; set; }
+        byte[] DataByteArray { get; set; }
+        string Decode();
     }
 }

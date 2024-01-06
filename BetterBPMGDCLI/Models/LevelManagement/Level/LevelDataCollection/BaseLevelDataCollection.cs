@@ -1,6 +1,7 @@
 ﻿using System.Collections;
+using BetterBPMGDCLI.Models.LevelManagement.Level;
 
-namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
+namespace BetterBPMGDCLI.Models.LevelManagement.Level.LevelDataCollection
 {
     public abstract class BaseLevelDataCollection : ILevelDataCollection
     {

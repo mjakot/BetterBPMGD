@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using BetterBPMGDCLI.Models.LevelManagement.Level;
 
-namespace BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection
+namespace BetterBPMGDCLI.Models.LevelManagement.Level.LevelDataCollection
 {
     public class SpeedPortalsCollection : BaseLevelDataCollection
     {
