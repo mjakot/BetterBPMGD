@@ -11,7 +11,7 @@
 
         public GuidelineColors(double color) => GuidelineColor = color;
 
-        public static GuidelineColors GetGuidelineColor(char colorPattern) => colorPattern switch
+        public static GuidelineColors GetGuidelineColor(char color) => color switch
         {
             'o' or 'O' => Orange,
             'y' or 'Y' => Yellow,

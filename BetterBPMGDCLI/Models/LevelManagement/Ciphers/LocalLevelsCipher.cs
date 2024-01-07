@@ -7,14 +7,7 @@
         public LocalLevelsCipher(string localLevelsString) : base(localLevelsString) { }
 
         public LocalLevelsCipher(byte[] localLevelsByteArray) : base(localLevelsByteArray) { }
-
-        private void XOR(int key)
-        {
-            for (int i = 0; i < dataString.Length; i++) dataByteArray[i] = (byte)(dataByteArray[i] ^ key);
-
-            DataByteArray = dataByteArray;
-        }
-
+        
         public override string Decode()
         {
             string dataStringCopy = DataString;
@@ -32,6 +25,13 @@
             {
                 return dataStringCopy;
             }
+        }
+
+        private void XOR(int key)
+        {
+            for (int i = 0; i < dataString.Length; i++) dataByteArray[i] = (byte)(dataByteArray[i] ^ key);
+
+            DataByteArray = dataByteArray;
         }
     }
 }

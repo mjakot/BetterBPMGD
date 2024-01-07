@@ -2,17 +2,29 @@
 {
     public class Guideline : ILevelData
     {
-        public GuidelineColors GuidelineColor { get; }
         public ulong OffsetMs { get; }
+        public GuidelineColors GuidelineColor { get; }
 
-        public Guideline(GuidelineColors guidelineColor, ulong offset)
+        public Guideline(ulong offset, GuidelineColors guidelineColor)
         {
-            GuidelineColor = guidelineColor;
             OffsetMs = offset;
+            GuidelineColor = guidelineColor;
         }
 
-        public string Encode() => $"{GetMinutes(OffsetMs)}~{GuidelineColor.GuidelineColor}";  // bro why offset for guidelines in gd is in minutes wtf
+        public string Encode() => $"{BPMCalculations.GetMinutes(OffsetMs)}~{GuidelineColor.GuidelineColor}~";  // bro why offset for guidelines in gd is in minutes wtf
 
-        private static double GetMinutes(ulong milliseconds) => (double)milliseconds / 1000 / 60;
+        public static Guideline? Parse(string guideline)
+        {
+            string[] offsetColorPair = guideline.Split('~');
+
+            if (offsetColorPair.Length < 2) return null;
+
+            return new(ulong.Parse(offsetColorPair[0]) * BPMCalculations.MillisecondsInMinute, new(double.Parse(offsetColorPair[1])));
+        }
+
+        public static IEnumerable<Guideline> ParseGuidelines(string guidelines)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

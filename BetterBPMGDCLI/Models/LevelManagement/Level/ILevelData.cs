@@ -2,6 +2,6 @@
 {
     public interface ILevelData
     {
-        public string Encode();
+        string Encode();
     }
 }

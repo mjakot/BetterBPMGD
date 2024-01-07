@@ -2,10 +2,12 @@
 {
     public static class BPMCalculations
     {
-        private const int MSinSec = 60000;
+        public const int MillisecondsInMinute = 60000;
 
         public static ulong CalculateTimingDuration(ulong firstTimingOffset, ulong secondTimingOffset) => secondTimingOffset - firstTimingOffset;
 
-        public static ulong CalculateBeatDuration(double bpm) => (ulong)(MSinSec / bpm);
+        public static ulong CalculateBeatDuration(double bpm) => (ulong)(MillisecondsInMinute / bpm);
+
+        public static double GetMinutes(ulong milliseconds) => (double)milliseconds / MillisecondsInMinute;
     }
 }

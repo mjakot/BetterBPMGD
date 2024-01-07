@@ -1,115 +1,111 @@
 ﻿using BetterBPMGDCLI.Models.LevelManagement.Level;
-using BetterBPMGDCLI.Models.LevelManagement.Level.LevelDataCollection;
 using Common;
 using System.Text;
+using System.Text.RegularExpressions;
 
-namespace BetterBPMGDCLI.Models.LevelsSave.Level
+namespace BetterBPMGDCLI.Models.Level
 {
     //TODO: Add and CalculateSpeedPortals()
-    public class LocalLevelData : LevelDataBase
+    public class LocalLevelData
     {
-        private const string GuidelinesKey = "kA14";
+        public const string GuideLinesPattern = """kA14,(.*),""";
+        public const string SpeedPortalsPattern = """;1,(200|201|202|203|1334),2,(\d+),3,(\d+)(?:,13(\d+))?""";
 
-        private GuidelinesCollection guidelines;
-        private SpeedPortalsCollection speedPortals;
+        public string LevelData { get; set; }
 
-        public string LevelData { get; }
+        public List<Guideline> Guidelines { get; set; }
+        public List<SpeedPortal> SpeedPortals { get; set; }
 
-        public GuidelinesCollection GuideLines => guidelines;
-        public SpeedPortalsCollection SpeedPortals => speedPortals;
+        public LocalLevelData()
+        {
+            LevelData = string.Empty;
+            Guidelines = new();
+            SpeedPortals = new();
+        }
 
-        public LocalLevelData(string levelData) : base()
+        public LocalLevelData(string levelData, List<Guideline> guidelines, List<SpeedPortal> speedPortals)
         {
             LevelData = levelData;
-            guidelines = new();
-            speedPortals = new();
+            Guidelines = guidelines;
+            SpeedPortals = speedPortals;
         }
 
-        //TODO: add handling for when speedportals are disabled
-        public string Encode(bool deleteOldGuideLines)
+        public string Encode()
         {
-            guidelines = CalculateGuidelines();
+            StringBuilder result = new(Regex.Replace(LevelData, GuideLinesPattern, match => EncodeLevelDataCollection(Guidelines)));
 
-            string[] splittedData = LevelData.Split(',');
+            return result.Append(EncodeLevelDataCollection(SpeedPortals))
+                            .ToString();
+        }
 
-            int guidelinesKeyIndex = FindGuideLinesKeyIndex(splittedData);
+        public static LocalLevelData? Parse(string data)
+        {
+            List<Guideline> guidelines = new();
+            List<SpeedPortal> speedPortals = new();
 
-            if (guidelinesKeyIndex == -1)
+            Match guidelineMatch = new Regex(GuideLinesPattern).Match(data);
+            MatchCollection speedPortalsMatches = new Regex(SpeedPortalsPattern).Matches(data);
+
             {
-                guidelinesKeyIndex = 2; //End of colors data
+                GroupCollection captured = guidelineMatch.Groups;
 
-                splittedData = InsertGuidelinesKey(splittedData, guidelinesKeyIndex);
+                guidelines.AddRange(Guideline.ParseGuidelines(captured[0].Value));
             }
 
-            if (deleteOldGuideLines) splittedData[guidelinesKeyIndex + 1] = string.Empty;
+            Parallel.ForEach(speedPortalsMatches, match =>
+            {
+                bool isChecked = true;
 
-            if (splittedData[guidelinesKeyIndex + 1] == "0") splittedData[guidelinesKeyIndex + 1] = string.Empty;
+                GroupCollection groups = match.Groups;
 
-            splittedData[guidelinesKeyIndex + 1] += GuideLines.Encode();
+                if (groups[3].Value == string.Empty) isChecked = false;
 
-            StringBuilder result = new(string.Join(',', splittedData));
+                speedPortals.Add(new(int.Parse(groups[0].ToString()), double.Parse(groups[1].ToString()), double.Parse(groups[2].ToString()), isChecked));
+            });
 
-            result.Append(SpeedPortals.Encode());
-
-            return result.ToString();
+            return new(data, guidelines, speedPortals);
         }
 
-        private GuidelinesCollection CalculateGuidelines(IEnumerable<Timing> timings, ulong songDurationMS)
+        public void Calculate(IReadOnlyList<Timing> timings, ulong songDurationMS)
         {
-            int timingsCount = timings.Count();
-            
-            GuidelinesCollection guidelines = new();
+            CalculateGuidelines(timings, songDurationMS);
+            CalculateSpeedPortals();
+        }
+        
+        private void CalculateGuidelines(IReadOnlyList<Timing> timings, ulong songDurationMS)
+        {
+            Guidelines.Clear();
 
-            for (int i = 0; i < timingsCount; i++)
+            for (int i = 0; i < timings.Count; i++)
             {
-                ulong nextOffsetMs = (i + 1 < timingsCount) ? timings.ElementAt(i + 1).OffsetMS : songDurationMS;
+                ulong nextOffsetMs = (i + 1 < timings.Count) ? timings[i + 1].OffsetMS : songDurationMS;
 
-                ulong beatDurationMs = BPMCalculations.CalculateBeatDuration(timings.ElementAt(i).Bpm);
+                ulong beatDurationMs = BPMCalculations.CalculateBeatDuration(timings[i].Bpm);
 
-                ulong beatOffsetMs = timings.ElementAt(i).OffsetMS;
+                ulong beatOffsetMs = timings[i].OffsetMS;
 
                 while (beatOffsetMs < nextOffsetMs)
                 {
-                    char color = timings.ElementAt(i).ColorPattern[0];
+                    char color = timings[i].ColorPattern[0];
 
                     GuidelineColors guidelinescolor = GuidelineColors.GetGuidelineColor(color);
 
-                    guidelines.Add(new Guideline(guidelinescolor, beatOffsetMs));
+                    Guidelines.Add(new Guideline(beatOffsetMs, guidelinescolor));
 
                     beatOffsetMs += beatDurationMs;
                 }
             }
-
-            return guidelines;
         }
 
-        private static int FindGuideLinesKeyIndex(string[] splittedData)
+        private void CalculateSpeedPortals() => SpeedPortals = new();
+
+        private string EncodeLevelDataCollection(IReadOnlyList<ILevelData> levelData)
         {
-            for (int i = 0; i < splittedData.Length; i++)
-                if (splittedData[i] == GuidelinesKey)
-                    return i;
+            StringBuilder stringBuilder = new();
 
-            return -1;
-        }
+            Parallel.ForEach(levelData, data => stringBuilder.Append(data.Encode()));
 
-        private static string[] InsertGuidelinesKey(string[] levelData, int guidelinesKeyIndex)
-        {
-            List<string> splittedDataList = new(levelData);
-
-            splittedDataList.Insert(guidelinesKeyIndex, GuidelinesKey);
-            splittedDataList.Insert(guidelinesKeyIndex + 1, "0");
-
-            return splittedDataList.ToArray();
-        }
-
-        public override string Encode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public new static ILevelData? Parse(string data)
-        {
-            throw new NotImplementedException();
+            return stringBuilder.ToString();
         }
     }
 }
