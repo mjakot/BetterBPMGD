@@ -9,7 +9,7 @@ namespace BetterBPMGDCLI.Models.Level
     public class LocalLevelData
     {
         public const string GuideLinesPattern = """kA14,(.*),""";
-        public const string SpeedPortalsPattern = """;1,(200|201|202|203|1334),2,(\d+),3,(\d+)(?:,13(\d+))?""";
+        public const string SpeedPortalsPattern = """;1,200|201|202|203|1334,2,\d+,3,\d+(?:,13\d+)?""";
 
         public string LevelData { get; set; }
 
@@ -52,16 +52,7 @@ namespace BetterBPMGDCLI.Models.Level
                 guidelines.AddRange(Guideline.ParseGuidelines(captured[0].Value));
             }
 
-            Parallel.ForEach(speedPortalsMatches, match =>
-            {
-                bool isChecked = true;
-
-                GroupCollection groups = match.Groups;
-
-                if (groups[3].Value == string.Empty) isChecked = false;
-
-                speedPortals.Add(new(int.Parse(groups[0].ToString()), double.Parse(groups[1].ToString()), double.Parse(groups[2].ToString()), isChecked));
-            });
+            Parallel.ForEach(speedPortalsMatches, match => speedPortals.Add(SpeedPortal.Parse(match.Value)));
 
             return new(data, guidelines, speedPortals);
         }

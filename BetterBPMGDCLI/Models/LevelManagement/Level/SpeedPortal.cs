@@ -1,5 +1,4 @@
 ﻿using Common;
-using System.Linq.Expressions;
 
 namespace BetterBPMGDCLI.Models.LevelManagement.Level
 {
@@ -23,6 +22,44 @@ namespace BetterBPMGDCLI.Models.LevelManagement.Level
         }
 
         public override string Encode() => base.Encode(new() { { CheckedKey, Checked.ToString() } });
+
+        public new static SpeedPortal Parse(string data)
+        {
+            int objectId = 0;
+            double posX = 0;
+            double posY = 0;
+            bool isChecked = false;
+
+            string[] keyValues = data.Replace(";", string.Empty).Split(',');
+
+            Parallel.For(0, keyValues.Length, index =>
+            {
+                switch (keyValues[index])
+                {
+                    case ObjectIdKey:
+                        objectId = int.Parse(keyValues[index + 1]);
+                        break;
+
+                    case PositionXKey:
+                        posX = double.Parse(keyValues[index + 1]);
+                        break;
+
+                    case PositionYKey:
+                        posY = double.Parse(keyValues[index + 1]);
+                        break;
+
+                    case CheckedKey:
+                        if (int.Parse(keyValues[index + 1]) != 0) 
+                            isChecked = true;
+                        break;
+
+                    default:
+                        break;
+                }
+            });
+
+            return new(objectId, posX, posY, isChecked);
+        }
 
         private static int DeductObjectId(SpeedPortalTypes portalType) => portalType switch
         {

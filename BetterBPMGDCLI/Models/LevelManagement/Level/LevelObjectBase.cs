@@ -30,6 +30,6 @@ namespace BetterBPMGDCLI.Models.LevelManagement.Level
             return result.Append(';')
                             .ToString();
         }
-        public static ILevelData? Parse(string data) => null;
+        public static LevelObjectBase? Parse(string data) => null;
     }
 }

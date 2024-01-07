@@ -1,4 +1,6 @@
-﻿namespace BetterBPMGDCLI.Models.LevelManagement.Level
+﻿using System.Text;
+
+namespace BetterBPMGDCLI.Models.LevelManagement.Level
 {
     public class Guideline : ILevelData
     {
@@ -24,7 +26,26 @@
 
         public static IEnumerable<Guideline> ParseGuidelines(string guidelines)
         {
-            throw new NotImplementedException();
+            sbyte counter = 0;
+
+            string[] splittedGuidelines = guidelines.Split('~');
+
+            StringBuilder stringBuilder = new();
+
+            for (int i = 0; i < splittedGuidelines.Length; i++)
+            {
+                stringBuilder.Append(splittedGuidelines[i]);
+                stringBuilder.Append('~');
+
+                if (counter == 1)
+                {
+                    counter = 0;
+
+                    yield return Parse(stringBuilder.ToString())!;
+                }
+
+                else counter++;
+            }
         }
     }
 }
