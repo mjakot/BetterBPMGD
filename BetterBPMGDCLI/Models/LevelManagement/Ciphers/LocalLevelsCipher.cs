@@ -1,4 +1,4 @@
-﻿namespace BetterBPMGDCLI.Models.LevelsSave.Ciphers
+﻿namespace BetterBPMGDCLI.Models.Ciphers
 {
     public class LocalLevelsCipher : BaseLocalLevelCipher
     {

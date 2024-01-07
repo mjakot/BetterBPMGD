@@ -1,4 +1,4 @@
-﻿namespace BetterBPMGDCLI.Models.LevelManagement.Level
+﻿namespace BetterBPMGDCLI.Models.Level
 {
     public interface ILevelData
     {

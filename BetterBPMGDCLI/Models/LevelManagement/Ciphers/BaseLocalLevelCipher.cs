@@ -1,7 +1,7 @@
 ﻿using System.IO.Compression;
 using System.Text;
 
-namespace BetterBPMGDCLI.Models.LevelsSave.Ciphers
+namespace BetterBPMGDCLI.Models.Ciphers
 {
     public abstract class BaseLocalLevelCipher : ILocalLevelCipher
     {

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace BetterBPMGDCLI.Models.LevelManagement.Level
+namespace BetterBPMGDCLI.Models.Level
 {
     public abstract class LevelObjectBase : ILevelData
     {

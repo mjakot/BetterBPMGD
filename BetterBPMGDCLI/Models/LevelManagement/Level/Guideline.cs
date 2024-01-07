@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using BetterBPMGDCLI.Utils;
 
-namespace BetterBPMGDCLI.Models.LevelManagement.Level
+namespace BetterBPMGDCLI.Models.Level
 {
     public class Guideline : ILevelData
     {

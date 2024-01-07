@@ -1,4 +1,4 @@
-﻿namespace BetterBPMGDCLI.Models
+﻿namespace BetterBPMGDCLI.Utils
 {
     public static class BPMCalculations
     {
