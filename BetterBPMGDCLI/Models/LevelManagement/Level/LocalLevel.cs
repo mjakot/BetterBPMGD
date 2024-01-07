@@ -8,6 +8,7 @@ namespace BetterBPMGDCLI.Models.Level
         public const string KeyElementTag = "k";
         public const string StringElementTag = "s";
         public const string IntegerElementTag = "i";
+        public const string DictionaryElementTag = "i";
 
         public const string NameElementKey = "k2";
         public const string DescriptionElementKey = "k3";
@@ -53,7 +54,7 @@ namespace BetterBPMGDCLI.Models.Level
         {
             (XElement name, XElement description, XElement officialSong, XElement customSong, XElement data) = GetLevelElements(level);
 
-            return new(levelKey, name.Value, description.Value, int.Parse(officialSong.Value), int.Parse(customSong.Value), (LocalLevelData?)LocalLevelData.Parse(data.Value), level);
+            return new(levelKey, name.Value, description.Value, int.Parse(officialSong.Value), int.Parse(customSong.Value), LocalLevelData.Parse(data.Value), level);
         }
 
         private static (XElement nameElement, XElement descriptionElement, XElement officialSongIdElement, XElement customSongIdElement, XElement levelDataElement) GetLevelElements(XElement level)
