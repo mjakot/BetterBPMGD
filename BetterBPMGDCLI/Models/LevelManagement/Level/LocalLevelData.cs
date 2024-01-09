@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace BetterBPMGDCLI.Models.Level
 {
-    //TODO: Add and CalculateSpeedPortals()
+    //TODO: Add CalculateSpeedPortals()
     public class LocalLevelData
     {
         public const string GuideLinesPattern = """kA14,(.*),""";
