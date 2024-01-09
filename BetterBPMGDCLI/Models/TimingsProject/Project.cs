@@ -11,11 +11,20 @@ namespace BetterBPMGDCLI.Models.TimingsProject
         public IEnumerable<KeyValuePair<int, ulong>> SongIds => songIds;
         public IEnumerable<Timing> Timings => timings;
 
-        public Project(string name, int songId, ulong offsetMS = 0)
+        public Project(string name, int songId, ulong songOffsetMS = 0)
         {
             Name = name;
-            songIds = new() { { songId, offsetMS } };
+            songIds = new() { { songId, songOffsetMS } };
             timings = new();
+        }
+
+        public void AddSong(int id, ulong offset) => songIds.Add(id, offset);
+
+        public void AddTiming(Timing timing) => timings.Add(timing);
+
+        public static Project CreateNew(string name, int initialSongId, ulong songOffsetMs = 0)
+        {
+            return new(name, initialSongId, songOffsetMs);
         }
     }
 }
