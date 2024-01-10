@@ -1,6 +1,6 @@
 ﻿using Common;
 
-namespace BetterBPMGDCLI.Models.Level
+namespace BetterBPMGDCLI.Models.LevelObjects
 {
     public class SpeedPortal : LevelObjectBase
     {

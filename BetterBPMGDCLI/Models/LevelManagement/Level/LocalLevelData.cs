@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Utils;
+﻿using BetterBPMGDCLI.Models.LevelObjects;
+using BetterBPMGDCLI.Utils;
 using Common;
 using System.Text;
 using System.Text.RegularExpressions;
