@@ -3,7 +3,6 @@ using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Utils;
 using Common;
 using NAudio.Wave;
-using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Models.TimingProject
 {
