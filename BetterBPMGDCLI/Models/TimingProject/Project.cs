@@ -5,11 +5,11 @@ using Common;
 using NAudio.Wave;
 using System.Xml.Linq;
 
-namespace BetterBPMGDCLI.Models.TimingsProject
+namespace BetterBPMGDCLI.Models.TimingProject
 {
     public class Project
     {
-        private IPathSettings pathSettings;
+        private readonly IPathSettings pathSettings;
 
         private Dictionary<int, ulong> songIds;
         private List<Timing> timings;
@@ -25,7 +25,7 @@ namespace BetterBPMGDCLI.Models.TimingsProject
             pathSettings = settings;
             Name = name;
             songIds = new() { { songId, songOffsetMS } };
-            timings = new();
+            timings = [];
         }
 
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);
