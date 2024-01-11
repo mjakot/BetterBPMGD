@@ -20,6 +20,8 @@
 
         public static void WriteToFile(string path, string content) => File.WriteAllText(path, content);
 
+        public static void CopyFile(string source, string destination) => File.Copy(source, destination, true);
+
         public static void CreateNewFolder(string path) => Directory.CreateDirectory(path);
     }
 }

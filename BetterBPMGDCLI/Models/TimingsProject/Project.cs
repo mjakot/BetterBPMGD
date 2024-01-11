@@ -1,9 +1,16 @@
-﻿using Common;
+﻿using BetterBPMGDCLI.Models.Level;
+using BetterBPMGDCLI.Models.Settings;
+using BetterBPMGDCLI.Utils;
+using Common;
+using NAudio.Wave;
+using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Models.TimingsProject
 {
     public class Project
     {
+        private IPathSettings pathSettings;
+
         private Dictionary<int, ulong> songIds;
         private List<Timing> timings;
 
@@ -11,8 +18,11 @@ namespace BetterBPMGDCLI.Models.TimingsProject
         public IEnumerable<KeyValuePair<int, ulong>> SongIds => songIds;
         public IEnumerable<Timing> Timings => timings;
 
-        public Project(string name, int songId, ulong songOffsetMS = 0)
+        public Project(IPathSettings settings, string name, int songId, ulong songOffsetMS = 0)
         {
+            InitializeProject(settings, name, songId);
+
+            pathSettings = settings;
             Name = name;
             songIds = new() { { songId, songOffsetMS } };
             timings = new();
@@ -22,9 +32,25 @@ namespace BetterBPMGDCLI.Models.TimingsProject
 
         public void AddTiming(Timing timing) => timings.Add(timing);
 
-        public static Project CreateNew(string name, int initialSongId, ulong songOffsetMs = 0)
+        public void InjectTimings(LocalLevel level)
         {
-            return new(name, initialSongId, songOffsetMs);
+            KeyValuePair<int, ulong> lastSong = songIds.OrderBy(pair => pair.Value).LastOrDefault();
+
+            using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name), $"{lastSong.Key}.mp3"));
+
+            ulong duration = (ulong)reader.TotalTime.TotalMicroseconds;
+
+            level.LevelData?.Calculate(timings, duration + lastSong.Value);
+        }
+
+        private static void InitializeProject(IPathSettings settings, string projectName, int initialSongId)
+        {
+            string projectPath = settings.GetTimingProjectFolderPath(projectName);
+            string initialSongPath = settings.GetSongPathById(initialSongId);
+
+            FileUtility.CreateNewFolder(projectPath);
+            FileUtility.CopyFile(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)));
+            FileUtility.WriteToFile(Path.Combine(projectPath, settings.TimingsListPath), string.Empty);
         }
     }
 }
