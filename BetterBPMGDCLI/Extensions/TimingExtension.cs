@@ -1,57 +1,89 @@
 ﻿using Common;
+using System.Text;
 
 namespace BetterBPMGDCLI.Extensions
 {
     public static class TimingExtension
     {
-        public static IEnumerable<Timing> Sort(IEnumerable<Timing> timings) => timings.OrderBy(timings => timings.OffsetMS);
+        public const string InnerSeparator = "=";
+        public const string OuterSeparator = ",";
+        
+        public const string OffsetKey = "offset";
+        public const string BPMKey = "bpm";
+        public const string SubdivideBeatsKey = "doSubdivide";
+        public const string BeatsSubdivisionKey = "subdivision";
+        public const string SpeedKey = "speed";
+        public const string ColorPatternKey = "colorPattern";
 
-        public static string Serialize(this Timing timing) => $"offset={timing.OffsetMS},bpm={timing.Bpm},subdivide={timing.SubdivideBeats},subdivision={timing.BeatSubdivision},speed={timing.Speed},pattern={timing.ColorPattern}{Environment.NewLine}";
+        public static string ToString(this Timing timing)
+        {
+            StringBuilder stringBuilder = new();
 
-        public static Timing Deserialize(string timing)
+            stringBuilder.AddKeyValuePair(OffsetKey, timing.OffsetMS, InnerSeparator);
+            stringBuilder.Append(OuterSeparator);
+            stringBuilder.AddKeyValuePair(BPMKey, timing.Bpm, InnerSeparator);
+            stringBuilder.Append(OuterSeparator);
+            stringBuilder.AddKeyValuePair(SubdivideBeatsKey, timing.SubdivideBeats, InnerSeparator);
+            stringBuilder.Append(OuterSeparator);
+            stringBuilder.AddKeyValuePair(BeatsSubdivisionKey, timing.BeatSubdivision, InnerSeparator);
+            stringBuilder.Append(OuterSeparator);
+            stringBuilder.AddKeyValuePair(SpeedKey, timing.Speed, InnerSeparator);
+            stringBuilder.Append(OuterSeparator);
+            stringBuilder.AddKeyValuePair(ColorPatternKey, timing.ColorPattern, InnerSeparator);
+
+            return stringBuilder.ToString();
+        }
+
+        public static Timing FromString(string timing)
         {
             Timing result = new();
 
-            string[] properties = timing.Replace(Environment.NewLine, string.Empty).Split(',');
+            IReadOnlyList<string> keyValuePairs = timing.Split(OuterSeparator);
 
-            foreach (string property in properties)
+            if (keyValuePairs.Count < 1) return result;
+
+            Parallel.ForEach(keyValuePairs, pair =>
             {
-                string[] keyValue = property.Split('=');
+                if (pair == string.Empty) return;
 
-                switch (keyValue[0])
+                IReadOnlyList<string> values = pair.Split(InnerSeparator);
+
+                if (values.Count < 1) return;
+
+                switch (values[0])
                 {
-                    case "offset":
-                        result.OffsetMS = ulong.Parse(keyValue[1]);
+                    case OffsetKey:
+                        result.OffsetMS = ulong.Parse(values[1]);
                         break;
 
-                    case "bpm":
-                        result.Bpm = double.Parse(keyValue[1]);
+                    case BPMKey:
+                        result.Bpm = double.Parse(values[1]);
                         break;
 
-                    case "subdivide":
-                        result.SubdivideBeats = bool.Parse(keyValue[1]);
+                    case SubdivideBeatsKey:
+                        result.SubdivideBeats = bool.Parse(values[1]);
                         break;
 
-                    case "subdivision":
-                        result.BeatSubdivision = int.Parse(keyValue[1]);
+                    case BeatsSubdivisionKey:
+                        result.BeatSubdivision = int.Parse(values[1]);
                         break;
 
-                    case "speed":
-                        SpeedPortalTypes portal;
+                    case SpeedKey:
+                        SpeedPortalTypes portalType;
 
-                        Enum.TryParse(keyValue[1], out portal);
+                        Enum.TryParse(values[1], true,  out portalType);
 
-                        result.Speed = portal;
+                        result.Speed = portalType;
                         break;
 
-                    case "pattern":
-                        result.ColorPattern = keyValue[1];
+                    case ColorPatternKey:
+                        result.ColorPattern = values[1];
                         break;
 
                     default:
-                        break;
+                        return;
                 }
-            }
+            });
 
             return result;
         }

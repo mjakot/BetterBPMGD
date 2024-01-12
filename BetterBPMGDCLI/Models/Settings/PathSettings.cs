@@ -12,12 +12,34 @@
 
         public string TimingsListPath => throw new NotImplementedException();
 
+        public string SongsListPath => throw new NotImplementedException();
+
         public object GetDefault(string propertyName)
         {
             throw new NotImplementedException();
         }
 
-        public string GetSongPathById(int id)
+        public string GetSongList(string projectName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetSongListPath(string projectName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetSongPathById(string projectName, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetTimingList(string projectName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetTimingListPath(string projectName)
         {
             throw new NotImplementedException();
         }

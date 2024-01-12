@@ -8,8 +8,11 @@
         string TimingProjectsFolderPath { get; }
 
         string TimingsListPath { get; }
+        string SongsListPath { get; }
 
         string GetTimingProjectFolderPath(string projectName);
-        string GetSongPathById(int id);
+        string GetSongPathById(string projectName, int id);
+        string GetTimingListPath(string projectName);
+        string GetSongListPath(string projectName);
     }
 }
