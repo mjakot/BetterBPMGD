@@ -25,8 +25,10 @@ namespace BetterBPMGDCLI.Extensions
             return stringBuilder.ToString();
         }
 
-        public static IReadOnlyDictionary<PropertyInfo, object> Desirialize<T>(this string type, bool oneLine = true)
+        public static T Desirialize<T>(this string type, bool oneLine = true) where T : new()
         {
+            T instance = new T();
+
             PropertyInfo[] properties = typeof(T).GetProperties();
 
             Dictionary<PropertyInfo, object> desirializedProperties = [];
@@ -45,10 +47,10 @@ namespace BetterBPMGDCLI.Extensions
 
                 PropertyInfo propertyInfo = properties[index];
 
-                desirializedProperties.Add(propertyInfo, TypeDescriptor.GetConverter(propertyInfo.PropertyType).ConvertFrom(keyValuePair[1]) ?? string.Empty);
+                propertyInfo.SetValue(instance, TypeDescriptor.GetConverter(propertyInfo.PropertyType).ConvertFrom(keyValuePair[1]) ?? string.Empty);
             });
 
-            return desirializedProperties;
+            return instance;
         }
     }
 }

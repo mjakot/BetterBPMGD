@@ -1,5 +1,4 @@
 ﻿using BetterBPMGDCLI.Extensions;
-using System.Text;
 
 namespace BetterBPMGDCLI.Models.Settings
 {
@@ -20,75 +19,63 @@ namespace BetterBPMGDCLI.Models.Settings
         public static readonly string TimingsListFileName = "Timings.txt";
         public static readonly string SongsListFileName = "Songs.txt";
 
-        public string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string AppDataFolderPathDefault => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string BetterBPMGDFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{ProgramName}\\");
+        public static string GeometryDashSavesFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{GeometryDashName}\\");
+        public static string TimingProjectsFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{GeometryDashName}\\");
+        public static string TimingsListPathDefault => TimingsListFileName;
+        public static string SongsListPathDefault => TimingsListFileName;
 
-        public string BetterBPMGDFolderPath => Path.Combine(AppDataFolderPath, $"{ProgramName}\\");
+        public string AppDataFolderPath { get; set; }
+        public string BetterBPMGDFolderPath { get; set; }
+        public string GeometryDashSavesFolderPath { get; set; }
+        public string TimingProjectsFolderPath { get; set; }
+        public string TimingsListPath { get; set; }
+        public string SongsListPath { get; set; }
 
-        public string GeometryDashSavesFolderPath => Path.Combine(AppDataFolderPath, $"{GeometryDashName}\\");
+        public PathSettings() : this(AppDataFolderPathDefault, BetterBPMGDFolderPathDefault, GeometryDashSavesFolderPathDefault, TimingProjectsFolderPathDefault, TimingsListPathDefault, SongsListPathDefault) { }
 
-        public string TimingProjectsFolderPath => Path.Combine(BetterBPMGDFolderPath, $"{TimingProjectFolderName}\\");
-
-        public string TimingsListPath => TimingsListFileName;
-
-        public string SongsListPath => SongsListFileName;
-
-        public new SettingsBase FromString(string settings)
+        public PathSettings(string appDataFolderPath, string betterBPMGDFolderPath, string geometryDashSavesFolderPath, string timingProjectsFolderPath, string timingsListPath, string songsListPath)
         {
-            IReadOnlyList<string> splittedSettings = settings.Split(Environment.NewLine);
+            AppDataFolderPath = appDataFolderPath;
+            BetterBPMGDFolderPath = betterBPMGDFolderPath;
+            GeometryDashSavesFolderPath = geometryDashSavesFolderPath;
+            TimingProjectsFolderPath = timingProjectsFolderPath;
+            TimingsListPath = timingsListPath;
+            SongsListPath = songsListPath;
         }
 
-        public override string ToString()
+        public static new SettingsBase FromString(string settings) => settings.Desirialize<PathSettings>(false);
+
+        public override string ToString() => this.Serialize(false);
+
+        public string GetTimingProjectFolderPath(string projectName)
         {
-            StringBuilder stringBuilder = new();
+            if (!projectName.Contains('\\')) projectName += '\\';
 
-            stringBuilder.AddKeyValuePair(AppDataFolderPathKey, AppDataFolderPath, Separator);
-            stringBuilder.AddKeyValuePair(BetterBPMGDFolderPathKey, BetterBPMGDFolderPath, Separator);
-            stringBuilder.AddKeyValuePair(GeometryDashSavesFolderPath, GeometryDashSavesFolderPath, Separator);
-            stringBuilder.AddKeyValuePair(TimingProjectsFolderPathKey, TimingProjectsFolderPath, Separator);
-            stringBuilder.AddKeyValuePair(TimingsListPathKey, TimingsListPath, Separator);
-            stringBuilder.AddKeyValuePair(SongsListPathKey, SongsListPath, Separator);
-
-            return stringBuilder.ToString();
-        }
-
-        public override object GetDefault(string propertyName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void ResetAll()
-        {
-            throw new NotImplementedException();
+            return Path.Combine(TimingProjectsFolderPath, projectName);
         }
 
         public string GetSongPathById(string projectName, int id)
         {
-            throw new NotImplementedException();
-        }
+            string path = GetTimingProjectFolderPath(projectName);
+            string name = $"{id}.mp3";
 
-        public string GetSongListPath(string projectName)
-        {
-            throw new NotImplementedException();
+            return Path.Combine(path, name);
         }
 
         public string GetTimingListPath(string projectName)
         {
-            throw new NotImplementedException();
+            string path = GetTimingProjectFolderPath(projectName);
+
+            return Path.Combine(path, TimingsListFileName);
         }
 
-        public string GetTimingList(string projectName)
+        public string GetSongListPath(string projectName)
         {
-            throw new NotImplementedException();
-        }
+            string path = GetTimingProjectFolderPath(projectName);
 
-        public string GetSongList(string projectName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetTimingProjectFolderPath(string projectName)
-        {
-            throw new NotImplementedException();
+            return Path.Combine(path, SongsListFileName);
         }
     }
 }

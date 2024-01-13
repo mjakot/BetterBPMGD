@@ -2,13 +2,13 @@
 {
     public interface IPathSettings : ISettings
     {
-        string AppDataFolderPath { get; }
-        string BetterBPMGDFolderPath { get; }
-        string GeometryDashSavesFolderPath { get; }
-        string TimingProjectsFolderPath { get; }
+        string AppDataFolderPath { get; set; }
+        string BetterBPMGDFolderPath { get; set; }
+        string GeometryDashSavesFolderPath { get; set; }
+        string TimingProjectsFolderPath { get; set; }
 
-        string TimingsListPath { get; }
-        string SongsListPath { get; }
+        string TimingsListPath { get; set; }
+        string SongsListPath { get; set; }
 
         string GetTimingProjectFolderPath(string projectName);
         string GetSongPathById(string projectName, int id);
