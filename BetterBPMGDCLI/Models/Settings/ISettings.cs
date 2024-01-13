@@ -4,6 +4,5 @@
     {
         void ResetAll();
         object GetDefault(string propertyName);
-        string ToString();
     }
 }

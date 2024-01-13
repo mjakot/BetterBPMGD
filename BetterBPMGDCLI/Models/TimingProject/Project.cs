@@ -32,10 +32,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);
         public void AddSongs(IReadOnlyDictionary<int, ulong> songs)
         {
-            Parallel.ForEach(songs, song =>
-            {
-                songIds.Add(song.Key, song.Value);
-            });
+            Parallel.ForEach(songs, song => songIds.Add(song.Key, song.Value));
         }
 
         public void AddTiming(Timing timing) => timings.Add(timing);
@@ -109,10 +106,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
         {
             StringBuilder stringBuilder = new();
 
-            Parallel.ForEach(timings, timing =>
-            {
-                stringBuilder.AppendLine(timing.ToString());
-            });
+            Parallel.ForEach(timings, timing => stringBuilder.AppendLine(timing.ToString()));
 
             return stringBuilder.ToString();
         }
@@ -130,10 +124,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             IReadOnlyList<string> splittedTimings = timings.Split(Environment.NewLine);
 
-            Parallel.ForEach(splittedTimings, timing =>
-            {
-                result.Add(TimingExtension.FromString(timing));
-            });
+            Parallel.ForEach(splittedTimings, timing => result.Add(TimingExtension.FromString(timing)));
 
             return result;
         }
