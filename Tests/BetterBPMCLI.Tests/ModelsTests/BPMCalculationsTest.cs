@@ -1,4 +1,4 @@
-﻿using BetterBPMGDCLI.Models;
+﻿using BetterBPMGDCLI.Utils;
 
 namespace BetterBPMCLI.Tests.ModelsTests
 {

@@ -1,6 +1,6 @@
-﻿using BetterBPMGDCLI.Models.LevelsSave.Level.LevelData.LevelDataCollection;
+﻿using BetterBPMGDCLI.Models.LevelManagement.Level.LevelDataCollection;
 using Common;
-using Level = BetterBPMGDCLI.Models.LevelsSave.Level.Level;
+using LocalLevel = BetterBPMGDCLI.Models.LevelsSave.Level.LocalLevel;
 
 namespace BetterBPMCLI.Tests.ModelsLevelsSaveLevelTests
 {
@@ -13,7 +13,7 @@ namespace BetterBPMCLI.Tests.ModelsLevelsSaveLevelTests
         {
             Timing timing = new(0, 1, false, 0, SpeedPortalTypes.NORMAL, "o");
 
-            Level level = new(timing, MillisecondsInMinute);
+            LocalLevel level = new(timing, MillisecondsInMinute);
 
             string expected = "0~0.8~"; // Offset~Color, offset 0 seconds and color orange
 
@@ -37,7 +37,7 @@ namespace BetterBPMCLI.Tests.ModelsLevelsSaveLevelTests
 
             Timing[] timings = [ sampleTiming1, sampleTiming2, sampleTiming3 ];
 
-            Level level = new(timings, MillisecondsInMinute * 2 /* 2 minutes */);
+            LocalLevel level = new(timings, MillisecondsInMinute * 2 /* 2 minutes */);
 
             string expected = "0~0.8~0.5~0.9~1~1~1.25~1~1.5~1~1.75~1~"; // Offset~Color~Offset~Color 0~0.8~ + 0.5~0.9~ + 1~1~1.25~1~1.5~1~1.75~1~
 
