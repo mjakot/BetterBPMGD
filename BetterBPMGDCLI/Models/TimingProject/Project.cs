@@ -63,9 +63,11 @@ namespace BetterBPMGDCLI.Models.TimingProject
             string songs = FileUtility.ReadFromFile(songsListPath);
             string timings = FileUtility.ReadFromFile(timingsListPath);
 
-            Project result = new(settings);
+            Project result = new(settings)
+            {
+                Name = name
+            };
 
-            result.Name = name;
             result.AddSongs(DesirializeSongs(songs));
             result.AddTimings(DesirializeTimings(timings));
 

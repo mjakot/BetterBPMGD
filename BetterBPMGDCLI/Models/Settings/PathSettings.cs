@@ -4,15 +4,6 @@ namespace BetterBPMGDCLI.Models.Settings
 {
     public class PathSettings : SettingsBase, IPathSettings
     {
-        public const string Separator = "=";
-
-        public const string AppDataFolderPathKey = "appdataFolder";
-        public const string BetterBPMGDFolderPathKey = "programFolder";
-        public const string GeometryDashFolderPathKey = "gdFolder";
-        public const string TimingProjectsFolderPathKey = "projectsFolder";
-        public const string TimingsListPathKey = "timingsPath";
-        public const string SongsListPathKey = "songsPath";
-
         public static readonly string ProgramName = AppDomain.CurrentDomain.FriendlyName;
         public static readonly string GeometryDashName = "GeometryDash";
         public static readonly string TimingProjectFolderName = "Projects";
