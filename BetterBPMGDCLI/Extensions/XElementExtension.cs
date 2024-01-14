@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using BetterBPMGDCLI.Models.Level;
+using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Extensions
 {

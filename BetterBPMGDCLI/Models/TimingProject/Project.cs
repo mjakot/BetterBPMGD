@@ -10,6 +10,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
 {
     public class Project
     {
+        private const string MP3Extension = ".mp3";
+
         private readonly IPathSettings pathSettings;
 
         private Dictionary<int, ulong> songIds;
@@ -53,8 +55,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         public static Project ReadProject(IPathSettings settings, string projectFolderPath, string songsListFileName, string timingsListFileName)
         {
-            if (!Path.HasExtension(songsListFileName)) songsListFileName += ".txt";
-            if (!Path.HasExtension(timingsListFileName)) timingsListFileName += ".txt";
+            if (!Path.HasExtension(songsListFileName)) songsListFileName += Path.ChangeExtension(songsListFileName, MP3Extension);
+            if (!Path.HasExtension(timingsListFileName)) timingsListFileName += Path.ChangeExtension(timingsListFileName, MP3Extension);
 
             string songsListPath = Path.Combine(projectFolderPath, songsListFileName);
             string timingsListPath = Path.Combine(projectFolderPath, timingsListFileName);
@@ -84,7 +86,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
         {
             KeyValuePair<int, ulong> lastSong = songIds.OrderBy(pair => pair.Value).LastOrDefault();
 
-            using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name), $"{lastSong.Key}.mp3"));
+            using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name), Path.ChangeExtension(lastSong.Key.ToString(), MP3Extension)));
 
             ulong duration = (ulong)reader.TotalTime.TotalMicroseconds;
 
@@ -114,7 +116,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
         {
             StringBuilder stringBuilder = new();
 
-            return stringBuilder.AddDictionary(songs, "=").ToString();
+            return stringBuilder.AddDictionary(songs, Serializer.DefaultInnerSeparator).ToString();
         }
 
         private static IEnumerable<Timing> DesirializeTimings(string timings)
@@ -136,7 +138,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             Parallel.ForEach(splttedSongs, pair =>
             {
-                IReadOnlyList<string> values = pair.Split('=');
+                IReadOnlyList<string> values = pair.Split(Serializer.DefaultInnerSeparator);
 
                 result.Add(int.Parse(values[0]), ulong.Parse(values[1]));
             });
