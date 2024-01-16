@@ -17,7 +17,7 @@ namespace BetterBPMGDCLI.Models.Level
             GuidelineColor = guidelineColor;
         }
 
-        public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), GuidelinesSeparator) // bro why offset for guidelines in gd is in minutes wtf
+        public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), GuidelinesSeparator).ToString(); // bro why offset for guidelines in gd is in minutes wtf
           //     .Append(BPMCalculations.GetMinutes(OffsetMs))                                      
            //       .Append(GuidelinesSeparator)                                      
              //     .Append(GuidelineColor.GuidelineColor)                                      
