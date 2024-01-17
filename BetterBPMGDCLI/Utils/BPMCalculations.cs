@@ -8,6 +8,9 @@
 
         public static ulong CalculateBeatDuration(double bpm) => (ulong)(MillisecondsInMinute / bpm);
 
-        public static double GetMinutes(ulong milliseconds) => (double)milliseconds / MillisecondsInMinute;
+        public static double GetMinutes(ulong milliseconds) => milliseconds / MillisecondsInMinute;
+
+        public static ulong GetMilliseconds(double minutes) => (ulong)minutes * MillisecondsInMinute;
+        public static ulong GetMilliseconds(ulong minutes) => minutes * MillisecondsInMinute;
     }
 }

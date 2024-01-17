@@ -17,19 +17,16 @@ namespace BetterBPMGDCLI.Models.Level
             GuidelineColor = guidelineColor;
         }
 
-        public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), GuidelinesSeparator).ToString(); // bro why offset for guidelines in gd is in minutes wtf
-          //     .Append(BPMCalculations.GetMinutes(OffsetMs))                                      
-           //       .Append(GuidelinesSeparator)                                      
-             //     .Append(GuidelineColor.GuidelineColor)                                      
-               //   .Append(GuidelinesSeparator)                                      
-                   // .ToString();
+        public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), GuidelinesSeparator)
+                                                        .AppendWithSeparator(GuidelineColor.GuidelineColor, GuidelinesSeparator)
+                                                        .ToString(); // bro why offset for guidelines in gd is in minutes wtf
         public static Guideline? Parse(string guideline)
         {
             string[] offsetColorPair = guideline.Split(GuidelinesSeparator);
 
             if (offsetColorPair.Length < 2) return null;
 
-            return new(ulong.Parse(offsetColorPair[0]) * BPMCalculations.MillisecondsInMinute, new(double.Parse(offsetColorPair[1])));
+            return new(BPMCalculations.GetMilliseconds(ulong.Parse(offsetColorPair[0])), new(double.Parse(offsetColorPair[1])));
         }
 
         public static IEnumerable<Guideline> ParseGuidelines(string guidelines)
@@ -42,14 +39,15 @@ namespace BetterBPMGDCLI.Models.Level
 
             for (int i = 0; i < splittedGuidelines.Length; i++)
             {
-                stringBuilder.Append(splittedGuidelines[i]);
-                stringBuilder.Append(GuidelinesSeparator);
+                stringBuilder.AppendWithSeparator(splittedGuidelines[i], GuidelinesSeparator);
 
                 if (counter == 1)
                 {
                     counter = 0;
 
                     yield return Parse(stringBuilder.ToString())!;
+
+                    stringBuilder.Clear();
                 }
 
                 else counter++;
