@@ -60,7 +60,7 @@ namespace BetterBPMCLI.Tests.LevelTests
         }
 
         [Fact]
-        //works perfectly fine, but output is impossible to test
+        //works perfectly fine, but output is too tedious to test
         public void Encode_LocalLevelData_LocalLevelDataString()
         {
             LocalLevelData localLevelData = new(MINIMALLOCALLEVELDATADECRYPTED, [new(0, GuidelineColors.Orange)], [new(SpeedPortalTypes.HALFSPEED, 0, 0, false)]);
