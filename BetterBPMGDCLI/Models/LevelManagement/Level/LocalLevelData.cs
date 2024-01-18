@@ -9,7 +9,7 @@ namespace BetterBPMGDCLI.Models.Level
     //TODO: Add CalculateSpeedPortals()
     public class LocalLevelData
     {
-        public const string GuideLinesPattern = """kA14,(.*),""";
+        public const string GuideLinesPattern = """kA14,(.*?),""";
         public const string SpeedPortalsPattern = """;1,200|201|202|203|1334,2,\d+,3,\d+(?:,13\d+)?""";
 
         public string LevelData { get; set; }
@@ -31,18 +31,28 @@ namespace BetterBPMGDCLI.Models.Level
             SpeedPortals = speedPortals;
         }
 
-        public string Encode()
+        public string Encode(bool clearLevelObjects)
         {
-            StringBuilder result = new(Regex.Replace(LevelData, GuideLinesPattern, match => EncodeLevelDataCollection(Guidelines)));
+            StringBuilder result = new(Regex.Replace(LevelData, GuideLinesPattern, match => $"kA14,{EncodeLevelDataCollection(Guidelines)},"));
 
-            return result.Append(EncodeLevelDataCollection(SpeedPortals))
-                            .ToString();
+            if (clearLevelObjects)
+            {
+                int startIndex = result.ToString().IndexOf(LevelObjectBase.ObjectEnd);
+
+                if (startIndex == -1) goto end;
+
+                result.Remove(++startIndex, result.Length - startIndex);
+            }
+
+            end:
+                return result.Append(EncodeLevelDataCollection(SpeedPortals))
+                                .ToString();
         }
 
         public static LocalLevelData? Parse(string data)
         {
-            List<Guideline> guidelines = new();
-            List<SpeedPortal> speedPortals = new();
+            List<Guideline> guidelines = [];
+            List<SpeedPortal> speedPortals = [];
 
             Match guidelineMatch = new Regex(GuideLinesPattern).Match(data);
             MatchCollection speedPortalsMatches = new Regex(SpeedPortalsPattern).Matches(data);
@@ -50,7 +60,8 @@ namespace BetterBPMGDCLI.Models.Level
             {
                 GroupCollection captured = guidelineMatch.Groups;
 
-                guidelines.AddRange(Guideline.ParseGuidelines(captured[0].Value));
+                // entire match is stored at index = 0
+                guidelines.AddRange(Guideline.ParseGuidelines(captured[1].Value));
             }
 
             Parallel.ForEach(speedPortalsMatches, match => speedPortals.Add(SpeedPortal.Parse(match.Value)));

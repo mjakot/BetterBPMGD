@@ -43,7 +43,7 @@ namespace BetterBPMGDCLI.Models.Level
             description.Value = LevelDescription;
             officialSong.Value = InitialCustomSongId.ToString();
             customSong.Value = InitialCustomSongId.ToString();
-            data.Value = LevelData?.Encode() ?? string.Empty;
+            data.Value = LevelData?.Encode(true) ?? string.Empty;
 
             return XmlLevel.ToString(SaveOptions.DisableFormatting);
         }
