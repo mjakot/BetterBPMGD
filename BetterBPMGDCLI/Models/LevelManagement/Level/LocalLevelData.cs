@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Models.LevelObjects;
+﻿using BetterBPMGDCLI.Models.Ciphers;
+using BetterBPMGDCLI.Models.LevelObjects;
 using BetterBPMGDCLI.Utils;
 using Common;
 using System.Text;
