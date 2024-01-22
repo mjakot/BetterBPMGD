@@ -4,7 +4,7 @@ namespace BetterBPMGDCLI.Models.Settings
 {
     public abstract class SettingsBase : ISettings
     {
-        private Dictionary<string, object> defaultValues = [];
+        protected Dictionary<string, object> defaultValues = [];
 
         public virtual object GetDefault(string propertyName)
         {

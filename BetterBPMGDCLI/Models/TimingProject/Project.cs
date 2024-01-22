@@ -51,7 +51,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             return new(settings, projectName, initialSongId, songOffsetMS);
         }
 
-        public static Project ReadProject(IPathSettings settings, string projectName) => ReadProject(settings, settings.GetTimingProjectFolderPath(projectName), settings.SongsListPath, settings.TimingsListPath);
+        public static Project ReadProject(IPathSettings settings, string projectName) => ReadProject(settings, settings.GetTimingProjectFolderPath(projectName), settings.SongListPath, settings.TimingListPath);
 
         public static Project ReadProject(IPathSettings settings, string projectFolderPath, string songsListFileName, string timingsListFileName)
         {
@@ -96,11 +96,12 @@ namespace BetterBPMGDCLI.Models.TimingProject
         private static void InitializeProject(IPathSettings settings, string projectName, int initialSongId)
         {
             string projectPath = settings.GetTimingProjectFolderPath(projectName);
-            string initialSongPath = settings.GetSongPathById(projectName, initialSongId);
+            string initialSongPath = Path.Combine(settings.GeometryDashSavesFolderPath, Path.ChangeExtension(initialSongId.ToString(), MP3Extension));
 
             FileUtility.CreateNewFolder(projectPath);
             FileUtility.CopyFile(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)));
-            FileUtility.WriteToFile(Path.Combine(projectPath, settings.TimingsListPath), string.Empty);
+            FileUtility.WriteToFile(settings.GetTimingListPath(projectName), string.Empty);
+            FileUtility.WriteToFile(settings.GetSongListPath(projectName), string.Empty);
         }
 
         private static string SerializeTimings(IReadOnlyList<Timing> timings)
