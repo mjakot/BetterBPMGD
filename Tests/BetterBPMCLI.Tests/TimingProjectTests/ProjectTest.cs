@@ -17,7 +17,7 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
             IPathSettings setting = new PathSettingsMock();
 
-            File.Create();
+            File.Create(Path.Combine(setting.GeometryDashSavesFolderPath, "0.mp3")).Dispose();
 
 
 
@@ -26,6 +26,9 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
 
             Assert.True(Directory.Exists(setting.GetTimingProjectFolderPath(innerProjectName)));
+            Assert.True(File.Exists(Path.Combine(setting.GetTimingProjectFolderPath(innerProjectName), "0.mp3")));
+            Assert.True(File.Exists(setting.GetTimingListPath(innerProjectName)));
+            Assert.True(File.Exists(setting.GetSongListPath(innerProjectName)));
         }
     }
 }
