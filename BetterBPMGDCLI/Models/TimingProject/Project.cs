@@ -127,7 +127,12 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             IReadOnlyList<string> splittedTimings = timings.Split(Environment.NewLine);
 
-            Parallel.ForEach(splittedTimings, timing => result.Add(TimingExtension.FromString(timing)));
+            foreach (string timing in splittedTimings)
+            {
+                if (string.IsNullOrEmpty(timing)) continue;
+
+                result.Add(TimingExtension.FromString(timing));
+            }
 
             return result;
         }
@@ -138,12 +143,14 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             IReadOnlyList<string> splttedSongs = songs.Split(Environment.NewLine);
 
-            Parallel.ForEach(splttedSongs, pair =>
+            foreach (string pair in splttedSongs)
             {
+                if (string.IsNullOrEmpty(pair)) continue;
+
                 IReadOnlyList<string> values = pair.Split(Serializer.DefaultInnerSeparator);
 
                 result.Add(int.Parse(values[0]), ulong.Parse(values[1]));
-            });
+            }
 
             return result;
         }
