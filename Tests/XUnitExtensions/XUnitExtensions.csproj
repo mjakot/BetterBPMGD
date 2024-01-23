@@ -22,9 +22,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\BetterBPMGDCLI\BetterBPMGDCLI.csproj" />
-    <ProjectReference Include="..\XUnitExtensions\XUnitExtensions.csproj" />
-  </ItemGroup>
-
 </Project>

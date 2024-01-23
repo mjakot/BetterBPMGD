@@ -1,5 +1,4 @@
 ﻿using Common;
-using System.Text;
 
 namespace BetterBPMGDCLI.Extensions
 {

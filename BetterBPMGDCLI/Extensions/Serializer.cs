@@ -15,12 +15,12 @@ namespace BetterBPMGDCLI.Extensions
 
             StringBuilder stringBuilder = new();
 
-            Parallel.ForEach(properties, property =>
-            {
+            foreach (PropertyInfo property in properties)
+            {    
                 stringBuilder.AddKeyValuePair(property.Name, property.GetValue(type, null), DefaultInnerSeparator, !oneLine);
 
                 if (oneLine) stringBuilder.Append(DefaultOuterSeparator);
-            });
+            }
 
             return stringBuilder.ToString();
         }
