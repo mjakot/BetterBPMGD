@@ -7,8 +7,8 @@
         string GeometryDashSavesFolderPath { get; set; }
         string TimingProjectsFolderPath { get; set; }
 
-        string TimingsListPath { get; set; }
-        string SongsListPath { get; set; }
+        string TimingListPath { get; set; }
+        string SongListPath { get; set; }
 
         string GetTimingProjectFolderPath(string projectName);
         string GetSongPathById(string projectName, int id);

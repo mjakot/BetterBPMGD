@@ -21,7 +21,7 @@ namespace BetterBPMGDCLI.Models.LevelObjects
             Checked = isChecked;
         }
 
-        public override string Encode() => base.Encode(new() { { CheckedKey, Checked.ToString() } });
+        public override string Encode() => base.Encode(new() { { CheckedKey, Checked ? "1" : "0" } });
 
         public new static SpeedPortal Parse(string data)
         {
@@ -32,7 +32,7 @@ namespace BetterBPMGDCLI.Models.LevelObjects
 
             string[] keyValues = data.Replace(";", string.Empty).Split(',');
 
-            Parallel.For(0, keyValues.Length, index =>
+            for(int index = 0; index < keyValues.Length; index+=2)
             {
                 switch (keyValues[index])
                 {
@@ -56,7 +56,7 @@ namespace BetterBPMGDCLI.Models.LevelObjects
                     default:
                         break;
                 }
-            });
+            }
 
             return new(objectId, posX, posY, isChecked);
         }

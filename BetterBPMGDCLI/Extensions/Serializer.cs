@@ -15,12 +15,12 @@ namespace BetterBPMGDCLI.Extensions
 
             StringBuilder stringBuilder = new();
 
-            Parallel.ForEach(properties, property =>
-            {
+            foreach (PropertyInfo property in properties)
+            {    
                 stringBuilder.AddKeyValuePair(property.Name, property.GetValue(type, null), DefaultInnerSeparator, !oneLine);
 
                 if (oneLine) stringBuilder.Append(DefaultOuterSeparator);
-            });
+            }
 
             return stringBuilder.ToString();
         }
@@ -37,18 +37,18 @@ namespace BetterBPMGDCLI.Extensions
 
             IReadOnlyList<string> splittedProperties = type.Split(separator);
 
-            Parallel.ForEach(splittedProperties, property =>
+            foreach (string property in splittedProperties)
             {
                 IReadOnlyList<string> keyValuePair = property.Split(DefaultInnerSeparator);
 
                 int index = Array.FindIndex(properties, prop => prop.Name == keyValuePair[0]);
 
-                if (index != -1) return;
+                if (index == -1) continue;
 
                 PropertyInfo propertyInfo = properties[index];
 
                 propertyInfo.SetValue(instance, TypeDescriptor.GetConverter(propertyInfo.PropertyType).ConvertFrom(keyValuePair[1]) ?? string.Empty);
-            });
+            }
 
             return instance;
         }

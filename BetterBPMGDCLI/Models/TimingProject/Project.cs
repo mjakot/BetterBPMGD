@@ -34,7 +34,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);
         public void AddSongs(IReadOnlyDictionary<int, ulong> songs)
         {
-            Parallel.ForEach(songs, song => songIds.Add(song.Key, song.Value));
+            foreach (KeyValuePair<int, ulong> song in songs)
+                songIds.Add(song.Key, song.Value);
         }
 
         public void AddTiming(Timing timing) => timings.Add(timing);
@@ -51,7 +52,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             return new(settings, projectName, initialSongId, songOffsetMS);
         }
 
-        public static Project ReadProject(IPathSettings settings, string projectName) => ReadProject(settings, settings.GetTimingProjectFolderPath(projectName), settings.SongsListPath, settings.TimingsListPath);
+        public static Project ReadProject(IPathSettings settings, string projectName) => ReadProject(settings, settings.GetTimingProjectFolderPath(projectName), settings.SongListPath, settings.TimingListPath);
 
         public static Project ReadProject(IPathSettings settings, string projectFolderPath, string songsListFileName, string timingsListFileName)
         {
@@ -88,7 +89,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name), Path.ChangeExtension(lastSong.Key.ToString(), MP3Extension)));
 
-            ulong duration = (ulong)reader.TotalTime.TotalMicroseconds;
+            ulong duration = (ulong)reader.TotalTime.TotalMilliseconds;
 
             level.LevelData?.Calculate(timings, duration + lastSong.Value);
         }
@@ -96,18 +97,19 @@ namespace BetterBPMGDCLI.Models.TimingProject
         private static void InitializeProject(IPathSettings settings, string projectName, int initialSongId)
         {
             string projectPath = settings.GetTimingProjectFolderPath(projectName);
-            string initialSongPath = settings.GetSongPathById(projectName, initialSongId);
+            string initialSongPath = Path.Combine(settings.GeometryDashSavesFolderPath, Path.ChangeExtension(initialSongId.ToString(), MP3Extension));
 
             FileUtility.CreateNewFolder(projectPath);
             FileUtility.CopyFile(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)));
-            FileUtility.WriteToFile(Path.Combine(projectPath, settings.TimingsListPath), string.Empty);
+            FileUtility.WriteToFile(settings.GetTimingListPath(projectName), string.Empty);
+            FileUtility.WriteToFile(settings.GetSongListPath(projectName), string.Empty);
         }
 
         private static string SerializeTimings(IReadOnlyList<Timing> timings)
         {
             StringBuilder stringBuilder = new();
 
-            Parallel.ForEach(timings, timing => stringBuilder.AppendLine(timing.ToString()));
+            Parallel.ForEach(timings, timing => stringBuilder.AppendLine(timing.Serialize()));
 
             return stringBuilder.ToString();
         }
@@ -125,7 +127,12 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             IReadOnlyList<string> splittedTimings = timings.Split(Environment.NewLine);
 
-            Parallel.ForEach(splittedTimings, timing => result.Add(TimingExtension.FromString(timing)));
+            foreach (string timing in splittedTimings)
+            {
+                if (string.IsNullOrEmpty(timing)) continue;
+
+                result.Add(TimingExtension.FromString(timing));
+            }
 
             return result;
         }
@@ -136,12 +143,14 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             IReadOnlyList<string> splttedSongs = songs.Split(Environment.NewLine);
 
-            Parallel.ForEach(splttedSongs, pair =>
+            foreach (string pair in splttedSongs)
             {
+                if (string.IsNullOrEmpty(pair)) continue;
+
                 IReadOnlyList<string> values = pair.Split(Serializer.DefaultInnerSeparator);
 
                 result.Add(int.Parse(values[0]), ulong.Parse(values[1]));
-            });
+            }
 
             return result;
         }

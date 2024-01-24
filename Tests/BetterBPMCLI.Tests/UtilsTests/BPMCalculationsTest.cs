@@ -1,6 +1,6 @@
 ﻿using BetterBPMGDCLI.Utils;
 
-namespace BetterBPMCLI.Tests.ModelsTests
+namespace BetterBPMCLI.Tests.UtilsTest
 {
     public class BPMCalculationsTest
     {
