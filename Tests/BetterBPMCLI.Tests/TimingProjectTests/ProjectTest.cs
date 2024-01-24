@@ -1,5 +1,7 @@
 ﻿using BetterBPMCLI.Tests.Context;
+using BetterBPMCLI.Tests.LevelTests;
 using BetterBPMGDCLI.Extensions;
+using BetterBPMGDCLI.Models.Level;
 using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Models.TimingProject;
 using Common;
@@ -97,6 +99,34 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
             Assert.Equal(expected.Timings[0].BeatSubdivision, actual.Timings[0].BeatSubdivision);
             Assert.Equal(expected.Timings[0].Speed, actual.Timings[0].Speed);
             Assert.Equal(expected.Timings[0].ColorPattern, actual.Timings[0].ColorPattern);
+        }
+
+        [Fact]
+        public void InjectTimings_LocalLevel_CalculatesTimings()
+        {
+            LocalLevel level = LocalLevel.Parse(LocalLevelTest.MINIMALLOCALLEVEL, LocalLevelTest.LOCALLEVELKEY);
+
+            string innerProjectName = $"{PROJECTNAME}{++counter}";
+
+            IPathSettings settings = new PathSettingsMock();
+
+            File.Copy(".\\AMONGUS.mp3", Path.Combine(settings.GeometryDashSavesFolderPath, $"{counter}.mp3"));
+
+            Project project = Project.CreateNew(settings, innerProjectName, counter);
+
+            Timing tTiming = new(0, 1, false, 0, SpeedPortalTypes.NORMAL, "ooo");
+
+            project.AddTiming(tTiming);
+
+
+
+            project.InjectTimings(level);
+
+
+
+            Assert.NotEqual(level.LevelData?.Guidelines.Count, 0);
+            Assert.Equal(level.LevelData?.Guidelines[0].OffsetMs, 0UL);
+            Assert.Equal(level.LevelData?.Guidelines[0].GuidelineColor.GuidelineColor, 0.8);
         }
     }
 }

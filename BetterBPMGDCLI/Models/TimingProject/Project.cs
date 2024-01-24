@@ -89,7 +89,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name), Path.ChangeExtension(lastSong.Key.ToString(), MP3Extension)));
 
-            ulong duration = (ulong)reader.TotalTime.TotalMicroseconds;
+            ulong duration = (ulong)reader.TotalTime.TotalMilliseconds;
 
             level.LevelData?.Calculate(timings, duration + lastSong.Value);
         }
