@@ -10,12 +10,12 @@ namespace BetterBPMGDCLI.Models.Settings
         public static readonly string TimingsListFileName = "Timings.txt";
         public static readonly string SongsListFileName = "Songs.txt";
 
-        public static string AppDataFolderPathDefault => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string AppDataFolderPathDefault => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string BetterBPMGDFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{ProgramName}\\");
         public static string GeometryDashSavesFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{GeometryDashName}\\");
         public static string TimingProjectsFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{GeometryDashName}\\");
         public static string TimingListPathDefault => TimingsListFileName;
-        public static string SongListPathDefault => TimingsListFileName;
+        public static string SongListPathDefault => SongsListFileName;
 
         public string AppDataFolderPath { get; set; }
         public string BetterBPMGDFolderPath { get; set; }
