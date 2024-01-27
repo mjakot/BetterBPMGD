@@ -9,7 +9,7 @@ namespace BetterBPMGDCLI.Models.Level
         public const string KeyElementTag = "k";
         public const string StringElementTag = "s";
         public const string IntegerElementTag = "i";
-        public const string DictionaryElementTag = "i";
+        public const string DictionaryElementTag = "d";
 
         public const string NameElementKey = "k2";
         public const string DescriptionElementKey = "k3";
