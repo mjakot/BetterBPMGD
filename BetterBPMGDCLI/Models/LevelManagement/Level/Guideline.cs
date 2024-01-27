@@ -6,8 +6,6 @@ namespace BetterBPMGDCLI.Models.Level
 {
     public class Guideline : ILevelData
     {
-        public const string GuidelinesSeparator = "~";
-
         public ulong OffsetMs { get; }
         public GuidelineColors GuidelineColor { get; }
 
@@ -17,12 +15,12 @@ namespace BetterBPMGDCLI.Models.Level
             GuidelineColor = guidelineColor;
         }
 
-        public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), GuidelinesSeparator)
-                                                        .AppendWithSeparator(GuidelineColor.GuidelineColor, GuidelinesSeparator)
+        public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), Constants.GuidelinesSeparator)
+                                                        .AppendWithSeparator(GuidelineColor.GuidelineColor, Constants.GuidelinesSeparator)
                                                         .ToString(); // bro why offset for guidelines in gd is in minutes wtf
         public static Guideline? Parse(string guideline)
         {
-            string[] offsetColorPair = guideline.Split(GuidelinesSeparator);
+            string[] offsetColorPair = guideline.Split(Constants.GuidelinesSeparator);
 
             if (offsetColorPair.Length < 2) return null;
 
@@ -33,13 +31,13 @@ namespace BetterBPMGDCLI.Models.Level
         {
             sbyte counter = 0;
 
-            string[] splittedGuidelines = guidelines.Split(GuidelinesSeparator);
+            string[] splittedGuidelines = guidelines.Split(Constants.GuidelinesSeparator);
 
             StringBuilder stringBuilder = new();
 
             for (int i = 0; i < splittedGuidelines.Length; i++)
             {
-                stringBuilder.AppendWithSeparator(splittedGuidelines[i], GuidelinesSeparator);
+                stringBuilder.AppendWithSeparator(splittedGuidelines[i], Constants.GuidelinesSeparator);
 
                 if (counter == 1)
                 {

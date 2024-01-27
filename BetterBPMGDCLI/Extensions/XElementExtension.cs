@@ -1,4 +1,4 @@
-﻿using BetterBPMGDCLI.Models.Level;
+﻿using BetterBPMGDCLI.Utils;
 using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Extensions
@@ -16,6 +16,6 @@ namespace BetterBPMGDCLI.Extensions
             return element;
         }
 
-        public static XElement? FindElementByKeyValue(this XElement xElement, string keyValue, string targetTag) => xElement.FindElementByKeyValue(LocalLevel.KeyElementTag, keyValue, targetTag);
+        public static XElement? FindElementByKeyValue(this XElement xElement, string keyValue, string targetTag) => xElement.FindElementByKeyValue(Constants.KeyElementTag, keyValue, targetTag);
     }
 }

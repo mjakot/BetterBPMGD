@@ -10,8 +10,6 @@ namespace BetterBPMGDCLI.Models.TimingProject
 {
     public class Project
     {
-        private const string MP3Extension = ".mp3";
-
         private readonly IPathSettings pathSettings;
 
         private Dictionary<int, ulong> songIds;
@@ -56,8 +54,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         public static Project ReadProject(IPathSettings settings, string projectFolderPath, string songsListFileName, string timingsListFileName)
         {
-            if (!Path.HasExtension(songsListFileName)) songsListFileName += Path.ChangeExtension(songsListFileName, MP3Extension);
-            if (!Path.HasExtension(timingsListFileName)) timingsListFileName += Path.ChangeExtension(timingsListFileName, MP3Extension);
+            if (!Path.HasExtension(songsListFileName)) songsListFileName += Path.ChangeExtension(songsListFileName, Constants.MP3Extension);
+            if (!Path.HasExtension(timingsListFileName)) timingsListFileName += Path.ChangeExtension(timingsListFileName, Constants.MP3Extension);
 
             string songsListPath = Path.Combine(projectFolderPath, songsListFileName);
             string timingsListPath = Path.Combine(projectFolderPath, timingsListFileName);
@@ -87,7 +85,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
         {
             KeyValuePair<int, ulong> lastSong = songIds.OrderBy(pair => pair.Value).LastOrDefault();
 
-            using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name), Path.ChangeExtension(lastSong.Key.ToString(), MP3Extension)));
+            using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name), Path.ChangeExtension(lastSong.Key.ToString(), Constants.MP3Extension)));
 
             ulong duration = (ulong)reader.TotalTime.TotalMilliseconds;
 
@@ -97,7 +95,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
         private static void InitializeProject(IPathSettings settings, string projectName, int initialSongId)
         {
             string projectPath = settings.GetTimingProjectFolderPath(projectName);
-            string initialSongPath = Path.Combine(settings.GeometryDashSavesFolderPath, Path.ChangeExtension(initialSongId.ToString(), MP3Extension));
+            string initialSongPath = Path.Combine(settings.GeometryDashSavesFolderPath, Path.ChangeExtension(initialSongId.ToString(), Constants.MP3Extension));
 
             FileUtility.CreateNewFolder(projectPath);
             FileUtility.CopyFile(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)));
@@ -118,7 +116,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
         {
             StringBuilder stringBuilder = new();
 
-            return stringBuilder.AddDictionary(songs, Serializer.DefaultInnerSeparator).ToString();
+            return stringBuilder.AddDictionary(songs, Constants.DefaultInnerSeparator).ToString();
         }
 
         private static IEnumerable<Timing> DesirializeTimings(string timings)
@@ -147,7 +145,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             {
                 if (string.IsNullOrEmpty(pair)) continue;
 
-                IReadOnlyList<string> values = pair.Split(Serializer.DefaultInnerSeparator);
+                IReadOnlyList<string> values = pair.Split(Constants.DefaultInnerSeparator);
 
                 result.Add(int.Parse(values[0]), ulong.Parse(values[1]));
             }

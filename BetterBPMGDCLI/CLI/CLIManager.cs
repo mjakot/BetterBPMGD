@@ -29,13 +29,13 @@ namespace BetterBPMGDCLI.CLI
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
-            XElement xmlLevel = levels.FindElementByKeyValue(levelKey, LocalLevel.DictionaryElementTag) ?? new("NotFound");
+            XElement xmlLevel = levels.FindElementByKeyValue(levelKey, Constants.DictionaryElementTag) ?? new(Constants.NotFoundPlaceholder);
 
             LocalLevel level = LocalLevel.Parse(xmlLevel, levelKey);
 
             CurrentTimingProject.InjectTimings(level);
 
-            xmlLevel = XElement.Parse(level.ToString() ?? "NotFound");
+            xmlLevel = XElement.Parse(level.ToString() ?? Constants.NotFoundPlaceholder);
 
             FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
         }
@@ -44,15 +44,15 @@ namespace BetterBPMGDCLI.CLI
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
-            LocalLevel level = LocalLevel.Parse(pathSettings.MinimalLevelPath, "k_-1"); // places level at the top of the list
+            LocalLevel level = LocalLevel.Parse(pathSettings.MinimalLevelPath, Constants.AboveAllLevelsKey); // places level at the top of the list
 
             CurrentTimingProject.InjectTimings(level);
 
-            levels.FindElementByKeyValue("k_0", LocalLevel.DictionaryElementTag)
+            levels.FindElementByKeyValue(Constants.FirstLevelKey, Constants.DictionaryElementTag)
                     ?.PreviousNode
-                    ?.AddBeforeSelf(new XElement(LocalLevel.KeyElementTag, level.LevelKey));
+                    ?.AddBeforeSelf(new XElement(Constants.KeyElementTag, level.LevelKey));
 
-            levels.FindElementByKeyValue(level.LevelKey, LocalLevel.KeyElementTag)
+            levels.FindElementByKeyValue(level.LevelKey, Constants.KeyElementTag)
                     ?.AddAfterSelf(XElement.Parse(level.Encode()));
 
             FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));

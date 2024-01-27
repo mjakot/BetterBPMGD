@@ -38,7 +38,7 @@ namespace BetterBPMGDCLI.Models.Level
 
             if (clearLevelObjects)
             {
-                int startIndex = result.ToString().IndexOf(LevelObjectBase.ObjectEnd);
+                int startIndex = result.ToString().IndexOf(Constants.ObjectEnd);
 
                 if (startIndex == -1) goto end;
 
