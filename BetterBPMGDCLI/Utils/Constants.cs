@@ -10,6 +10,8 @@
         public const string LevelDataElementKey = "k4";
         public const string OfficialSongIdElementKey = "k8";
         public const string CustomSongIdElementKey = "k45";
+        public const string ObjectsCountElementKey = "k48";
+        public const string LengthElementKey = "k23";
 
         public const string GuidelinesKey = "kA14";
 

@@ -5,15 +5,15 @@ using BetterBPMGDCLI.Models.TimingProject;
 using BetterBPMGDCLI.Utils;
 using System.Xml.Linq;
 
-namespace BetterBPMGDCLI.CLI
+namespace BetterBPMGDCLI.Managers
 {
-    public class CLIManager
+    public class WorkFlowManager
     {
         private IPathSettings pathSettings;
-        
-        public Project CurrentTimingProject { get; }
 
-        public CLIManager()
+        public Project CurrentTimingProject { get; private set; }
+
+        public WorkFlowManager()
         {
             pathSettings = new PathSettings(); //TODO: get this from config manager? idk
 
@@ -22,7 +22,19 @@ namespace BetterBPMGDCLI.CLI
 
         public void NewTimingProject(string projectName, int songId, ulong songOffset = 0)
         {
-            Project.CreateNew(pathSettings, projectName, songId, songOffset);
+            CurrentTimingProject = Project.CreateNew(pathSettings, projectName, songId, songOffset);
+        }
+
+        public void ReadExistingTimingProject(string projectName)
+        {
+            CurrentTimingProject = Project.ReadProject(pathSettings, projectName);
+        }
+
+        public IReadOnlyList<LevelPreview?>? FindLevelByName(string levelName)
+        {
+            XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
+
+            return levels.FindAllLevelsByName(levelName) as IReadOnlyList<LevelPreview?>;
         }
 
         public void InjectToExisting(string levelKey)
