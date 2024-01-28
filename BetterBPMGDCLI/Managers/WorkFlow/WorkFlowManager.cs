@@ -30,7 +30,7 @@ namespace BetterBPMGDCLI.Managers
             CurrentTimingProject = Project.ReadProject(pathSettings, projectName);
         }
 
-        public IReadOnlyList<LevelPreview?>? FindLevelByName(string levelName)
+        public IReadOnlyList<LevelPreview?>? FindLevelsByName(string levelName)
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
