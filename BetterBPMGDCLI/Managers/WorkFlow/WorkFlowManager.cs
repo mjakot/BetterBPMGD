@@ -13,9 +13,9 @@ namespace BetterBPMGDCLI.Managers
 
         public Project CurrentTimingProject { get; private set; }
 
-        public WorkFlowManager()
+        public WorkFlowManager(IPathSettings pathSettings)
         {
-            pathSettings = new PathSettings(); //TODO: get this from config manager? idk
+            this.pathSettings = pathSettings;
 
             CurrentTimingProject = new(pathSettings);
         }
