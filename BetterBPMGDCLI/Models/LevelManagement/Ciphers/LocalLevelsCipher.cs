@@ -1,9 +1,9 @@
-﻿namespace BetterBPMGDCLI.Models.Ciphers
+﻿using BetterBPMGDCLI.Utils;
+
+namespace BetterBPMGDCLI.Models.Ciphers
 {
     public class LocalLevelsCipher : BaseLocalLevelCipher
     {
-        public const int XORDecryptionKey = 11;
-
         public LocalLevelsCipher(string localLevelsString) : base(localLevelsString) { }
 
         public LocalLevelsCipher(byte[] localLevelsByteArray) : base(localLevelsByteArray) { }
@@ -14,7 +14,7 @@
 
             try
             {
-                XOR(XORDecryptionKey);
+                XOR(Constants.XORDecryptionKey);
                 FromBase64UrlToBase64();
                 FromBase64ToByteArray();
                 GZIPDecompress();
