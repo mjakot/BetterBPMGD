@@ -11,9 +11,11 @@ namespace BetterBPMGDCLI.Models.Settings
         public static readonly string SongsListFileName = "Songs.txt";
         public static readonly string LevelsSaveFileName = "CCLocalLevels.dat";
         public static readonly string MinimalLevelFileName = "MinimalLevel.xml";
+        public static readonly string SettingFolderName = "Config";
 
         public static string AppDataFolderPathDefault => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string BetterBPMGDFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{ProgramName}\\");
+        public static string BetterBPMGDSettingsFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{SettingFolderName}\\");
         public static string GeometryDashSavesFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{GeometryDashName}\\");
         public static string GeometryDashLevelsSavePathDefault => Path.Combine(GeometryDashSavesFolderPathDefault, $"{LevelsSaveFileName}\\");
         public static string TimingProjectsFolderPathDefault => Path.Combine(BetterBPMGDFolderPathDefault, $"{TimingProjectFolderName}\\");
@@ -23,6 +25,7 @@ namespace BetterBPMGDCLI.Models.Settings
 
         public string AppDataFolderPath { get; set; }
         public string BetterBPMGDFolderPath { get; set; }
+        public string BetterBPMGDSettingsFolderPath { get; set; }
         public string GeometryDashSavesFolderPath { get; set; }
         public string GeometryDashLevelsSavePath { get; set; }
         public string TimingProjectsFolderPath { get; set; }
@@ -30,12 +33,13 @@ namespace BetterBPMGDCLI.Models.Settings
         public string SongListPath { get; set; }
         public string MinimalLevelPath { get; set; }
 
-        public PathSettings() : this(AppDataFolderPathDefault, BetterBPMGDFolderPathDefault, GeometryDashSavesFolderPathDefault, GeometryDashLevelsSavePathDefault, TimingProjectsFolderPathDefault, TimingListPathDefault, SongListPathDefault, MinimalLevelPathDefault) { }
+        public PathSettings() : this(AppDataFolderPathDefault, BetterBPMGDFolderPathDefault, BetterBPMGDSettingsFolderPathDefault,  GeometryDashSavesFolderPathDefault, GeometryDashLevelsSavePathDefault, TimingProjectsFolderPathDefault, TimingListPathDefault, SongListPathDefault, MinimalLevelPathDefault) { }
 
-        public PathSettings(string appDataFolderPath, string betterBPMGDFolderPath, string geometryDashSavesFolderPath, string geometryDashLevelsSavePath, string timingProjectsFolderPath, string timingsListPath, string songsListPath, string minimalLevelPath)
+        public PathSettings(string appDataFolderPath, string betterBPMGDFolderPath, string betterBPMGDSettingsFolderPath, string geometryDashSavesFolderPath, string geometryDashLevelsSavePath, string timingProjectsFolderPath, string timingsListPath, string songsListPath, string minimalLevelPath)
         {
             AppDataFolderPath = appDataFolderPath;
             BetterBPMGDFolderPath = betterBPMGDFolderPath;
+            BetterBPMGDSettingsFolderPath = betterBPMGDSettingsFolderPath;
             GeometryDashSavesFolderPath = geometryDashSavesFolderPath;
             GeometryDashLevelsSavePath = geometryDashLevelsSavePath;
             TimingProjectsFolderPath = timingProjectsFolderPath;
@@ -51,6 +55,7 @@ namespace BetterBPMGDCLI.Models.Settings
             defaultValues.Add(nameof(TimingListPath), TimingListPathDefault);
             defaultValues.Add(nameof(SongListPath), SongListPathDefault);
             defaultValues.Add(nameof(MinimalLevelPath), MinimalLevelPathDefault);
+            defaultValues.Add(nameof(BetterBPMGDSettingsFolderPath), BetterBPMGDSettingsFolderPathDefault);
         }
 
         public static new PathSettings FromString(string settings) => settings.Desirialize<PathSettings>(false);

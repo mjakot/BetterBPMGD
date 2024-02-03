@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.Extensions;
+using BetterBPMGDCLI.Managers.Configuration;
 using BetterBPMGDCLI.Models.Level;
 using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Models.TimingProject;
@@ -13,9 +14,23 @@ namespace BetterBPMGDCLI.Managers
 
         public Project CurrentTimingProject { get; private set; }
 
+        public WorkFlowManager()
+        {
+            pathSettings = new PathSettings();
+
+            CurrentTimingProject = new(pathSettings);
+        }
+
         public WorkFlowManager(IPathSettings pathSettings)
         {
             this.pathSettings = pathSettings;
+
+            CurrentTimingProject = new(pathSettings);
+        }
+
+        public WorkFlowManager(ConfigManager configManager)
+        {
+            pathSettings = configManager.PathSettings;
 
             CurrentTimingProject = new(pathSettings);
         }

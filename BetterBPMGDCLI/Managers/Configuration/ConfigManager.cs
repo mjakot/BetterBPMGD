@@ -1,6 +1,6 @@
 ﻿using BetterBPMGDCLI.Models.Settings;
 
-namespace BetterBPMGDCLI.Managers
+namespace BetterBPMGDCLI.Managers.Configuration
 {
     public class ConfigManager
     {
@@ -9,6 +9,11 @@ namespace BetterBPMGDCLI.Managers
         public ConfigManager(IPathSettings pathSettings)
         {
             PathSettings = pathSettings;
+        }
+
+        public void NotifySettingsChanged()
+        {
+
         }
     }
 }

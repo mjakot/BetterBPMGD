@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.Extensions;
+using BetterBPMGDCLI.Managers.Configuration;
 using BetterBPMGDCLI.Models.Level;
 using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Utils;
@@ -20,7 +21,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
         public IReadOnlyList<Timing> Timings => timings;
 
         public Project(IPathSettings settings) : this(settings, string.Empty, -1) { }
-
+        public Project(ConfigManager configManager, string name, int songId, ulong songOffsetMS = 0) : this(configManager.PathSettings, name, songId, songOffsetMS) { }
+        public Project(ConfigManager configManager) : this(configManager.PathSettings) { }
         public Project(IPathSettings settings, string name, int songId, ulong songOffsetMS = 0)
         {
             pathSettings = settings;
