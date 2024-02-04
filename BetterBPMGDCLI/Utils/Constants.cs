@@ -34,6 +34,7 @@
         public const string CheckedKey = "13";
 
         public const string MP3Extension = ".mp3";
+        public const string TXTExtension = ".txt";
 
         public const string DefaultInnerSeparator = "=";
         public const string DefaultOuterSeparator = ",";

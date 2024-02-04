@@ -1,5 +1,4 @@
 ﻿using BetterBPMGDCLI.Extensions;
-using BetterBPMGDCLI.Managers.Configuration;
 using BetterBPMGDCLI.Models.Level;
 using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Models.TimingProject;
@@ -10,39 +9,29 @@ namespace BetterBPMGDCLI.Managers
 {
     public class WorkFlowManager
     {
+        private ConfigManager configManager;
         private IPathSettings pathSettings;
 
         public Project CurrentTimingProject { get; private set; }
 
-        public WorkFlowManager()
-        {
-            pathSettings = new PathSettings();
-
-            CurrentTimingProject = new(pathSettings);
-        }
-
-        public WorkFlowManager(IPathSettings pathSettings)
-        {
-            this.pathSettings = pathSettings;
-
-            CurrentTimingProject = new(pathSettings);
-        }
-
         public WorkFlowManager(ConfigManager configManager)
         {
+            this.configManager = configManager;
             pathSettings = configManager.PathSettings;
 
-            CurrentTimingProject = new(pathSettings);
+            configManager.PropertyChanged += ConfigManager_PropertyChanged;
+
+            CurrentTimingProject = new(configManager);
         }
 
         public void NewTimingProject(string projectName, int songId, ulong songOffset = 0)
         {
-            CurrentTimingProject = Project.CreateNew(pathSettings, projectName, songId, songOffset);
+            CurrentTimingProject = Project.CreateNew(configManager, projectName, songId, songOffset);
         }
 
         public void ReadExistingTimingProject(string projectName)
         {
-            CurrentTimingProject = Project.ReadProject(pathSettings, projectName);
+            CurrentTimingProject = Project.ReadProject(configManager, projectName);
         }
 
         public IReadOnlyList<LevelPreview?>? FindLevelsByName(string levelName)
@@ -83,6 +72,12 @@ namespace BetterBPMGDCLI.Managers
                     ?.AddAfterSelf(XElement.Parse(level.Encode()));
 
             FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
+        }
+
+        private void ConfigManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(configManager.PathSettings))
+                pathSettings = configManager.PathSettings;
         }
     }
 }
