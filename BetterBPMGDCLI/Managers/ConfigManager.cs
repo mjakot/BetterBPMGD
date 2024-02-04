@@ -18,7 +18,21 @@ namespace BetterBPMGDCLI.Managers
 
         ~ConfigManager() => SaveSettings(nameof(PathSettings));
 
-        public static ConfigManager CreateInstance<PathSettingsType>() where PathSettingsType : SettingsBase, IPathSettings, new() => new ConfigManager() { PathSettings = ReadSettings<PathSettingsType>(nameof(PathSettings)) };
+        public static ConfigManager CreateInstance<PathSettingsType>() where PathSettingsType : SettingsBase, IPathSettings, new()
+        {
+            IPathSettings pathSettings;
+
+            try
+            {
+                pathSettings = ReadSettings<PathSettingsType>(nameof(PathSettings));
+            }
+            catch (Exception)
+            {
+                pathSettings = new PathSettings();
+            }
+
+            return new ConfigManager() { PathSettings = pathSettings };
+        }
 
         public void PathSettingsChanged()
         {
