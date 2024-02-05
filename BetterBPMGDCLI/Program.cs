@@ -1,12 +1,23 @@
-﻿using BetterBPMGDCLI.Models.Settings;
+﻿using BetterBPMGDCLI.CLI;
+using System.CommandLine;
 
 namespace BetterBPMGDCLI
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
-            ISettings pathSettings = new PathSettings();
+            Option<string> testOption = new(name: "--test", description: "Test function");
+
+            RootCommand rootCommand = new("Test");
+
+            rootCommand.AddOption(testOption);
+
+            rootCommand.SetHandler(Console.WriteLine, testOption);
+
+            rootCommand.Add(new TestCommand().BuildCommand());
+
+            return await rootCommand.InvokeAsync(args);
         }
     }
 }
