@@ -2,7 +2,7 @@
 
 namespace BetterBPMGDCLI.CLI
 {
-    public class TestCommand
+    public class TestCommand : ICommand
     {
         public Command BuildCommand()
         {
