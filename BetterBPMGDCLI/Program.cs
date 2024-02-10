@@ -1,4 +1,6 @@
 ﻿using BetterBPMGDCLI.CLI;
+using BetterBPMGDCLI.Managers;
+using BetterBPMGDCLI.Models.Settings;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI
@@ -7,6 +9,8 @@ namespace BetterBPMGDCLI
     {
         static async Task<int> Main(string[] args)
         {
+            WorkFlowManager workFlowManager = new WorkFlowManager(new ConfigManager(new PathSettings()));
+
             Option<string> testOption = new(name: "--test", description: "Test function");
 
             RootCommand rootCommand = new("Test");
@@ -15,7 +19,15 @@ namespace BetterBPMGDCLI
 
             rootCommand.SetHandler(Console.WriteLine, testOption);
 
-            rootCommand.Add(new TestCommand().BuildCommand());
+            NewProject newProjectCommand = new(workFlowManager);
+            NewTiming newTimingCommand = new(workFlowManager);
+
+            IReadOnlyCollection<ICommand> commands = [ new TestCommand(), new NewCommand(newProjectCommand, newTimingCommand) ];
+
+            foreach (ICommand command in commands)
+            {
+                rootCommand.Add(command.BuildCommand());
+            }
 
             return await rootCommand.InvokeAsync(args);
         }

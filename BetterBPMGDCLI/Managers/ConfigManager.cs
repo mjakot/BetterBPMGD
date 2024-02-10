@@ -11,10 +11,9 @@ namespace BetterBPMGDCLI.Managers
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public ConfigManager()
-        {
-            PathSettings = ReadSettings<PathSettings>(Path.Combine(new PathSettings().BetterBPMGDSettingsFolderPath, Path.ChangeExtension(nameof(PathSettings), Constants.TXTExtension)));
-        }
+        public ConfigManager() : this(ReadSettings<PathSettings>(Path.Combine((string)new PathSettings().GetDefault(nameof(PathSettings.BetterBPMGDSettingsFolderPath)), Path.ChangeExtension(nameof(PathSettings), Constants.TXTExtension)))) { }
+
+        public ConfigManager(IPathSettings pathSettings) => PathSettings = pathSettings;
 
         ~ConfigManager() => SaveSettings(nameof(PathSettings));
 

@@ -15,7 +15,7 @@ namespace BetterBPMGDCLI.Models.Settings
 
         public static string AppDataFolderPathDefault => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string BetterBPMGDFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{ProgramName}\\");
-        public static string BetterBPMGDSettingsFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{SettingFolderName}\\");
+        public static string BetterBPMGDSettingsFolderPathDefault => Path.Combine(BetterBPMGDFolderPathDefault, $"{SettingFolderName}\\");
         public static string GeometryDashSavesFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{GeometryDashName}\\");
         public static string GeometryDashLevelsSavePathDefault => Path.Combine(GeometryDashSavesFolderPathDefault, $"{LevelsSaveFileName}\\");
         public static string TimingProjectsFolderPathDefault => Path.Combine(BetterBPMGDFolderPathDefault, $"{TimingProjectFolderName}\\");
