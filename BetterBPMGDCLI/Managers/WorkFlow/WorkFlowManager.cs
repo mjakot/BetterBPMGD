@@ -9,7 +9,7 @@ namespace BetterBPMGDCLI.Managers
 {
     public class WorkFlowManager
     {
-        private ConfigManager configManager;
+        public ConfigManager configManager;
         private IPathSettings pathSettings;
 
         public Project CurrentTimingProject { get; private set; }

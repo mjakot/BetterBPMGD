@@ -9,7 +9,7 @@ namespace BetterBPMGDCLI
     {
         static async Task<int> Main(string[] args)
         {
-            WorkFlowManager workFlowManager = new WorkFlowManager(new ConfigManager(new PathSettings()));
+            WorkFlowManager workFlowManager = StartupManager.Startup(new PathSettings());
 
             Option<string> testOption = new(name: "--test", description: "Test function");
 
@@ -28,6 +28,8 @@ namespace BetterBPMGDCLI
             {
                 rootCommand.Add(command.BuildCommand());
             }
+
+            workFlowManager.configManager.Dispose();
 
             return await rootCommand.InvokeAsync(args);
         }

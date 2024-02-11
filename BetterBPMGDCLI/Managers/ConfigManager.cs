@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace BetterBPMGDCLI.Managers
 {
-    public class ConfigManager : INotifyPropertyChanged
+    public class ConfigManager : INotifyPropertyChanged, IDisposable
     {
         public IPathSettings PathSettings { get; private set; }
 
@@ -15,7 +15,7 @@ namespace BetterBPMGDCLI.Managers
 
         public ConfigManager(IPathSettings pathSettings) => PathSettings = pathSettings;
 
-        ~ConfigManager() => SaveSettings(nameof(PathSettings));
+        ~ConfigManager() => Dispose();
 
         public static ConfigManager CreateInstance<PathSettingsType>() where PathSettingsType : SettingsBase, IPathSettings, new()
         {
@@ -32,6 +32,8 @@ namespace BetterBPMGDCLI.Managers
 
             return new ConfigManager() { PathSettings = pathSettings };
         }
+
+        public void Dispose() => SaveSettings(nameof(PathSettings));
 
         public void PathSettingsChanged()
         {

@@ -13,7 +13,7 @@ namespace BetterBPMGDCLI.Models.Settings
         public static readonly string MinimalLevelFileName = "MinimalLevel.xml";
         public static readonly string SettingFolderName = "Config";
 
-        public static string AppDataFolderPathDefault => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string AppDataFolderPathDefault => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string BetterBPMGDFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{ProgramName}\\");
         public static string BetterBPMGDSettingsFolderPathDefault => Path.Combine(BetterBPMGDFolderPathDefault, $"{SettingFolderName}\\");
         public static string GeometryDashSavesFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{GeometryDashName}\\");

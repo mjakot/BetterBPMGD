@@ -9,6 +9,7 @@ namespace BetterBPMGDCLI.CLI
 
         public Command BuildCommand()
         {
+            //TODO: move all hard coded text somewhere else
             Command command = new("new", "creates new project | new timing")
             {
                 newProject.BuildCommand(),
