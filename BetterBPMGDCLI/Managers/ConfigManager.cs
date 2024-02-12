@@ -36,8 +36,6 @@ namespace BetterBPMGDCLI.Managers
 
         public void Dispose()
         {
-            Directory.Delete(PathSettings.BetterBPMGDFolderPath, true);
-
             SaveSettings(nameof(PathSettings));
         }
 

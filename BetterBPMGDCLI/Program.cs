@@ -18,7 +18,9 @@ namespace BetterBPMGDCLI
             NewProject newProjectCommand = new(workFlowManager);
             NewTiming newTimingCommand = new(workFlowManager);
 
-            IReadOnlyCollection<ICommand> commands = [ new TestCommand(), new NewCommand(newProjectCommand, newTimingCommand) ];
+            SetCurrentProjectCommand setCurrentProjectCommand = new(workFlowManager);
+
+            IReadOnlyCollection<ICommand> commands = [ new TestCommand(), new NewCommand(newProjectCommand, newTimingCommand), new SetCommand(setCurrentProjectCommand) ];
 
             foreach (ICommand command in commands)
             {
@@ -26,6 +28,8 @@ namespace BetterBPMGDCLI
             }
 
             workFlowManager.configManager.Dispose();
+
+            Directory.Delete(workFlowManager.configManager.PathSettings.BetterBPMGDFolderPath, true); //temp
 
             return await rootCommand.InvokeAsync(args);
         }
