@@ -11,13 +11,9 @@ namespace BetterBPMGDCLI
         {
             WorkFlowManager workFlowManager = StartupManager.Startup(new PathSettings());
 
-            Option<string> testOption = new(name: "--test", description: "Test function");
-
             RootCommand rootCommand = new("Test");
 
-            rootCommand.AddOption(testOption);
-
-            rootCommand.SetHandler(Console.WriteLine, testOption);
+            rootCommand.SetHandler(() => Console.WriteLine("umm"));
 
             NewProject newProjectCommand = new(workFlowManager);
             NewTiming newTimingCommand = new(workFlowManager);
