@@ -29,8 +29,6 @@ namespace BetterBPMGDCLI
 
             workFlowManager.configManager.Dispose();
 
-            Directory.Delete(workFlowManager.configManager.PathSettings.BetterBPMGDFolderPath, true); //temp
-
             return await rootCommand.InvokeAsync(args);
         }
     }

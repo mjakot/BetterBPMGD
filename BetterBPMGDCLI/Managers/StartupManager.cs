@@ -7,10 +7,14 @@ namespace BetterBPMGDCLI.Managers
     {
         public static WorkFlowManager Startup<T>(T pathSettings) where T : SettingsBase, IPathSettings, new()
         {
-            if (Directory.Exists(pathSettings.BetterBPMGDFolderPath))
+            try
+            {
                 return new(ConfigManager.CreateInstance<T>());
-
-            return InitializeFileSystem(pathSettings);
+            }
+            catch (Exception)
+            {
+                return InitializeFileSystem(pathSettings);
+            }
         }
 
         public static WorkFlowManager InitializeFileSystem<T>(T pathSettings) where T : SettingsBase, IPathSettings, new()

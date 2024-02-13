@@ -21,6 +21,7 @@ namespace BetterBPMGDCLI.CLI
             };
 
             command.AddAlias("p");
+            command.AddAlias("proj");
 
             command.SetHandler(CreateNewProject, name, sondId, offset);
 

@@ -2,7 +2,6 @@
 using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Utils;
 using System.ComponentModel;
-using System.Reflection;
 
 namespace BetterBPMGDCLI.Managers
 {
@@ -36,12 +35,12 @@ namespace BetterBPMGDCLI.Managers
 
         public void Dispose()
         {
-            SaveSettings(nameof(PathSettings));
+            SaveSettings(PathSettings);
         }
 
         public void PathSettingsChanged()
         {
-            SaveSettings(nameof(PathSettings));
+            SaveSettings(PathSettings);
 
             OnPropertyChanged(nameof(PathSettings));
         }
@@ -50,16 +49,8 @@ namespace BetterBPMGDCLI.Managers
 
         protected void OnPropertyChanged(string propertyName) => OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
 
-        private void SaveSettings(string settingsName)
-        {
-            Type type = GetType();
-            PropertyInfo? propertyInfo = type.GetProperty(settingsName);
-            object? propertyValue = propertyInfo?.GetValue(this, null);
-            string temp = propertyValue.Serialize(false) ?? string.Empty;
+        private void SaveSettings<T>(T settings) where T : ISettings => FileUtility.WriteToFile(Path.Combine(PathSettings.BetterBPMGDSettingsFolderPath, Path.ChangeExtension(typeof(T).Name, Constants.TXTExtension)), settings.Serialize(false));
 
-            FileUtility.WriteToFile(Path.Combine(PathSettings.BetterBPMGDSettingsFolderPath, Path.ChangeExtension(settingsName, Constants.TXTExtension)), temp);
-        }
-
-        private static T ReadSettings<T>(string settingsPath) where T : ISettings, new() => FileUtility.ReadFromFile(settingsPath).Desirialize<T>(false);
+        private static T ReadSettings<T>(string settingsPath) where T : SettingsBase, ISettings, new() => FileUtility.ReadFromFile(settingsPath).Desirialize<T>(false);
     }
 }
