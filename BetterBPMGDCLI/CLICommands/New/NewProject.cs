@@ -1,7 +1,7 @@
 ﻿using BetterBPMGDCLI.Managers;
 using System.CommandLine;
 
-namespace BetterBPMGDCLI.CLI
+namespace BetterBPMGDCLI.CLICommands
 {
     public class NewProject(WorkFlowManager workFlowManager) : ICommand
     {

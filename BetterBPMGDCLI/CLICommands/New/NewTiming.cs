@@ -2,7 +2,7 @@
 using Common;
 using System.CommandLine;
 
-namespace BetterBPMGDCLI.CLI
+namespace BetterBPMGDCLI.CLICommands
 {
     public class NewTiming(WorkFlowManager workFlowManager) : ICommand
     {

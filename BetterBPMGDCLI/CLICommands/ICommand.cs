@@ -1,6 +1,6 @@
 ﻿using System.CommandLine;
 
-namespace BetterBPMGDCLI.CLI
+namespace BetterBPMGDCLI.CLICommands
 {
     public interface ICommand
     {

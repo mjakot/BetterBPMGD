@@ -7,16 +7,16 @@ using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Managers
 {
-    public class WorkFlowManager
+    public class WorkFlowManager : IDisposable
     {
-        public ConfigManager configManager;
         private IPathSettings pathSettings;
 
+        public ConfigManager ConfigManager { get; private set; }
         public Project CurrentTimingProject { get; private set; }
 
         public WorkFlowManager(ConfigManager configManager)
         {
-            this.configManager = configManager;
+            this.ConfigManager = configManager;
             pathSettings = configManager.PathSettings;
 
             configManager.PropertyChanged += ConfigManager_PropertyChanged;
@@ -24,14 +24,20 @@ namespace BetterBPMGDCLI.Managers
             CurrentTimingProject = new(configManager);
         }
 
+        public void Dispose()
+        {
+            CurrentTimingProject.Dispose();
+            ConfigManager.Dispose();
+        }
+
         public void NewTimingProject(string projectName, int songId, ulong songOffset = 0)
         {
-            CurrentTimingProject = Project.CreateNew(configManager, projectName, songId, songOffset);
+            CurrentTimingProject = Project.CreateNew(ConfigManager, projectName, songId, songOffset);
         }
 
         public void ReadExistingTimingProject(string projectName)
         {
-            CurrentTimingProject = Project.ReadProject(configManager, projectName);
+            CurrentTimingProject = Project.ReadProject(ConfigManager, projectName);
         }
 
         public IReadOnlyList<LevelPreview?>? FindLevelsByName(string levelName)
@@ -76,8 +82,8 @@ namespace BetterBPMGDCLI.Managers
 
         private void ConfigManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(configManager.PathSettings))
-                pathSettings = configManager.PathSettings;
+            if (e.PropertyName == nameof(ConfigManager.PathSettings))
+                pathSettings = ConfigManager.PathSettings;
         }
     }
 }

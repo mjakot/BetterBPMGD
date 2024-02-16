@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BetterBPMGDCLI.Models.TimingProject
 {
-    public class Project
+    public class Project : IDisposable
     {
         private ConfigManager configManager;
         private IPathSettings pathSettings;
@@ -31,6 +31,11 @@ namespace BetterBPMGDCLI.Models.TimingProject
             timings = [];
 
             configManager.PropertyChanged += ConfigManager_PropertyChanged;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
 
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);

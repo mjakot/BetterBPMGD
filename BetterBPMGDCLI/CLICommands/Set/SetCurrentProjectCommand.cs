@@ -1,7 +1,7 @@
 ﻿using BetterBPMGDCLI.Managers;
 using System.CommandLine;
 
-namespace BetterBPMGDCLI.CLI
+namespace BetterBPMGDCLI.CLICommands
 {
     public class SetCurrentProjectCommand(WorkFlowManager workFlowManager) : ICommand
     {
@@ -27,7 +27,7 @@ namespace BetterBPMGDCLI.CLI
 
         private void SetCurrentProject(string name)
         {
-            if (!Directory.Exists(Path.Combine(workFlowManager.configManager.PathSettings.TimingProjectsFolderPath, name)))
+            if (!Directory.Exists(Path.Combine(workFlowManager.ConfigManager.PathSettings.TimingProjectsFolderPath, name)))
             {
                 Console.WriteLine("Project with this name does not exist");
 
