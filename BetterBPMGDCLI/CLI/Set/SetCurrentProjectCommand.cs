@@ -17,6 +17,7 @@ namespace BetterBPMGDCLI.CLI
             };
 
             command.AddAlias("currentproject");
+            command.AddAlias("current-project");
             command.AddAlias("currproj"); // aint no way im adding "cp" as alias
 
             command.SetHandler(SetCurrentProject, name);
