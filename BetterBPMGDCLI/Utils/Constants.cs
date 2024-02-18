@@ -1,6 +1,6 @@
 ﻿namespace BetterBPMGDCLI.Utils
 {
-    public class Constants
+    public struct Constants
     {
         public const string FirstLevelKey = "k_0";
         public const string AboveAllLevelsKey = "k_-1";

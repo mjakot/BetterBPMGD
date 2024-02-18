@@ -35,7 +35,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);

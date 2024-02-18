@@ -1,9 +1,12 @@
 ﻿using BetterBPMGDCLI.Extensions;
+using BetterBPMGDCLI.Utils;
 
 namespace BetterBPMGDCLI.Models.Settings
 {
     public class PathSettings : SettingsBase, IPathSettings
     {
+        public const string StartupFilePath = ".\\startup.txt";
+
         public static readonly string ProgramName = AppDomain.CurrentDomain.FriendlyName;
         public static readonly string GeometryDashName = "GeometryDash";
         public static readonly string TimingProjectFolderName = "Projects";
@@ -21,7 +24,7 @@ namespace BetterBPMGDCLI.Models.Settings
         public static string TimingProjectsFolderPathDefault => Path.Combine(BetterBPMGDFolderPathDefault, $"{TimingProjectFolderName}\\");
         public static string MinimalLevelPathDefault => Path.Combine(BetterBPMGDFolderPathDefault, MinimalLevelFileName);
         public static string TimingListPathDefault => TimingsListFileName;
-        public static string SongListPathDefault => TimingsListFileName;
+        public static string SongListPathDefault => SongsListFileName;
 
         public string AppDataFolderPath { get; set; }
         public string BetterBPMGDFolderPath { get; set; }
@@ -57,6 +60,8 @@ namespace BetterBPMGDCLI.Models.Settings
             defaultValues.Add(nameof(MinimalLevelPath), MinimalLevelPathDefault);
             defaultValues.Add(nameof(BetterBPMGDSettingsFolderPath), BetterBPMGDSettingsFolderPathDefault);
         }
+
+        public static string GetSerializationPath<T>(T pathSettings) where T : SettingsBase, IPathSettings, new() => Path.ChangeExtension(Path.Combine(pathSettings.BetterBPMGDSettingsFolderPath, nameof(IPathSettings)), Constants.TXTExtension);
 
         public static new PathSettings FromString(string settings) => settings.Desirialize<PathSettings>(false);
 

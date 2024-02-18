@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.CLICommands;
+using BetterBPMGDCLI.Models.Settings;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.Managers
@@ -16,19 +17,21 @@ namespace BetterBPMGDCLI.Managers
 
         public async Task RunAsync(string[] args)
         {
-            Option<bool> continuous = new(["--continuous", "-c"], description: "Enables the continuous mode", getDefaultValue: () => false);
+            Option<bool> continuous = new(["--continuous", "-c", "-t"], description: "Enables the continuous mode", getDefaultValue: () => false);
 
             RootCommand rootCommand = new()
             {
+                continuous,
+
                 StopCommand(),
                 new TestCommand().BuildCommand(),
                 new NewCommand(new NewProject(workFlowManager), new NewTiming(workFlowManager)).BuildCommand(),
                 new SetCommand(new SetCurrentProjectCommand(workFlowManager)).BuildCommand(),
             };
 
-            rootCommand.SetHandler((continuous) =>
+            rootCommand.SetHandler((continuousEnable) =>
             {
-                if (continuous)
+                if (continuousEnable)
                     isRunning = true;
             }, continuous);
 
@@ -46,17 +49,46 @@ namespace BetterBPMGDCLI.Managers
 
         private Command StopCommand()
         {
-            Command command = new("stop", "Stops the continuous mode");
+            Option<bool> deleteStartupFile = new(["--delete-startup-file", "--delete-startupFile", "--deleteStartupFile", "--startup", "--ds", "-s"], description: "Deletes startup file. (Not recommended)", getDefaultValue: () => false);
+            Option<bool> deleteLocalFiles = new(["--delete-local-files", "--delete-localFiles", "--deleteLocalFiles", "--local", "--dl", "-l"], description: "Deletes local files. (Not recommended)", getDefaultValue: () => false);
+
+            Command command = new("stop", "Stops the continuous mode")
+            {
+                deleteStartupFile,
+                deleteLocalFiles
+            };
 
             command.AddAlias("exit");
             command.AddAlias("quit");
 
-            command.SetHandler(() =>
+            command.SetHandler((deleteStartupFile, deleteLocalFiles) =>
             {
-                Console.WriteLine("Stopping the continuous mode");
+                if(deleteStartupFile)
+                {
+                    try { File.Delete(PathSettings.StartupFilePath); }
+                    catch (Exception)
+                    {
+                        Console.Error.WriteLine("Startup file is already deleted");
+
+                        throw;
+                    }
+                }
+
+                if (deleteLocalFiles)
+                {
+                    try { Directory.Delete(workFlowManager.ConfigManager.PathSettings.BetterBPMGDFolderPath, true); }
+                    catch (Exception)
+                    {
+                        Console.Error.WriteLine("Local files are already deleted");
+
+                        throw;
+                    }
+                }
+
+                Console.WriteLine("Stopping the continuous mode...");
 
                 isRunning = false;
-            });
+            }, deleteStartupFile, deleteLocalFiles);
 
             return command;
         }
