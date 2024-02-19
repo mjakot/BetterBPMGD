@@ -15,6 +15,7 @@ namespace BetterBPMGDCLI.Models.Settings
         public static readonly string LevelsSaveFileName = "CCLocalLevels.dat";
         public static readonly string MinimalLevelFileName = "MinimalLevel.xml";
         public static readonly string SettingFolderName = "Config";
+        public static readonly string CurrentProjectSaveFileName = "CurrentProject.txt";
 
         public static string AppDataFolderPathDefault => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + '\\';
         public static string BetterBPMGDFolderPathDefault => Path.Combine(AppDataFolderPathDefault, $"{ProgramName}\\");
@@ -23,6 +24,7 @@ namespace BetterBPMGDCLI.Models.Settings
         public static string GeometryDashLevelsSavePathDefault => Path.Combine(GeometryDashSavesFolderPathDefault, $"{LevelsSaveFileName}\\");
         public static string TimingProjectsFolderPathDefault => Path.Combine(BetterBPMGDFolderPathDefault, $"{TimingProjectFolderName}\\");
         public static string MinimalLevelPathDefault => Path.Combine(BetterBPMGDFolderPathDefault, MinimalLevelFileName);
+        public static string BetterBPMGDCurrentProjectSaveFilePathDefault => Path.Combine(BetterBPMGDSettingsFolderPathDefault, CurrentProjectSaveFileName);
         public static string TimingListPathDefault => TimingsListFileName;
         public static string SongListPathDefault => SongsListFileName;
 
@@ -32,13 +34,14 @@ namespace BetterBPMGDCLI.Models.Settings
         public string GeometryDashSavesFolderPath { get; set; }
         public string GeometryDashLevelsSavePath { get; set; }
         public string TimingProjectsFolderPath { get; set; }
+        public string BetterBPMGDCurrentProjectSaveFilePath { get; set; }
         public string TimingListPath { get; set; }
         public string SongListPath { get; set; }
         public string MinimalLevelPath { get; set; }
 
-        public PathSettings() : this(AppDataFolderPathDefault, BetterBPMGDFolderPathDefault, BetterBPMGDSettingsFolderPathDefault,  GeometryDashSavesFolderPathDefault, GeometryDashLevelsSavePathDefault, TimingProjectsFolderPathDefault, TimingListPathDefault, SongListPathDefault, MinimalLevelPathDefault) { }
+        public PathSettings() : this(AppDataFolderPathDefault, BetterBPMGDFolderPathDefault, BetterBPMGDSettingsFolderPathDefault,  GeometryDashSavesFolderPathDefault, GeometryDashLevelsSavePathDefault, TimingProjectsFolderPathDefault, TimingListPathDefault, BetterBPMGDCurrentProjectSaveFilePathDefault, SongListPathDefault, MinimalLevelPathDefault) { }
 
-        public PathSettings(string appDataFolderPath, string betterBPMGDFolderPath, string betterBPMGDSettingsFolderPath, string geometryDashSavesFolderPath, string geometryDashLevelsSavePath, string timingProjectsFolderPath, string timingsListPath, string songsListPath, string minimalLevelPath)
+        public PathSettings(string appDataFolderPath, string betterBPMGDFolderPath, string betterBPMGDSettingsFolderPath, string geometryDashSavesFolderPath, string geometryDashLevelsSavePath, string timingProjectsFolderPath, string timingsListPath, string currentProjectSaveFilePath, string songsListPath, string minimalLevelPath)
         {
             AppDataFolderPath = appDataFolderPath;
             BetterBPMGDFolderPath = betterBPMGDFolderPath;
@@ -49,6 +52,7 @@ namespace BetterBPMGDCLI.Models.Settings
             TimingListPath = timingsListPath;
             SongListPath = songsListPath;
             MinimalLevelPath = minimalLevelPath;
+            BetterBPMGDCurrentProjectSaveFilePath = currentProjectSaveFilePath;
 
             defaultValues.Add(nameof(AppDataFolderPath), AppDataFolderPathDefault);
             defaultValues.Add(nameof(BetterBPMGDFolderPath), BetterBPMGDFolderPathDefault);
@@ -59,6 +63,7 @@ namespace BetterBPMGDCLI.Models.Settings
             defaultValues.Add(nameof(SongListPath), SongListPathDefault);
             defaultValues.Add(nameof(MinimalLevelPath), MinimalLevelPathDefault);
             defaultValues.Add(nameof(BetterBPMGDSettingsFolderPath), BetterBPMGDSettingsFolderPathDefault);
+            defaultValues.Add(nameof(BetterBPMGDCurrentProjectSaveFilePath), BetterBPMGDCurrentProjectSaveFilePathDefault);
         }
 
         public static string GetSerializationPath<T>(T pathSettings) where T : SettingsBase, IPathSettings, new() => Path.ChangeExtension(Path.Combine(pathSettings.BetterBPMGDSettingsFolderPath, nameof(IPathSettings)), Constants.TXTExtension);

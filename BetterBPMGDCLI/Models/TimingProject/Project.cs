@@ -35,7 +35,10 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         public void Dispose()
         {
-            return;
+            string projectPath = pathSettings.GetTimingProjectFolderPath(Name);
+
+            FileUtility.WriteToFile(Path.Combine(projectPath, pathSettings.SongListPath), SerializeSongs(SongIds));
+            FileUtility.WriteToFile(Path.Combine(projectPath, pathSettings.TimingListPath), SerializeTimings(Timings));
         }
 
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);
@@ -106,27 +109,26 @@ namespace BetterBPMGDCLI.Models.TimingProject
             string projectPath = config.PathSettings.GetTimingProjectFolderPath(projectName);
             string initialSongPath = Path.Combine(config.PathSettings.GeometryDashSavesFolderPath, Path.ChangeExtension(initialSongId.ToString(), Constants.MP3Extension));
 
-            FileUtility.CreateNewFolder(projectPath);
-            FileUtility.CopyFile(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)));
-            FileUtility.WriteToFile(config.PathSettings.GetTimingListPath(projectName), string.Empty);
-            FileUtility.WriteToFile(config.PathSettings.GetSongListPath(projectName), string.Empty);
+            if (File.Exists(initialSongPath)) //TODO: something something error handling something something
+            {
+                FileUtility.CreateNewFolder(projectPath);
+                FileUtility.CopyFile(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)));
+                FileUtility.WriteToFile(config.PathSettings.GetTimingListPath(projectName), string.Empty);
+                FileUtility.WriteToFile(config.PathSettings.GetSongListPath(projectName), string.Empty);
+            }
         }
 
         private static string SerializeTimings(IReadOnlyList<Timing> timings)
         {
             StringBuilder stringBuilder = new();
 
-            Parallel.ForEach(timings, timing => stringBuilder.AppendLine(timing.Serialize()));
+            foreach (Timing timing in timings)
+                stringBuilder.AppendLine(timing.Serialize());
 
             return stringBuilder.ToString();
         }
 
-        private static string SerializeSongs(IReadOnlyDictionary<int, ulong> songs)
-        {
-            StringBuilder stringBuilder = new();
-
-            return stringBuilder.AddDictionary(songs, Constants.DefaultInnerSeparator).ToString();
-        }
+        private static string SerializeSongs(IReadOnlyDictionary<int, ulong> songs) => new StringBuilder().AddDictionary(songs, Constants.DefaultInnerSeparator).ToString();
 
         private static IEnumerable<Timing> DesirializeTimings(string timings)
         {

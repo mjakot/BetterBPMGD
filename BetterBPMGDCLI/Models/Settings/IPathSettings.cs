@@ -8,6 +8,7 @@
         string GeometryDashSavesFolderPath { get; set; }
         string GeometryDashLevelsSavePath { get; set; }
         string TimingProjectsFolderPath { get; set; }
+        string BetterBPMGDCurrentProjectSaveFilePath { get; set; }
         string MinimalLevelPath { get; set; }
         string TimingListPath { get; set; }
         string SongListPath { get; set; }

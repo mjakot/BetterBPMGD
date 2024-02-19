@@ -16,16 +16,26 @@ namespace BetterBPMGDCLI.Managers
 
         public WorkFlowManager(ConfigManager configManager)
         {
-            this.ConfigManager = configManager;
+            ConfigManager = configManager;
             pathSettings = configManager.PathSettings;
 
-            configManager.PropertyChanged += ConfigManager_PropertyChanged;
+            configManager.PropertyChanged += ConfigManagerPropertyChanged;
 
-            CurrentTimingProject = new(configManager);
+            string currentProjectName = $"\\\\";
+
+            if (File.Exists(pathSettings.BetterBPMGDCurrentProjectSaveFilePath))
+                currentProjectName = FileUtility.ReadFromFile(pathSettings.BetterBPMGDCurrentProjectSaveFilePath);
+
+            if (Directory.Exists(Path.Combine(pathSettings.TimingProjectsFolderPath, currentProjectName))) //TODO: check this somewhere else
+                CurrentTimingProject = Project.ReadProject(ConfigManager, currentProjectName);
+            else
+                CurrentTimingProject = new(configManager);
         }
 
         public void Dispose()
         {
+            FileUtility.WriteToFile(pathSettings.BetterBPMGDCurrentProjectSaveFilePath, CurrentTimingProject.Name);
+
             CurrentTimingProject.Dispose();
             ConfigManager.Dispose();
         }
@@ -37,6 +47,10 @@ namespace BetterBPMGDCLI.Managers
 
         public void ReadExistingTimingProject(string projectName)
         {
+            if (projectName == CurrentTimingProject.Name) return;
+
+            CurrentTimingProject.Dispose();
+
             CurrentTimingProject = Project.ReadProject(ConfigManager, projectName);
         }
 
@@ -80,7 +94,7 @@ namespace BetterBPMGDCLI.Managers
             FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
         }
 
-        private void ConfigManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ConfigManagerPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ConfigManager.PathSettings))
                 pathSettings = ConfigManager.PathSettings;

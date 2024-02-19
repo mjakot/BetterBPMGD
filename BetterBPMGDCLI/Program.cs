@@ -8,5 +8,8 @@ internal class Program
         CLIManager cLIManager = new CLIManager(workFlowManager);
 
         await cLIManager.RunAsync(args);
+
+        await Console.Out.WriteLineAsync("Press enter to exit");
+        Console.ReadLine();
     }
 }
