@@ -32,6 +32,19 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             configManager.PropertyChanged += ConfigManager_PropertyChanged;
         }
+        public Project(ConfigManager configManager, string name, IReadOnlyDictionary<int, ulong> songIdsIn, IEnumerable<Timing> timingsIn)
+        {
+            this.configManager = configManager;
+            pathSettings = configManager.PathSettings;
+            Name = name;
+            songIds = new();
+            timings = [];
+
+            AddSongs(songIdsIn);
+            AddTimings(timingsIn);
+
+            configManager.PropertyChanged += ConfigManager_PropertyChanged;
+        }
 
         public void Dispose()
         {
@@ -76,10 +89,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             string songs = FileUtility.ReadFromFile(songsListPath);
             string timings = FileUtility.ReadFromFile(timingsListPath);
 
-            Project result = new(config) { Name = name };
-
-            result.AddSongs(DesirializeSongs(songs));
-            result.AddTimings(DesirializeTimings(timings));
+            Project result = new(config, name, DesirializeSongs(songs), DesirializeTimings(timings));
 
             return result;
         }

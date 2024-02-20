@@ -87,6 +87,8 @@ namespace BetterBPMGDCLI.Managers
                     }
                 }
 
+                if (deleteStartupFile && deleteLocalFiles) Environment.Exit(0);
+
                 Console.WriteLine("Stopping the continuous mode...");
 
                 isRunning = false;
