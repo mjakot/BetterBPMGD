@@ -7,6 +7,7 @@ using BetterBPMGDCLI.Models.TimingProject;
 using Common;
 using System.Text;
 using XUnitExtensions;
+using BetterBPMGDCLI.Utils;
 
 namespace BetterBPMCLI.Tests.TimingProjectTests
 {
@@ -27,7 +28,7 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
 
 
-            Project actual = Project.CreateNew(settings, innerProjectName, counter);
+            Project actual = Project.CreateNew(new BetterBPMGDCLI.Managers.ConfigManager(settings), innerProjectName, counter);
 
 
 
@@ -47,7 +48,7 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
             File.Create(Path.Combine(settings.GeometryDashSavesFolderPath, $"{counter}.mp3")).Dispose();
 
-            Project project = Project.CreateNew(settings, innerProjectName, counter);
+            Project project = Project.CreateNew(new BetterBPMGDCLI.Managers.ConfigManager(settings), innerProjectName, counter);
 
             Timing tTiming = new();
 
@@ -62,7 +63,7 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
 
             string expectedTimings = tTiming.Serialize();
-            string expectedsSongs = new StringBuilder().AddDictionary(song, Serializer.DefaultInnerSeparator).ToString();
+            string expectedsSongs = new StringBuilder().AddDictionary(song, Constants.DefaultInnerSeparator).ToString();
 
             AssertExtension.EqualSkip(expectedTimings, File.ReadAllText(settings.GetTimingListPath(innerProjectName)).Replace(Environment.NewLine, string.Empty), [ 8 ]); // skip assertion at position 8. it's a counter value which is dependent on an instance.
             Assert.Equal(expectedsSongs, File.ReadAllText(settings.GetSongListPath(innerProjectName)));
@@ -77,7 +78,7 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
             File.Create(Path.Combine(settings.GeometryDashSavesFolderPath, $"{counter}.mp3")).Dispose();
 
-            Project expected = Project.CreateNew(settings, innerProjectName, counter);
+            Project expected = Project.CreateNew(new BetterBPMGDCLI.Managers.ConfigManager(settings), innerProjectName, counter);
 
             Timing tTiming = new();
 
@@ -87,7 +88,7 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
 
 
-            Project actual = Project.ReadProject(settings, innerProjectName);
+            Project actual = Project.ReadProject(new BetterBPMGDCLI.Managers.ConfigManager(settings), innerProjectName);
 
 
 
@@ -112,7 +113,7 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
             File.Copy(".\\AMONGUS.mp3", Path.Combine(settings.GeometryDashSavesFolderPath, $"{counter}.mp3"));
 
-            Project project = Project.CreateNew(settings, innerProjectName, counter);
+            Project project = Project.CreateNew(new BetterBPMGDCLI.Managers.ConfigManager(settings), innerProjectName, counter);
 
             Timing tTiming = new(0, 1, false, 0, SpeedPortalTypes.NORMAL, "ooo");
 

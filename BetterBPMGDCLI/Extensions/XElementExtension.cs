@@ -14,27 +14,26 @@ namespace BetterBPMGDCLI.Extensions
         public static XElement? FindElementByKeyValue(this XElement xElement, string keyValue, string targetTag)
             => xElement.FindElementByKeyValue(Constants.KeyElementTag, keyValue, targetTag);
 
-        public static IReadOnlyList<XElement?>? FindAllElementsByKeyValue(this XElement xElement, string keyTag, string keyValue, string targetTag)
-        {
-            return ( from key in xElement.Descendants(keyTag)
-                     where key.Value == keyValue
-                     let targetElement = key.NextNode as XElement
-                     where targetElement.Name == targetTag
-                     select key.NextNode ) 
-                     as IReadOnlyList<XElement?>;
-        }
+        public static IEnumerable<XElement> FindAllElementsByKeyValue(this XElement xElement, string keyTag, string keyValue, string targetTag)
+            => from key in xElement.Descendants(keyTag)
+               where key.Value == keyValue
+               let nextElement = key.NextNode as XElement
+               where nextElement?.Name == targetTag
+               select nextElement;
 
-        public static IReadOnlyList<XElement?>? FindAllElementsByKeyValue(this XElement xElement, string keyValue, string targetTag)
+        public static IEnumerable<XElement> FindAllElementsByKeyValue(this XElement xElement, string keyValue, string targetTag)
             => xElement.FindAllElementsByKeyValue(Constants.KeyElementTag, keyValue, targetTag);
 
         public static IEnumerable<LevelPreview?> FindAllLevelsByName(this XElement xElement, string levelName)
         {
-            IReadOnlyList<XElement?>? levels = ( from level in xElement.Descendants(Constants.NameElementKey)
-                                                 where level.Value == levelName
-                                                 select level.Parent )
-                                                 as IReadOnlyList<XElement?>;
 
-            foreach (XElement? level in levels ?? [])
+            foreach (XElement? level in (IEnumerable<XElement?>?)(from nameKey in xElement.Descendants(Constants.KeyElementTag)
+                                                                  where nameKey.Value == Constants.NameElementKey
+                                                                  let nameTag = nameKey.NextNode as XElement
+                                                                  where nameTag?.Name == Constants.StringElementTag
+                                                                  where nameTag.Value == levelName
+                                                                  select nameKey.Parent) ?? [])
+
                 yield return new( (level?.PreviousNode as XElement)?.Value ?? Constants.NotFoundPlaceholder,
                                     level?.FindElementByKeyValue(Constants.NameElementKey, Constants.StringElementTag)?.Value ?? Constants.NotFoundPlaceholder,
                                     level?.FindElementByKeyValue(Constants.DescriptionElementKey, Constants.StringElementTag)?.Value ?? Constants.NotFoundPlaceholder,

@@ -49,7 +49,7 @@ namespace BetterBPMCLI.Tests.LevelTests
 
 
 
-            actual.Calculate(timings,  BPMCalculations.MillisecondsInMinute);
+            actual.Calculate(timings,  Constants.MillisecondsInMinute);
 
 
 
@@ -65,7 +65,7 @@ namespace BetterBPMCLI.Tests.LevelTests
         {
             LocalLevelData localLevelData = new(MINIMALLOCALLEVELDATADECRYPTED, [new(0, GuidelineColors.Orange)], [new(SpeedPortalTypes.HALFSPEED, 0, 0, false)]);
 
-            localLevelData.Guidelines.Add(new(BPMCalculations.MillisecondsInMinute, GuidelineColors.Orange));
+            localLevelData.Guidelines.Add(new(Constants.MillisecondsInMinute, GuidelineColors.Orange));
             localLevelData.SpeedPortals.Add(new(SpeedPortalTypes.NORMAL, 0, 0, true));
 
 

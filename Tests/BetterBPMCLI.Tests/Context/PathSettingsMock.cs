@@ -13,6 +13,11 @@ namespace BetterBPMCLI.Tests.Context
         public string TimingProjectsFolderPath { get => Path.Combine(BetterBPMGDFolderPath, "ProjectsTest\\"); set => throw new NotImplementedException(); }
         public string TimingListPath { get => "TimingsTest.txt"; set => throw new NotImplementedException(); }
         public string SongListPath { get => "SongsTest.txt"; set => throw new NotImplementedException(); }
+        public string GeometryDashLevelsSavePath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string SettingsFolderPath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string CurrentProjectSaveFilePath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string BackupFolderPath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string MinimalLevelPath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public PathSettingsMock() => InitializeFileSystem();
 
