@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.Extensions;
+using BetterBPMGDCLI.Models.Ciphers;
 using BetterBPMGDCLI.Models.Level;
 using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Models.TimingProject;
@@ -7,34 +8,63 @@ using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Managers
 {
-    public class WorkFlowManager
+    public class WorkFlowManager : IDisposable
     {
+        private LocalLevelsCipher? localLevelCipher = null;
+        private LocalLevelDataCipher? localLevelDataCipher = null;
+
         private IPathSettings pathSettings;
 
+        public ConfigManager ConfigManager { get; private set; }
         public Project CurrentTimingProject { get; private set; }
 
-        public WorkFlowManager(IPathSettings pathSettings)
+        public WorkFlowManager(ConfigManager configManager)
         {
-            this.pathSettings = pathSettings;
+            ConfigManager = configManager;
+            pathSettings = configManager.PathSettings;
 
-            CurrentTimingProject = new(pathSettings);
+            configManager.PropertyChanged += ConfigManagerPropertyChanged;
+
+            string currentProjectName = $"\\\\";
+
+            if (File.Exists(pathSettings.CurrentProjectSaveFilePath))
+                currentProjectName = FileUtility.ReadFromFile(pathSettings.CurrentProjectSaveFilePath);
+
+            if (Directory.Exists(Path.Combine(pathSettings.TimingProjectsFolderPath, currentProjectName))) //TODO: check this somewhere else
+                CurrentTimingProject = Project.ReadProject(ConfigManager, currentProjectName);
+            else
+                CurrentTimingProject = new(configManager);
+
+            DecodeLocalLevels();
+        }
+
+        public void Dispose()
+        {
+            FileUtility.WriteToFile(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
+
+            CurrentTimingProject.Dispose();
+            ConfigManager.Dispose();
         }
 
         public void NewTimingProject(string projectName, int songId, ulong songOffset = 0)
         {
-            CurrentTimingProject = Project.CreateNew(pathSettings, projectName, songId, songOffset);
+            CurrentTimingProject = Project.CreateNew(ConfigManager, projectName, songId, songOffset);
         }
 
         public void ReadExistingTimingProject(string projectName)
         {
-            CurrentTimingProject = Project.ReadProject(pathSettings, projectName);
+            if (projectName == CurrentTimingProject.Name) return;
+
+            CurrentTimingProject.Dispose();
+
+            CurrentTimingProject = Project.ReadProject(ConfigManager, projectName);
         }
 
-        public IReadOnlyList<LevelPreview?>? FindLevelsByName(string levelName)
+        public IEnumerable<LevelPreview?> FindLevelsByName(string levelName)
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
-            return levels.FindAllLevelsByName(levelName) as IReadOnlyList<LevelPreview?>;
+            return levels.FindAllLevelsByName(levelName);
         }
 
         public void InjectToExisting(string levelKey)
@@ -56,7 +86,9 @@ namespace BetterBPMGDCLI.Managers
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
-            LocalLevel level = LocalLevel.Parse(pathSettings.MinimalLevelPath, Constants.AboveAllLevelsKey); // places level at the top of the list
+            LocalLevel level = LocalLevel.Parse(pathSettings.MinimalLevelPath, Constants.LevelsOnTopKey); // places level at the top of the list
+
+            level.LevelName = levelName;
 
             CurrentTimingProject.InjectTimings(level);
 
@@ -68,6 +100,25 @@ namespace BetterBPMGDCLI.Managers
                     ?.AddAfterSelf(XElement.Parse(level.Encode()));
 
             FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
+        }
+
+        public void BackupLocalLevels()
+            => FileUtility.CopyFile(pathSettings.GeometryDashLevelsSavePath, Path.Combine(pathSettings.BackupFolderPath,
+                                        $"CCLocalLevels_Backup_{DateTime.Now.Date:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"));
+
+        private void ConfigManagerPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ConfigManager.PathSettings))
+                pathSettings = ConfigManager.PathSettings;
+        }
+
+        private void DecodeLocalLevels()
+        {
+            BackupLocalLevels();
+
+            localLevelCipher = new(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
+
+            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, localLevelCipher.Decode());
         }
     }
 }

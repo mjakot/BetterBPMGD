@@ -1,9 +1,9 @@
 ﻿namespace BetterBPMGDCLI.Utils
 {
-    public class Constants
+    public struct Constants
     {
         public const string FirstLevelKey = "k_0";
-        public const string AboveAllLevelsKey = "k_-1";
+        public const string LevelsOnTopKey = "k_-1";
 
         public const string NameElementKey = "k2";
         public const string DescriptionElementKey = "k3";
@@ -34,6 +34,7 @@
         public const string CheckedKey = "13";
 
         public const string MP3Extension = ".mp3";
+        public const string TXTExtension = ".txt";
 
         public const string DefaultInnerSeparator = "=";
         public const string DefaultOuterSeparator = ",";
