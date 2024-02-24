@@ -27,7 +27,7 @@ namespace BetterBPMGDCLI.Extensions
         public static IReadOnlyList<XElement?>? FindAllElementsByKeyValue(this XElement xElement, string keyValue, string targetTag)
             => xElement.FindAllElementsByKeyValue(Constants.KeyElementTag, keyValue, targetTag);
 
-        public static IEnumerable<LevelPreview?>? FindAllLevelsByName(this XElement xElement, string levelName)
+        public static IEnumerable<LevelPreview?> FindAllLevelsByName(this XElement xElement, string levelName)
         {
             IReadOnlyList<XElement?>? levels = ( from level in xElement.Descendants(Constants.NameElementKey)
                                                  where level.Value == levelName

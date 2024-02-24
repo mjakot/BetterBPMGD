@@ -27,6 +27,7 @@ namespace BetterBPMGDCLI.Managers
                 new TestCommand().BuildCommand(),
                 new ClearCommand().BuildCommand(),
                 new StatsCommand(workFlowManager).BuildCommand(),
+                new SearchLevelsByNameCommand(workFlowManager).BuildCommand(),
                 new NewCommand(new NewProject(workFlowManager), new NewTiming(workFlowManager)).BuildCommand(),
                 new SetCommand(new SetCurrentProjectCommand(workFlowManager)).BuildCommand(),
             };
@@ -47,6 +48,10 @@ namespace BetterBPMGDCLI.Managers
             }
 
             workFlowManager.Dispose();
+
+            await Console.Out.WriteLineAsync("Press enter to exit");
+
+            Console.ReadLine();
         }
 
         private Command StopCommand()

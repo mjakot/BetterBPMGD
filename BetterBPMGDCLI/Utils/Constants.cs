@@ -3,7 +3,7 @@
     public struct Constants
     {
         public const string FirstLevelKey = "k_0";
-        public const string AboveAllLevelsKey = "k_-1";
+        public const string LevelsOnTopKey = "k_-1";
 
         public const string NameElementKey = "k2";
         public const string DescriptionElementKey = "k3";
