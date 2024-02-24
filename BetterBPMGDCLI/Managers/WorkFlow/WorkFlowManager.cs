@@ -104,7 +104,7 @@ namespace BetterBPMGDCLI.Managers
 
         public void BackupLocalLevels()
             => FileUtility.CopyFile(pathSettings.GeometryDashLevelsSavePath, Path.Combine(pathSettings.BackupFolderPath,
-                                        $"CCLocalLevels_Backup_{DateTime.Now.Date:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"));
+                                        $"CCLocalLevels_Backup_{DateTime.Now:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"));
 
         private void ConfigManagerPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
