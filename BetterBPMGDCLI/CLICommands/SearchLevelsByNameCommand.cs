@@ -10,27 +10,27 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<string> name = new(["--name", "-n"], description: "Specifies the name of the levels");
-            Option<string> ingnoreCase = new(["--case", "-c", "--insensitive", "-i", "--ignoreCase", "--ignorecase", "--ignore-case"], description: "Specifies whether search should be case insensitive");
+            Option<string> name = new(["--name", "-n"], description: "Specifies the name of the levels") { IsRequired = true };
+            Option<bool> ignoreCase = new(["--case", "-c", "--insensitive", "-i", "--ignoreCase", "--ignorecase", "--ignore-case"], description: "Specifies whether search should be case insensitive", getDefaultValue: () => false) { IsRequired = false };
 
             Command command = new("search", description: "Searches levels by name. Returns collection of levels with name specified.")
             {
                 name,
-                ingnoreCase
+                ignoreCase
             };
 
             command.AddAlias("searchLevels");
             command.AddAlias("searchlevels");
             command.AddAlias("search-levels");
 
-            command.SetHandler(SearchLevels, name, ingnoreCase);
+            command.SetHandler(SearchLevels, name, ignoreCase);
 
             return command;
         }
 
-        private void SearchLevels(string name, bool ingnoreCase)
+        private void SearchLevels(string name, bool ignoreCase)
         {
-            IEnumerable<LevelPreview?> foundLevels = workFlowManager.FindLevelsByName(name);
+            IEnumerable<LevelPreview?> foundLevels = workFlowManager.FindLevelsByName(name, ignoreCase);
 
             if (!foundLevels.Any())
             {
@@ -39,17 +39,9 @@ namespace BetterBPMGDCLI.CLICommands
                 return;
             }
 
-            int index = 0;
-
             foreach (LevelPreview? level in foundLevels)
-            {
-                Console.WriteLine( new StringBuilder().Append(index.ToString())
-                                                        .AppendLine("  --")
-                                                        .AppendLine(level.ToString())
+                Console.WriteLine( new StringBuilder().AppendLine(level.ToString())
                                                         .AppendLine() );
-
-                index++;
-            }
         }
     }
 }

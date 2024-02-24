@@ -60,11 +60,11 @@ namespace BetterBPMGDCLI.Managers
             CurrentTimingProject = Project.ReadProject(ConfigManager, projectName);
         }
 
-        public IEnumerable<LevelPreview?> FindLevelsByName(string levelName)
+        public IEnumerable<LevelPreview?> FindLevelsByName(string levelName, bool ignoreCase)
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
-            return levels.FindAllLevelsByName(levelName);
+            return levels.FindAllLevelsByName(levelName, ignoreCase);
         }
 
         public void InjectToExisting(string levelKey)
