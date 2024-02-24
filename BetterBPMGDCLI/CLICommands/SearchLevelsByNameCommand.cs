@@ -1,5 +1,6 @@
 ﻿using BetterBPMGDCLI.Managers;
 using System.CommandLine;
+using System.Text;
 
 namespace BetterBPMGDCLI.CLICommands
 {
@@ -10,22 +11,24 @@ namespace BetterBPMGDCLI.CLICommands
         public Command BuildCommand()
         {
             Option<string> name = new(["--name", "-n"], description: "Specifies the name of the levels");
+            Option<string> ingnoreCase = new(["--case", "-c", "--insensitive", "-i", "--ignoreCase", "--ignorecase", "--ignore-case"], description: "Specifies whether search should be case insensitive");
 
             Command command = new("search", description: "Searches levels by name. Returns collection of levels with name specified.")
             {
-                name
+                name,
+                ingnoreCase
             };
 
-            //command.AddAlias("searchLevels");
-            //command.AddAlias("searchlevels");
+            command.AddAlias("searchLevels");
+            command.AddAlias("searchlevels");
             command.AddAlias("search-levels");
 
-            command.SetHandler(SearchLevels, name);
+            command.SetHandler(SearchLevels, name, ingnoreCase);
 
             return command;
         }
 
-        private void SearchLevels(string name)
+        private void SearchLevels(string name, bool ingnoreCase)
         {
             IEnumerable<LevelPreview?> foundLevels = workFlowManager.FindLevelsByName(name);
 
@@ -40,7 +43,10 @@ namespace BetterBPMGDCLI.CLICommands
 
             foreach (LevelPreview? level in foundLevels)
             {
-                Console.WriteLine(index.ToString() + " - " + level.ToString());
+                Console.WriteLine( new StringBuilder().Append(index.ToString())
+                                                        .AppendLine("  --")
+                                                        .AppendLine(level.ToString())
+                                                        .AppendLine() );
 
                 index++;
             }
