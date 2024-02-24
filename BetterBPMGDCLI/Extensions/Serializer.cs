@@ -45,7 +45,14 @@ namespace BetterBPMGDCLI.Extensions
 
                 PropertyInfo propertyInfo = properties[index];
 
-                propertyInfo.SetValue(instance, TypeDescriptor.GetConverter(propertyInfo.PropertyType).ConvertFrom(keyValuePair[1]) ?? string.Empty);
+                try
+                {
+                    propertyInfo.SetValue(instance, TypeDescriptor.GetConverter(propertyInfo.PropertyType).ConvertFrom(keyValuePair[1]) ?? string.Empty);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
             }
 
             return instance;
