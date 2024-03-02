@@ -24,13 +24,13 @@ namespace BetterBPMGDCLI.Managers
 
             configManager.PropertyChanged += ConfigManagerPropertyChanged;
 
-            string currentProjectName = $"\\\\";
+            string currentProjectName = Guid.NewGuid().ToString();
 
             if (File.Exists(pathSettings.CurrentProjectSaveFilePath))
                 currentProjectName = FileUtility.ReadFromFile(pathSettings.CurrentProjectSaveFilePath);
 
             if (Directory.Exists(Path.Combine(pathSettings.TimingProjectsFolderPath, currentProjectName))) //TODO: check this somewhere else
-                CurrentTimingProject = Project.ReadProject(ConfigManager, currentProjectName);
+                    CurrentTimingProject = Project.ReadProject(ConfigManager, currentProjectName);
             else
                 CurrentTimingProject = new(configManager);
 
@@ -39,7 +39,8 @@ namespace BetterBPMGDCLI.Managers
 
         public void Dispose()
         {
-            FileUtility.WriteToFile(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
+            if (!string.IsNullOrEmpty(CurrentTimingProject.Name))
+                FileUtility.WriteToFile(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
 
             CurrentTimingProject.Dispose();
             ConfigManager.Dispose();
