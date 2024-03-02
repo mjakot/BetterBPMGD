@@ -25,6 +25,7 @@ namespace BetterBPMGDCLI.Managers
                 new SearchLevelsByNameCommand(workFlowManager).BuildCommand(),
                 new NewCommand(new NewProject(workFlowManager), new NewTiming(workFlowManager)).BuildCommand(),
                 new SetCommand(new SetCurrentProject(workFlowManager)).BuildCommand(),
+                new InjectCommand(new InjectExisting(workFlowManager), new InjectNew(workFlowManager)).BuildCommand(),
             ];
 
             rootCommand.SetHandler((continuousEnable) =>

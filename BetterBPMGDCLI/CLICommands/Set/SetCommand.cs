@@ -2,22 +2,10 @@
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    public class SetCommand(params ICommand[] setCommands) : ICommand
+    public class SetCommand(params ICommand[] setCommands) : HostCommandBase, ICommand
     {
         private readonly ICommand[] setCommands = setCommands;
 
-        public Command BuildCommand()
-        {
-            Command command = new("set", "Sets values");
-
-            foreach (var cmd in setCommands)
-                command.Add(cmd.BuildCommand());
-
-            command.AddAlias("st");
-
-            command.SetHandler(() => Console.WriteLine("Specify what value to change"));
-
-            return command;
-        }
+        public Command BuildCommand() => BuildCommand(setCommands, ["set", "st"], "Sets values", "Specify what value to change");
     }
 }
