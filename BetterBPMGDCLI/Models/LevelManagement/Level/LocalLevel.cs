@@ -5,26 +5,15 @@ using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Models.Level
 {
-    public class LocalLevel
+    public class LocalLevel(string key, string name, string description, int initialOfficialSongId, int initialCustomSongId, LocalLevelData? data, XElement level)
     {
-        public string LevelKey { get; set; }
-        public string LevelName { get; set; }
-        public string LevelDescription { get; set; }
-        public int InitialOfficialSongId { get; set; }
-        public int InitialCustomSongId { get; set; }
-        public LocalLevelData? LevelData { get; set; }
-        public XElement XmlLevel {  get; set; }
-
-        public LocalLevel(string key, string name, string description, int initialOfficialSongId, int initialCustomSongId, LocalLevelData? data, XElement level)
-        {
-            LevelKey = key;
-            LevelName = name;
-            LevelDescription = description;
-            InitialOfficialSongId = initialOfficialSongId;
-            InitialCustomSongId = initialCustomSongId;
-            LevelData = data;
-            XmlLevel = level;
-        }
+        public string LevelKey { get; set; } = key;
+        public string LevelName { get; set; } = name;
+        public string LevelDescription { get; set; } = description;
+        public int InitialOfficialSongId { get; set; } = initialOfficialSongId;
+        public int InitialCustomSongId { get; set; } = initialCustomSongId;
+        public LocalLevelData? LevelData { get; set; } = data;
+        public XElement XmlLevel { get; set; } = level;
 
         public string Encode()
         {

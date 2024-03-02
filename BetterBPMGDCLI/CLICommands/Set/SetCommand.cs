@@ -13,7 +13,7 @@ namespace BetterBPMGDCLI.CLICommands
             foreach (var cmd in setCommands)
                 command.Add(cmd.BuildCommand());
 
-            command.AddAlias("s");
+            command.AddAlias("st");
 
             command.SetHandler(() => Console.WriteLine("Specify what value to change"));
 

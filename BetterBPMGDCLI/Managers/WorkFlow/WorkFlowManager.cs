@@ -10,9 +10,8 @@ namespace BetterBPMGDCLI.Managers
 {
     public class WorkFlowManager : IDisposable
     {
-        private LocalLevelsCipher? localLevelCipher = null;
-        private LocalLevelDataCipher? localLevelDataCipher = null;
-
+        private LocalLevelsCipher? localLevelCipher;
+        
         private IPathSettings pathSettings;
 
         public ConfigManager ConfigManager { get; private set; }
@@ -44,6 +43,8 @@ namespace BetterBPMGDCLI.Managers
 
             CurrentTimingProject.Dispose();
             ConfigManager.Dispose();
+
+            GC.SuppressFinalize(this);
         }
 
         public void NewTimingProject(string projectName, int songId, ulong songOffset = 0)
@@ -77,7 +78,7 @@ namespace BetterBPMGDCLI.Managers
 
             CurrentTimingProject.InjectTimings(level);
 
-            xmlLevel = XElement.Parse(level.ToString() ?? Constants.NotFoundPlaceholder);
+            xmlLevel = XElement.Parse(level.Encode() ?? Constants.NotFoundPlaceholder);
 
             FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
         }

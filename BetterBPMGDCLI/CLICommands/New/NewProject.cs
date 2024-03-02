@@ -20,7 +20,7 @@ namespace BetterBPMGDCLI.CLICommands
                 offset
             };
 
-            command.AddAlias("p");
+            command.AddAlias("pj");
             command.AddAlias("proj");
 
             command.SetHandler(CreateNewProject, name, sondId, offset);

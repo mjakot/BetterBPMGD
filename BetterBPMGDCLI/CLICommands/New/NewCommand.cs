@@ -14,7 +14,7 @@ namespace BetterBPMGDCLI.CLICommands
             foreach (ICommand cmd in newCommands)
                 command.Add(cmd.BuildCommand());
 
-            command.AddAlias("n");
+            command.AddAlias("nw");
 
             command.SetHandler(() => Console.WriteLine("Specify whether to create new project or add new timing. Note: to add new timing current project must be specified"));
 
