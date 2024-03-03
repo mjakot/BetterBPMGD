@@ -20,7 +20,7 @@ namespace BetterBPMGDCLI.CLICommands
                 offset
             };
 
-            command.AddAlias("p");
+            command.AddAlias("pj");
             command.AddAlias("proj");
 
             command.SetHandler(CreateNewProject, name, sondId, offset);
@@ -28,6 +28,16 @@ namespace BetterBPMGDCLI.CLICommands
             return command;
         }
 
-        private void CreateNewProject(string name, int sondId, ulong offset) => workFlowManager.NewTimingProject(name, sondId, offset);
+        private void CreateNewProject(string name, int sondId, ulong offset)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                Console.Error.WriteLine("Name could not be an empty string");
+
+                return;
+            }
+
+            workFlowManager.NewTimingProject(name, sondId, offset);
+        }
     }
 }

@@ -48,6 +48,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         public void Dispose()
         {
+            if (string.IsNullOrEmpty(Name)) return;
+
             string projectPath = pathSettings.GetTimingProjectFolderPath(Name);
 
             FileUtility.WriteToFile(Path.Combine(projectPath, pathSettings.SongListPath), SerializeSongs(SongIds));

@@ -4,23 +4,18 @@ using System.CommandLine;
 
 namespace BetterBPMGDCLI.Managers
 {
-    public class CLIManager
+    public class CLIManager(WorkFlowManager workFlowManager)
     {
         private bool isRunning = false;
 
-        private readonly WorkFlowManager workFlowManager;
-
-        public CLIManager(WorkFlowManager workFlowManager)
-        {
-            this.workFlowManager = workFlowManager;
-        }
+        private readonly WorkFlowManager workFlowManager = workFlowManager;
 
         public async Task RunAsync(string[] args)
         {
             Option<bool> continuous = new(["--continuous", "-c", "-t"], description: "Enables the continuous mode", getDefaultValue: () => false);
 
-            RootCommand rootCommand = new()
-            {
+            RootCommand rootCommand =
+            [
                 continuous,
 
                 StopCommand(),
@@ -29,8 +24,9 @@ namespace BetterBPMGDCLI.Managers
                 new StatsCommand(workFlowManager).BuildCommand(),
                 new SearchLevelsByNameCommand(workFlowManager).BuildCommand(),
                 new NewCommand(new NewProject(workFlowManager), new NewTiming(workFlowManager)).BuildCommand(),
-                new SetCommand(new SetCurrentProjectCommand(workFlowManager)).BuildCommand(),
-            };
+                new SetCommand(new SetCurrentProject(workFlowManager)).BuildCommand(),
+                new InjectCommand(new InjectExisting(workFlowManager), new InjectNew(workFlowManager)).BuildCommand(),
+            ];
 
             rootCommand.SetHandler((continuousEnable) =>
             {
@@ -67,6 +63,7 @@ namespace BetterBPMGDCLI.Managers
 
             command.AddAlias("exit");
             command.AddAlias("quit");
+            command.AddAlias(":q");
 
             command.SetHandler((deleteStartupFile, deleteLocalFiles) =>
             {

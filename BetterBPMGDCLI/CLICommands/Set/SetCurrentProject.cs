@@ -3,7 +3,7 @@ using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    public class SetCurrentProjectCommand(WorkFlowManager workFlowManager) : ICommand
+    public class SetCurrentProject(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
@@ -20,13 +20,15 @@ namespace BetterBPMGDCLI.CLICommands
             command.AddAlias("currentProject");
             command.AddAlias("current-project");
             command.AddAlias("currproj"); // aint no way im adding "cp" as alias
+            command.AddAlias("crp");
+            command.AddAlias("cpr"); // why not
 
-            command.SetHandler(SetCurrentProject, name);
+            command.SetHandler(SetProject, name);
 
             return command;
         }
 
-        private void SetCurrentProject(string name)
+        private void SetProject(string name)
         {
             if (!Directory.Exists(Path.Combine(workFlowManager.ConfigManager.PathSettings.TimingProjectsFolderPath, name)))
             {

@@ -27,7 +27,7 @@ namespace BetterBPMGDCLI.CLICommands
                 colorPatern
             };
 
-            command.AddAlias("t");
+            command.AddAlias("ti");
 
             command.SetHandler(AddNewTiming, offset, bpm, subdivideBeats, beatSubdivision, speed, colorPatern);
 

@@ -10,9 +10,8 @@ namespace BetterBPMGDCLI.Managers
 {
     public class WorkFlowManager : IDisposable
     {
-        private LocalLevelsCipher? localLevelCipher = null;
-        private LocalLevelDataCipher? localLevelDataCipher = null;
-
+        private LocalLevelsCipher? localLevelCipher;
+        
         private IPathSettings pathSettings;
 
         public ConfigManager ConfigManager { get; private set; }
@@ -25,13 +24,13 @@ namespace BetterBPMGDCLI.Managers
 
             configManager.PropertyChanged += ConfigManagerPropertyChanged;
 
-            string currentProjectName = $"\\\\";
+            string currentProjectName = Guid.NewGuid().ToString();
 
             if (File.Exists(pathSettings.CurrentProjectSaveFilePath))
                 currentProjectName = FileUtility.ReadFromFile(pathSettings.CurrentProjectSaveFilePath);
 
             if (Directory.Exists(Path.Combine(pathSettings.TimingProjectsFolderPath, currentProjectName))) //TODO: check this somewhere else
-                CurrentTimingProject = Project.ReadProject(ConfigManager, currentProjectName);
+                    CurrentTimingProject = Project.ReadProject(ConfigManager, currentProjectName);
             else
                 CurrentTimingProject = new(configManager);
 
@@ -40,10 +39,13 @@ namespace BetterBPMGDCLI.Managers
 
         public void Dispose()
         {
-            FileUtility.WriteToFile(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
+            if (!string.IsNullOrEmpty(CurrentTimingProject.Name))
+                FileUtility.WriteToFile(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
 
             CurrentTimingProject.Dispose();
             ConfigManager.Dispose();
+
+            GC.SuppressFinalize(this);
         }
 
         public void NewTimingProject(string projectName, int songId, ulong songOffset = 0)
@@ -60,11 +62,11 @@ namespace BetterBPMGDCLI.Managers
             CurrentTimingProject = Project.ReadProject(ConfigManager, projectName);
         }
 
-        public IEnumerable<LevelPreview?> FindLevelsByName(string levelName)
+        public IEnumerable<LevelPreview?> FindLevelsByName(string levelName, bool ignoreCase)
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
-            return levels.FindAllLevelsByName(levelName);
+            return levels.FindAllLevelsByName(levelName, ignoreCase);
         }
 
         public void InjectToExisting(string levelKey)
@@ -77,7 +79,7 @@ namespace BetterBPMGDCLI.Managers
 
             CurrentTimingProject.InjectTimings(level);
 
-            xmlLevel = XElement.Parse(level.ToString() ?? Constants.NotFoundPlaceholder);
+            xmlLevel = XElement.Parse(level.Encode() ?? Constants.NotFoundPlaceholder);
 
             FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
         }
@@ -104,7 +106,7 @@ namespace BetterBPMGDCLI.Managers
 
         public void BackupLocalLevels()
             => FileUtility.CopyFile(pathSettings.GeometryDashLevelsSavePath, Path.Combine(pathSettings.BackupFolderPath,
-                                        $"CCLocalLevels_Backup_{DateTime.Now.Date:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"));
+                                        $"CCLocalLevels_Backup_{DateTime.Now:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"));
 
         private void ConfigManagerPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

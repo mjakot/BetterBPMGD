@@ -2,23 +2,10 @@
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    public class NewCommand(params ICommand[] newCommands) : ICommand
+    public class NewCommand(params ICommand[] newCommands) : HostCommandBase, ICommand
     {
         private readonly ICommand[] newCommands = newCommands;
 
-        public Command BuildCommand()
-        {
-            //TODO: move all hard coded text somewhere else
-            Command command = new("new", "Creates new project | new timing");
-
-            foreach (ICommand cmd in newCommands)
-                command.Add(cmd.BuildCommand());
-
-            command.AddAlias("n");
-
-            command.SetHandler(() => Console.WriteLine("Specify whether to create new project or add new timing. Note: to add new timing current project must be specified"));
-
-            return command;
-        }
+        public Command BuildCommand() => BuildCommand(newCommands, ["new", "nw"], "Creates new project or timing", "Specify whether to create new project or add new timing. Note: to add a new timing current project must be specified");
     }
 }

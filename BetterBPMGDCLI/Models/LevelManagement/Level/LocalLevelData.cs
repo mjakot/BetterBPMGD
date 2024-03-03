@@ -21,8 +21,8 @@ namespace BetterBPMGDCLI.Models.Level
         public LocalLevelData()
         {
             LevelData = string.Empty;
-            Guidelines = new();
-            SpeedPortals = new();
+            Guidelines = [];
+            SpeedPortals = [];
         }
 
         public LocalLevelData(string levelData, List<Guideline> guidelines, List<SpeedPortal> speedPortals)
@@ -101,7 +101,7 @@ namespace BetterBPMGDCLI.Models.Level
             }
         }
 
-        private void CalculateSpeedPortals() => SpeedPortals = new();
+        private void CalculateSpeedPortals() => SpeedPortals = [];
 
         private string EncodeLevelDataCollection(IReadOnlyList<ILevelData> levelData)
         {
