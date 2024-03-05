@@ -13,7 +13,9 @@ namespace BetterBPMGDCLI.CLICommands
             Option<string> name = new(["--name", "-n"], description: "Specifies the name of the levels") { IsRequired = true };
             Option<bool> ignoreCase = new(["--case", "-c", "--insensitive", "--caseinsensitive", "--caseInsensitive", "--case-insensitive", "-i", "--ignoreCase", "--ignorecase", "--ignore-case"], description: "Specifies whether search should be case insensitive", getDefaultValue: () => false) { IsRequired = false };
 
-            Command command = new("searchL", description: "Searches levels by name. Returns collection of levels with name specified.")
+            name.ArgumentHelpName = "string";
+
+            Command command = new("searchL", description: "Searches levels by name. Returns collection of levels that match the specified name.")
             {
                 name,
                 ignoreCase
@@ -24,9 +26,9 @@ namespace BetterBPMGDCLI.CLICommands
             command.AddAlias("search-levels");
             command.AddAlias("search-l");
             command.AddAlias("searchl");
-            command.AddAlias("schl");
-            command.AddAlias("sch-l");
-            command.AddAlias("schL");
+            command.AddAlias("srchl");
+            command.AddAlias("srch-l");
+            command.AddAlias("srchL");
 
             command.SetHandler(SearchLevels, name, ignoreCase);
 

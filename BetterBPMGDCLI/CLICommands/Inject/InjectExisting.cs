@@ -9,7 +9,7 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<string> key = new(["--key", "-k"], description: "Specifies the key of the existing level") { IsRequired = true };
+            Option<string> key = new(["--key", "-k"], description: "Specifies the key of the existing level") { IsRequired = true, ArgumentHelpName = "string" };
 
             Command command = new("existing", description: "Injects timings from current project into existing level specified by the key")
             {

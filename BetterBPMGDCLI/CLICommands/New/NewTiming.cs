@@ -10,14 +10,38 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<ulong> offset = new(["--offset", "-o"], description: "Specifies offset for the timing") { IsRequired = true };
-            Option<double> bpm = new(["--bpm", "-b"], description: "Specifies bpm for the timing") { IsRequired = true };
+            Option<ulong> offset = new(["--offset", "-o"], description: "Specifies offset for the timing") { IsRequired = true, ArgumentHelpName = "ulong" };
+            Option<double> bpm = new(["--bpm", "-b"], description: "Specifies bpm for the timing") { IsRequired = true, ArgumentHelpName = "double" };
             Option<bool> subdivideBeats = new(["--subdivide", "-d"], description: "Specifies whether to subdivide beats") { IsRequired = true };
-            Option<int> beatSubdivision = new(["--subdivision", "-n"], description: "Specifies beat subdivision for the timing") { IsRequired = true };
-            Option<int> speed = new(["--speed", "-s"], description: "Specifies speed for the timing") { IsRequired = true };
-            Option<string> colorPatern = new(["--colors", "-c"], description: "Specifies color pattern for the timing") { IsRequired = true };
+            Option<int> beatSubdivision = new(["--subdivision", "-n"], description: "Specifies beat subdivision for the timing") { IsRequired = true, ArgumentHelpName = "int" };
+            Option<int> speed = new Option<int>(["--speed", "-s"], description: "Specifies speed for the timing. Available speeds: 0 - HALFSPEED, 1 - NORMAL SPEED, 2 - DOUBLE SPEED, 3 - TRPLE SPEED, 4 - QUADRUPLE SPEED") { IsRequired = true, ArgumentHelpName = "int" }.FromAmong("0 -> HALFSPEED", "1 -> NORMAL SPEED", "2 -> DOUBLE SPEED", "3 -> TRPLE SPEED", "4 -> QUADRUPLE SPEED", "200", "201", "202", "203", "1334");
+            Option<string> colorPatern = new(["--colors", "-c"], description: "Specifies color pattern for the guidelines. Available colors: o - orange, g - green, y - yellow, n - none. Pattern can not be longer than 3 symbols. Example: ogo (orange - green - orange)") { IsRequired = true, ArgumentHelpName = "string" };
 
-            Command command = new("timing", "Adds new timing to the project. Note: current project must be specified")
+            colorPatern.AddValidator(x =>
+            {
+                string? value = x.GetValueOrDefault<string>();
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    x.ErrorMessage = "Color patter can not be an empty string";
+
+                    return;
+                }
+
+                if (value.Length > 3)
+                {
+                    x.ErrorMessage = "Color patter can not be longer than 3 characters";
+
+                    return;
+                }
+
+                if (!value.All(c => new char[] { 'o', 'g', 'y', 'n' }.Contains(c)))
+                {
+                    x.ErrorMessage = "Color patter can not be any other character that o, g, y and n";
+                }
+            });
+
+            Command command = new("timing", "Adds new timing to the project. Note: current project must be specified first")
             {
                 offset,
                 bpm,

@@ -11,6 +11,8 @@ namespace BetterBPMGDCLI.CLICommands
         {
             Option<string> name = new(["--name", "-n"], description: "Specifies the name of the project");
 
+            name.ArgumentHelpName = "string";
+
             Command command = new("proj", "Specifies the current timing project")
             {
                 name

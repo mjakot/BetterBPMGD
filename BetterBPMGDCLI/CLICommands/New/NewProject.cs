@@ -9,9 +9,9 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<string> name = new(["--name", "-n"], description: "Specifies the name for the project") { IsRequired = true };
-            Option<int> sondId = new(["--song", "-s"], description: "Specifies the id for the initial song of the project") { IsRequired = true };
-            Option<ulong> offset = new(["--offset", "-o"], description: "Specifies the offset for the initial song of the project") { IsRequired = true };
+            Option<string> name = new(["--name", "-n"], description: "Specifies the name for the project") { IsRequired = true, ArgumentHelpName = "string" };
+            Option<int> sondId = new(["--song", "-s"], description: "Specifies the id for the initial song of the project") { IsRequired = true, ArgumentHelpName = "int" };
+            Option<ulong> offset = new(["--offset", "-o"], description: "Specifies the offset for the initial song of the project") { IsRequired = true, ArgumentHelpName = "ulong" };
 
             Command command = new("project", "creates new project")
             {

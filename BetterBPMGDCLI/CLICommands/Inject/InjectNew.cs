@@ -9,7 +9,7 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<string> name = new(["--name", "-n"], description: "Specifies the name for the level") { IsRequired = true};
+            Option<string> name = new(["--name", "-n"], description: "Specifies the name for the level") { IsRequired = true, ArgumentHelpName = "string" };
 
             Command command = new("new", description: "Creates new level and injects timings into it from current project")
             {
