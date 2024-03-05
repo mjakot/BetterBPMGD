@@ -3,10 +3,12 @@ using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    /// <include file="..\..\Docs\Classes\InjectExistingDoc.xml" path="doc/type"/>
     public class InjectExisting(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
+        /// <include file="..\..\Docs\Classes\InjectExistingDoc.xml" path="doc/method"/>
         public Command BuildCommand()
         {
             Option<string> key = new(["--key", "-k"], description: "Specifies the key of the existing level") { IsRequired = true };

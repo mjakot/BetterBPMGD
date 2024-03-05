@@ -2,10 +2,13 @@
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    /// <include file="..\..\Docs\Classes\HostCommandBaseDoc.xml" path="doc/type"/>
     public abstract class HostCommandBase
     {
+        /// <include file="..\..\Docs\Classes\HostCommandBaseDoc.xml" path="doc/method[@name='BuildCommandExcludeOptions']"/>
         protected static Command BuildCommand(ICommand[] commands, string[] aliases, string description, string defaultMessage) => BuildCommand(commands, aliases, [], description, defaultMessage);
 
+        /// <include file="..\..\Docs\Classes\HostCommandBaseDoc.xml" path="doc/method[@name='BuildCommandIncludeOptions']"/>
         protected static Command BuildCommand(ICommand[] commands, string[] aliases, Option[] options, string description, string defaultMessage)
         {
             Command command = new(aliases[0], description);

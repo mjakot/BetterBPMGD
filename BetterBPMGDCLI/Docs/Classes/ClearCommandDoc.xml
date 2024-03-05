@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Represents a <see cref="System.CommandLine.Command"/> for clearing console. duh
+      </para>
+      <remarks>
+        Most useful in continuous mode of the cli ( when <see cref="BetterBPMGDCLI.Managers.CLIManager.isRunning"/> is set to <see langword="true"/> )
+      </remarks>
+    </summary>
+  </type>
+</doc>

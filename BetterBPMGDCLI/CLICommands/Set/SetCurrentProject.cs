@@ -3,6 +3,7 @@ using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    ///<include file='../../Docs/Classes/SetCurrentProjectDoc.xml' path='doc/type'/>
     public class SetCurrentProject(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;

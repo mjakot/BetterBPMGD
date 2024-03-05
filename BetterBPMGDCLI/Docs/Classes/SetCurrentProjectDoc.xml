@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <type>
+    <summary>
+      Represents <see cref="BetterBPMGDCLI.CLICommands.SetCommand"/> sub-command for setting <see cref="BetterBPMGDCLI.Managers.WorkFlowManager.CurrentTimingProject"/>
+    </summary>
+    <param name="workFlowManager">
+      <see cref="BetterBPMGDCLI.Managers.WorkFlowManager"/> reference
+    </param>
+  </type>
+</doc>

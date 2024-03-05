@@ -4,6 +4,7 @@ using System.Text;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    ///<include file='../Docs/Classes/SearchLevelsByNameCommandDoc.xml' path='doc/type'/>
     public class SearchLevelsByNameCommand(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
@@ -39,7 +40,7 @@ namespace BetterBPMGDCLI.CLICommands
 
             if (!foundLevels.Any())
             {
-                Console.Error.WriteLine("No levels found");
+                Console.Error.WriteLine("No levels found with such name");
 
                 return;
             }

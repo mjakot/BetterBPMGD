@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Represents a <see cref="System.CommandLine.Command"/> for searching existing local levels by their name.
+      </para>
+      <remarks>
+        Use this to obtain level key that can be used with <see cref="BetterBPMGDCLI.CLICommands.InjectCommand">Inject commands</see>
+      </remarks>
+    </summary>
+    <param name="workFlowManager">
+      <see cref="BetterBPMGDCLI.Managers.WorkFlowManager"/> reference
+    </param>
+  </type>
+</doc>
