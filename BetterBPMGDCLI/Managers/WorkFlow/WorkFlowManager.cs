@@ -81,7 +81,7 @@ namespace BetterBPMGDCLI.Managers
 
             xmlLevel = XElement.Parse(level.Encode() ?? Constants.NotFoundPlaceholder);
 
-            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
+            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, Constants.GDXMLDeclaration + levels.ToString(SaveOptions.DisableFormatting));
         }
 
         public void InjectToNew(string levelName)
