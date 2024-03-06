@@ -114,6 +114,7 @@ namespace BetterBPMGDCLI.Models.Level
 
         [GeneratedRegex(GuideLinesPattern)]
         private static partial Regex GuidelinesRegex();
+
         [GeneratedRegex(SpeedPortalsPattern)]
         private static partial Regex SpeedPortalsRegex();
     }
