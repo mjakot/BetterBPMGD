@@ -16,7 +16,7 @@ namespace BetterBPMGDCLI.CLICommands
                 key,
             };
 
-            command.AddAlias("xng");
+            command.AddAlias("xsg");
 
             command.SetHandler(Inject, key);
 

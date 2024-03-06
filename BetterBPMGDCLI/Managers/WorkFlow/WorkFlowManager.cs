@@ -49,13 +49,12 @@ namespace BetterBPMGDCLI.Managers
         }
 
         public void NewTimingProject(string projectName, int songId, ulong songOffset = 0)
-        {
-            CurrentTimingProject = Project.CreateNew(ConfigManager, projectName, songId, songOffset);
-        }
+            => CurrentTimingProject = Project.CreateNew(ConfigManager, projectName, songId, songOffset);
 
         public void ReadExistingTimingProject(string projectName)
         {
-            if (projectName == CurrentTimingProject.Name) return;
+            if (projectName == CurrentTimingProject.Name)
+                return;
 
             CurrentTimingProject.Dispose();
 
@@ -88,7 +87,7 @@ namespace BetterBPMGDCLI.Managers
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
-            LocalLevel level = LocalLevel.Parse(pathSettings.MinimalLevelPath, Constants.LevelsOnTopKey); // places level at the top of the list
+            LocalLevel level = LocalLevel.Parse(pathSettings.MinimalLevelPath, Constants.LevelOnTopKey); // places level at the top of the list
 
             level.LevelName = levelName;
 

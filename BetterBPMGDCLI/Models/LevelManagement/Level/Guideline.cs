@@ -22,7 +22,8 @@ namespace BetterBPMGDCLI.Models.Level
         {
             string[] offsetColorPair = guideline.Split(Constants.GuidelinesSeparator);
 
-            if (offsetColorPair.Length < 2) return null;
+            if (offsetColorPair.Length < 2)
+                return null;
 
             return new(BPMCalculations.GetMilliseconds(ulong.Parse(offsetColorPair[0])), new(double.Parse(offsetColorPair[1])));
         }
@@ -48,7 +49,8 @@ namespace BetterBPMGDCLI.Models.Level
                     stringBuilder.Clear();
                 }
 
-                else counter++;
+                else
+                    counter++;
             }
         }
     }

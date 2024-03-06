@@ -30,7 +30,8 @@ namespace BetterBPMGDCLI.Managers
             return new(ConfigManager.CreateInstance<T>());
         }
 
-        private static void WriteToStartupFile<T>(T pathSettings) where T : SettingsBase, IPathSettings, new() => File.WriteAllText(PathSettings.StartupFilePath, PathSettings.GetSerializationPath(pathSettings) + Constants.DefaultInnerSeparator + typeof(T).Name);
+        private static void WriteToStartupFile<T>(T pathSettings) where T : SettingsBase, IPathSettings, new()
+            => File.WriteAllText(PathSettings.StartupFilePath, PathSettings.GetSerializationPath(pathSettings) + Constants.DefaultInnerSeparator + typeof(T).Name);
 
         private static WorkFlowManager InitializeFileSystem<T>(T pathSettings) where T : SettingsBase, IPathSettings, new()
         {

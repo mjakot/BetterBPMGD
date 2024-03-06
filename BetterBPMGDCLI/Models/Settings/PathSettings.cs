@@ -43,28 +43,28 @@ namespace BetterBPMGDCLI.Models.Settings
         public string MinimalLevelPath { get; set; }
 
         public PathSettings() : this(appDataFolderPath: AppDataFolderPathDefault,
-                                        betterBPMGDFolderPath: BetterBPMGDFolderPathDefault,
-                                        betterBPMGDSettingsFolderPath: SettingsFolderPathDefault,
-                                        backupFolderPath: BackupFolderPathDefault,
-                                        geometryDashSavesFolderPath: GeometryDashSavesFolderPathDefault,
-                                        geometryDashLevelsSavePath: GeometryDashLevelsSavePathDefault,
-                                        timingProjectsFolderPath: TimingProjectsFolderPathDefault,
-                                        timingsListPath: TimingListPathDefault,
-                                        currentProjectSaveFilePath: CurrentProjectSaveFilePathDefault,
-                                        songsListPath: SongListPathDefault,
-                                        minimalLevelPath: MinimalLevelPathDefault) { }
+                                      betterBPMGDFolderPath: BetterBPMGDFolderPathDefault,
+                                      betterBPMGDSettingsFolderPath: SettingsFolderPathDefault,
+                                      backupFolderPath: BackupFolderPathDefault,
+                                      geometryDashSavesFolderPath: GeometryDashSavesFolderPathDefault,
+                                      geometryDashLevelsSavePath: GeometryDashLevelsSavePathDefault,
+                                      timingProjectsFolderPath: TimingProjectsFolderPathDefault,
+                                      timingsListPath: TimingListPathDefault,
+                                      currentProjectSaveFilePath: CurrentProjectSaveFilePathDefault,
+                                      songsListPath: SongListPathDefault,
+                                      minimalLevelPath: MinimalLevelPathDefault) { }
 
         public PathSettings(string appDataFolderPath,
-                            string betterBPMGDFolderPath,
-                            string betterBPMGDSettingsFolderPath,
-                            string geometryDashSavesFolderPath,
-                            string geometryDashLevelsSavePath,
-                            string timingProjectsFolderPath,
-                            string timingsListPath,
-                            string currentProjectSaveFilePath,
-                            string songsListPath,
-                            string minimalLevelPath,
-                            string backupFolderPath)
+                             string betterBPMGDFolderPath,
+                             string betterBPMGDSettingsFolderPath,
+                             string geometryDashSavesFolderPath,
+                             string geometryDashLevelsSavePath,
+                             string timingProjectsFolderPath,
+                             string timingsListPath,
+                             string currentProjectSaveFilePath,
+                             string songsListPath,
+                             string minimalLevelPath,
+                             string backupFolderPath)
         {
             AppDataFolderPath = appDataFolderPath;
             BetterBPMGDFolderPath = betterBPMGDFolderPath;
@@ -99,31 +99,16 @@ namespace BetterBPMGDCLI.Models.Settings
 
         public string GetTimingProjectFolderPath(string projectName)
         {
-            if (!projectName.Contains('\\')) projectName += '\\';
+            if (!projectName.Contains('\\'))
+                projectName += '\\';
 
             return Path.Combine(TimingProjectsFolderPath, projectName);
         }
 
-        public string GetSongPathById(string projectName, int id)
-        {
-            string path = GetTimingProjectFolderPath(projectName);
-            string name = $"{id}.mp3";
+        public string GetSongPathById(string projectName, int id) => Path.Combine(GetTimingProjectFolderPath(projectName), $"{id}.mp3");
 
-            return Path.Combine(path, name);
-        }
+        public string GetTimingListPath(string projectName) => Path.Combine(GetTimingProjectFolderPath(projectName), TimingsListFileName);
 
-        public string GetTimingListPath(string projectName)
-        {
-            string path = GetTimingProjectFolderPath(projectName);
-
-            return Path.Combine(path, TimingsListFileName);
-        }
-
-        public string GetSongListPath(string projectName)
-        {
-            string path = GetTimingProjectFolderPath(projectName);
-
-            return Path.Combine(path, SongsListFileName);
-        }
+        public string GetSongListPath(string projectName) => Path.Combine(GetTimingProjectFolderPath(projectName), SongsListFileName);
     }
 }

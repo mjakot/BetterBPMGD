@@ -61,7 +61,7 @@ namespace BetterBPMGDCLI.Models.Level
             {
                 GroupCollection captured = guidelineMatch.Groups;
 
-                // entire match is stored at index = 0
+                //at index = 0 is stored entire match
                 guidelines.AddRange(Guideline.ParseGuidelines(captured[1].Value));
             }
 

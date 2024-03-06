@@ -4,7 +4,8 @@ namespace BetterBPMGDCLI.CLICommands
 {
     public abstract class HostCommandBase
     {
-        protected static Command BuildCommand(ICommand[] commands, string[] aliases, string description, string defaultMessage) => BuildCommand(commands, aliases, [], description, defaultMessage);
+        protected static Command BuildCommand(ICommand[] commands, string[] aliases, string description, string defaultMessage)
+            => BuildCommand(commands, aliases, [], description, defaultMessage);
 
         protected static Command BuildCommand(ICommand[] commands, string[] aliases, Option[] options, string description, string defaultMessage)
         {

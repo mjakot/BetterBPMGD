@@ -69,7 +69,7 @@ namespace BetterBPMGDCLI.Managers
 
             command.SetHandler((deleteStartupFile, deleteLocalFiles, deleteBackupFiles) =>
             {
-                if(deleteStartupFile)
+                if (deleteStartupFile)
                 {
                     try { File.Delete(PathSettings.StartupFilePath); }
                     catch (Exception)
@@ -102,7 +102,8 @@ namespace BetterBPMGDCLI.Managers
                     }
                 }
 
-                if (deleteStartupFile && deleteLocalFiles) Environment.Exit(0);
+                if (deleteStartupFile && deleteLocalFiles)
+                    Environment.Exit(0);
 
                 Console.WriteLine("Stopping the continuous mode...");
 

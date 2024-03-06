@@ -38,6 +38,8 @@ namespace BetterBPMGDCLI.CLICommands
                 if (!value.All(c => new char[] { 'o', 'g', 'y', 'n' }.Contains(c)))
                 {
                     x.ErrorMessage = "Color patter can not be any other character that o, g, y and n";
+
+                    return;
                 }
             });
 

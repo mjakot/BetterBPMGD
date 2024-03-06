@@ -10,22 +10,20 @@ namespace BetterBPMGDCLI.Models.Settings
         {
             PropertyInfo? property = GetType().GetProperty(propertyName);
 
-            if (property is null) return string.Empty;
+            if (property is null)
+                return string.Empty;
 
-            if (defaultValues.TryGetValue(propertyName, out var defaultValue)) return defaultValue;
+            if (defaultValues.TryGetValue(propertyName, out var defaultValue))
+                return defaultValue;
 
             return string.Empty;
         }
 
         public virtual void ResetAll()
         {
-            Parallel.ForEach(GetType().GetProperties(), property =>
-            {
+            foreach (var property in GetType().GetProperties())
                 if (defaultValues.TryGetValue(property.Name, out var defaultValue))
-                {
                     property.SetValue(this, defaultValue);
-                }
-            });
         }
         public abstract override string ToString();
         public static SettingsBase FromString(string settings) => null;
