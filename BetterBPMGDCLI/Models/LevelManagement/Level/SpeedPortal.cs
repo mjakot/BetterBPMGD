@@ -1,11 +1,10 @@
-﻿using Common;
+﻿using BetterBPMGDCLI.Utils;
+using Common;
 
 namespace BetterBPMGDCLI.Models.LevelObjects
 {
     public class SpeedPortal : LevelObjectBase
     {
-        public const string CheckedKey = "13";
-
         public SpeedPortalTypes PortalType { get; }
         public bool Checked { get; }
 
@@ -21,7 +20,7 @@ namespace BetterBPMGDCLI.Models.LevelObjects
             Checked = isChecked;
         }
 
-        public override string Encode() => base.Encode(new() { { CheckedKey, Checked ? "1" : "0" } });
+        public override string Encode() => base.Encode(new() { { Constants.CheckedKey, Checked ? "1" : "0" } });
 
         public new static SpeedPortal Parse(string data)
         {
@@ -30,25 +29,25 @@ namespace BetterBPMGDCLI.Models.LevelObjects
             double posY = 0;
             bool isChecked = false;
 
-            string[] keyValues = data.Replace(";", string.Empty).Split(',');
+            string[] keyValues = data.Replace(Constants.ObjectEnd, string.Empty).Split(Constants.DataSeparator);
 
             for(int index = 0; index < keyValues.Length; index+=2)
             {
                 switch (keyValues[index])
                 {
-                    case ObjectIdKey:
+                    case Constants.ObjectIdKey:
                         objectId = int.Parse(keyValues[index + 1]);
                         break;
 
-                    case PositionXKey:
+                    case Constants.PositionXKey:
                         posX = double.Parse(keyValues[index + 1]);
                         break;
 
-                    case PositionYKey:
+                    case Constants.PositionYKey:
                         posY = double.Parse(keyValues[index + 1]);
                         break;
 
-                    case CheckedKey:
+                    case Constants.CheckedKey:
                         if (int.Parse(keyValues[index + 1]) != 0) 
                             isChecked = true;
                         break;

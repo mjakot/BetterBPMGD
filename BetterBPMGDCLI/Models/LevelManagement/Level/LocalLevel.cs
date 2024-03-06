@@ -1,40 +1,19 @@
 ﻿using BetterBPMGDCLI.Extensions;
 using BetterBPMGDCLI.Models.Ciphers;
+using BetterBPMGDCLI.Utils;
 using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Models.Level
 {
-    public class LocalLevel
+    public class LocalLevel(string key, string name, string description, int initialOfficialSongId, int initialCustomSongId, LocalLevelData? data, XElement level)
     {
-        public const string KeyElementTag = "k";
-        public const string StringElementTag = "s";
-        public const string IntegerElementTag = "i";
-        public const string DictionaryElementTag = "i";
-
-        public const string NameElementKey = "k2";
-        public const string DescriptionElementKey = "k3";
-        public const string LevelDataElementKey = "k4";
-        public const string OfficialSongIdElementKey = "k8";
-        public const string CustomSongIdElementKey = "k45";
-
-        public string LevelKey { get; set; }
-        public string LevelName { get; set; }
-        public string LevelDescription { get; set; }
-        public int InitialOfficialSongId { get; set; }
-        public int InitialCustomSongId { get; set; }
-        public LocalLevelData? LevelData { get; set; }
-        public XElement XmlLevel {  get; set; }
-
-        public LocalLevel(string key, string name, string description, int initialOfficialSongId, int initialCustomSongId, LocalLevelData? data, XElement level)
-        {
-            LevelKey = key;
-            LevelName = name;
-            LevelDescription = description;
-            InitialOfficialSongId = initialOfficialSongId;
-            InitialCustomSongId = initialCustomSongId;
-            LevelData = data;
-            XmlLevel = level;
-        }
+        public string LevelKey { get; set; } = key;
+        public string LevelName { get; set; } = name;
+        public string LevelDescription { get; set; } = description;
+        public int InitialOfficialSongId { get; set; } = initialOfficialSongId;
+        public int InitialCustomSongId { get; set; } = initialCustomSongId;
+        public LocalLevelData? LevelData { get; set; } = data;
+        public XElement XmlLevel { get; set; } = level;
 
         public string Encode()
         {
@@ -49,7 +28,7 @@ namespace BetterBPMGDCLI.Models.Level
             return XmlLevel.ToString(SaveOptions.DisableFormatting);
         }
 
-        public static LocalLevel Parse(string level, string levelKey) => Parse(XElement.Parse(level), levelKey);
+        public static LocalLevel Parse(string level, string levelKey) => Parse(XElement.Load(level), levelKey);
 
         public static LocalLevel Parse(XElement level, string levelKey)
         {
@@ -60,11 +39,11 @@ namespace BetterBPMGDCLI.Models.Level
 
         private static (XElement nameElement, XElement descriptionElement, XElement officialSongIdElement, XElement customSongIdElement, XElement levelDataElement) GetLevelElements(XElement level)
         {
-            XElement name = level.FindElementByKeyValue(NameElementKey, StringElementTag) ?? new("NotFound");
-            XElement description = level.FindElementByKeyValue(DescriptionElementKey, StringElementTag) ?? new("NotFound");
-            XElement officialSong = level.FindElementByKeyValue(OfficialSongIdElementKey, StringElementTag) ?? new("NotFound") { Value = "0" };
-            XElement customSong = level.FindElementByKeyValue(CustomSongIdElementKey, StringElementTag) ?? new("NotFound") { Value = "0" };
-            XElement data = level.FindElementByKeyValue(LevelDataElementKey, StringElementTag) ?? new("NotFound");
+            XElement name = level.FindElementByKeyValue(Constants.NameElementKey, Constants.StringElementTag) ?? new(Constants.NotFoundPlaceholder);
+            XElement description = level.FindElementByKeyValue(Constants.DescriptionElementKey, Constants.StringElementTag) ?? new(Constants.NotFoundPlaceholder);
+            XElement officialSong = level.FindElementByKeyValue(Constants.OfficialSongIdElementKey, Constants.StringElementTag) ?? new(Constants.NotFoundPlaceholder) { Value = "0" };
+            XElement customSong = level.FindElementByKeyValue(Constants.CustomSongIdElementKey, Constants.StringElementTag) ?? new(Constants.NotFoundPlaceholder) { Value = "0" };
+            XElement data = level.FindElementByKeyValue(Constants.LevelDataElementKey, Constants.StringElementTag) ?? new(Constants.NotFoundPlaceholder);
 
             return (name, description, officialSong, customSong, data);
         }

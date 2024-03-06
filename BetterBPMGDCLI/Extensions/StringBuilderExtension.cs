@@ -22,7 +22,8 @@ namespace BetterBPMGDCLI.Extensions
 
         public static StringBuilder AddDictionary<TKey, TValue>(this StringBuilder stringBuilder, IReadOnlyDictionary<TKey, TValue> dictionary, string separator)
         {
-            Parallel.ForEach(dictionary, pair => stringBuilder.AddKeyValuePair(pair.Key, pair.Value, separator, true));
+            foreach (KeyValuePair<TKey, TValue> pair in dictionary)
+                stringBuilder.AddKeyValuePair(pair.Key, pair.Value, separator, true);
 
             return stringBuilder;
         }
