@@ -5,7 +5,7 @@ namespace BetterBPMCLI.Tests.Context
 {
     public class PathSettingsMock : SettingsBase, IPathSettings
     {
-        private bool initialized = false;
+        private static bool initialized = false;
 
         public string AppDataFolderPath { get => "C:\\BetterBPMGDTestAppData\\"; set => throw new NotImplementedException(); }
         public string BetterBPMGDFolderPath { get => Path.Combine(AppDataFolderPath, "BetterBPMGDTest\\"); set => throw new NotImplementedException(); }
@@ -26,7 +26,7 @@ namespace BetterBPMCLI.Tests.Context
             if (initialized) return;
 
             Directory.Delete(AppDataFolderPath, true);
-            
+
             Directory.CreateDirectory(AppDataFolderPath);
             Directory.CreateDirectory(BetterBPMGDFolderPath);
             Directory.CreateDirectory(GeometryDashSavesFolderPath);

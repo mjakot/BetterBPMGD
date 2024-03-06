@@ -22,20 +22,20 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
         {
             string innerProjectName = $"{PROJECTNAME}{counter}";
 
-            IPathSettings settings = new PathSettingsMock();
+            IPathSettings pathSettings = new PathSettingsMock();
 
-            File.Create(Path.Combine(settings.GeometryDashSavesFolderPath, $"{counter}.mp3")).Dispose();
-
-
-
-            Project actual = Project.CreateNew(new BetterBPMGDCLI.Managers.ConfigManager(settings), innerProjectName, counter);
+            File.Create(Path.Combine(pathSettings.GeometryDashSavesFolderPath, $"{counter}.mp3")).Dispose();
 
 
 
-            Assert.True(Directory.Exists(settings.GetTimingProjectFolderPath(innerProjectName)));
-            Assert.True(File.Exists(Path.Combine(settings.GetTimingProjectFolderPath(innerProjectName), $"{counter}.mp3")));
-            Assert.True(File.Exists(settings.GetTimingListPath(innerProjectName)));
-            Assert.True(File.Exists(settings.GetSongListPath(innerProjectName)));
+            Project actual = Project.CreateNew(new BetterBPMGDCLI.Managers.ConfigManager(pathSettings), innerProjectName, counter);
+
+
+
+            Assert.True(Directory.Exists(pathSettings.GetTimingProjectFolderPath(innerProjectName)));
+            Assert.True(File.Exists(Path.Combine(pathSettings.GetTimingProjectFolderPath(innerProjectName), $"{counter}.mp3")));
+            Assert.True(File.Exists(pathSettings.GetTimingListPath(innerProjectName)));
+            Assert.True(File.Exists(pathSettings.GetSongListPath(innerProjectName)));
             Assert.Equal(innerProjectName, actual.Name);
         }
 
