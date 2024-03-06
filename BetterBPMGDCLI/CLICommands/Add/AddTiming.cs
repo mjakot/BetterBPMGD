@@ -14,7 +14,7 @@ namespace BetterBPMGDCLI.CLICommands
             Option<double> bpm = new(["--bpm", "-b"], description: "Specifies bpm for the timing") { IsRequired = true, ArgumentHelpName = "double" };
             Option<bool> subdivideBeats = new(["--subdivide", "-d"], description: "Specifies whether to subdivide beats") { IsRequired = true };
             Option<int> beatSubdivision = new(["--subdivision", "-n"], description: "Specifies beat subdivision for the timing") { IsRequired = true, ArgumentHelpName = "int" };
-            Option<int> speed = new Option<int>(["--speed", "-s"], description: "Specifies speed for the timing. Available speeds: 0 - HALFSPEED, 1 - NORMAL SPEED, 2 - DOUBLE SPEED, 3 - TRPLE SPEED, 4 - QUADRUPLE SPEED") { IsRequired = true, ArgumentHelpName = "int" }.FromAmong("0 -> HALFSPEED", "1 -> NORMAL SPEED", "2 -> DOUBLE SPEED", "3 -> TRPLE SPEED", "4 -> QUADRUPLE SPEED", "200", "201", "202", "203", "1334");
+            Option<int> speed = new Option<int>(["--speed", "-s"], description: "Specifies speed for the timing. Available speeds: 0 - HALFSPEED, 1 - NORMAL SPEED, 2 - DOUBLE SPEED, 3 - TRPLE SPEED, 4 - QUADRUPLE SPEED") { IsRequired = true, ArgumentHelpName = "int" }.FromAmong("0", "1", "2", "3", "4", "200", "201", "202", "203", "1334");
             Option<string> colorPatern = new(["--colors", "-c"], description: "Specifies color pattern for the guidelines. Available colors: o - orange, g - green, y - yellow, n - none. Pattern can not be longer than 3 symbols. Example: ogo (orange - green - orange)") { IsRequired = true, ArgumentHelpName = "string" };
 
             colorPatern.AddValidator(x =>

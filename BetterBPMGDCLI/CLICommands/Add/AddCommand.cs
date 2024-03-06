@@ -6,6 +6,6 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly ICommand[] newCommands = newCommands;
 
-        public Command BuildCommand() => BuildCommand(newCommands, ["new", "nw"], "Creates new project or timing", "Specify whether to create new project or add new timing. Note: to add a new timing current project must be specified");
+        public Command BuildCommand() => BuildCommand(newCommands, [ "add" ], "Creates new project or timing", "Specify whether to create new project or add new timing. Note: to add a new timing current project must be specified");
     }
 }
