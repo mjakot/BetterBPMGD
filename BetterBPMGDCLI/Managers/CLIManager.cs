@@ -54,6 +54,7 @@ namespace BetterBPMGDCLI.Managers
         {
             Option<bool> deleteStartupFile = new(["--delete-startup-file", "--delete-startupFile", "--deleteStartupFile", "--startup", "--ds", "-s"], description: "Deletes startup file. (Not recommended)", getDefaultValue: () => false);
             Option<bool> deleteLocalFiles = new(["--delete-local-files", "--delete-localFiles", "--deleteLocalFiles", "--local", "--dl", "-l"], description: "Deletes local files. (Not recommended)", getDefaultValue: () => false);
+            Option<bool> deleteBackupFiles = new(["--delete-backup-files", "--delete-backupFiles", "--deleteBackupFiles", "--backup", "--db", "-b"], description: "Deletes backup files. (Not recommended)", getDefaultValue: () => false);
 
             Command command = new("stop", "Stops the continuous mode")
             {
@@ -65,7 +66,7 @@ namespace BetterBPMGDCLI.Managers
             command.AddAlias("quit");
             command.AddAlias(":q");
 
-            command.SetHandler((deleteStartupFile, deleteLocalFiles) =>
+            command.SetHandler((deleteStartupFile, deleteLocalFiles, deleteBackupFiles) =>
             {
                 if(deleteStartupFile)
                 {
@@ -89,12 +90,23 @@ namespace BetterBPMGDCLI.Managers
                     }
                 }
 
+                if (deleteBackupFiles)
+                {
+                    try { Directory.Delete(workFlowManager.ConfigManager.PathSettings.BackupFolderPath, true); }
+                    catch (Exception)
+                    {
+                        Console.Error.WriteLine("Backup files are already deleted");
+
+                        throw;
+                    }
+                }
+
                 if (deleteStartupFile && deleteLocalFiles) Environment.Exit(0);
 
                 Console.WriteLine("Stopping the continuous mode...");
 
                 isRunning = false;
-            }, deleteStartupFile, deleteLocalFiles);
+            }, deleteStartupFile, deleteLocalFiles, deleteBackupFiles);
 
             return command;
         }
