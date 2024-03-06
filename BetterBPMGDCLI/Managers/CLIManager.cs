@@ -23,7 +23,7 @@ namespace BetterBPMGDCLI.Managers
                 new ClearCommand().BuildCommand(),
                 new StatsCommand(workFlowManager).BuildCommand(),
                 new SearchLevelsByNameCommand(workFlowManager).BuildCommand(),
-                new NewCommand(new NewProject(workFlowManager), new NewTiming(workFlowManager)).BuildCommand(),
+                new AddCommand(new AddProject(workFlowManager), new AddTiming(workFlowManager)).BuildCommand(),
                 new SetCommand(new SetCurrentProject(workFlowManager)).BuildCommand(),
                 new InjectCommand(new InjectExisting(workFlowManager), new InjectNew(workFlowManager)).BuildCommand(),
             ];

@@ -2,7 +2,7 @@
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    public class NewCommand(params ICommand[] newCommands) : HostCommandBase, ICommand
+    public class AddCommand(params ICommand[] newCommands) : HostCommandBase, ICommand
     {
         private readonly ICommand[] newCommands = newCommands;
 

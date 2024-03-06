@@ -4,7 +4,7 @@ using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    public class NewTiming(WorkFlowManager workFlowManager) : ICommand
+    public class AddTiming(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
