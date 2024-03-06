@@ -30,7 +30,7 @@ namespace BetterBPMGDCLI.Models.Level
 
         public static IEnumerable<Guideline> ParseGuidelines(string guidelines)
         {
-            sbyte counter = 0;
+            int counter = 0;
 
             string[] splittedGuidelines = guidelines.Split(Constants.GuidelinesSeparator);
 
