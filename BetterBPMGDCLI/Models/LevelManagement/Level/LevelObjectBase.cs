@@ -5,18 +5,11 @@ using System.Text;
 
 namespace BetterBPMGDCLI.Models.LevelObjects
 {
-    public abstract class LevelObjectBase : ILevelData
+    public abstract class LevelObjectBase(int objectId, double posX, double posY) : ILevelData
     {
-        public virtual int ObjectId { get; }
-        public virtual double PositionX { get; set; }
-        public virtual double PositionY { get; set; }
-
-        protected LevelObjectBase(int objectId, double posX, double posY)
-        {
-            ObjectId = objectId;
-            PositionX = posX;
-            PositionY = posY;
-        }
+        public virtual int ObjectId { get; } = objectId;
+        public virtual double PositionX { get; set; } = posX;
+        public virtual double PositionY { get; set; } = posY;
 
         public abstract string Encode();
         public virtual string Encode(Dictionary<string, string> objectProperties)
@@ -35,6 +28,6 @@ namespace BetterBPMGDCLI.Models.LevelObjects
             return result.Append(Constants.ObjectEnd)
                             .ToString();
         }
-        public static LevelObjectBase? Parse(string data) => null;
+        public static LevelObjectBase? Parse(string data) => throw new NotImplementedException();
     }
 }

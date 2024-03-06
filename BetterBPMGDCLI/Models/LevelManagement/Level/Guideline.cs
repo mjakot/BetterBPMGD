@@ -4,16 +4,10 @@ using BetterBPMGDCLI.Utils;
 
 namespace BetterBPMGDCLI.Models.Level
 {
-    public class Guideline : ILevelData
+    public class Guideline(ulong offset, GuidelineColors guidelineColor) : ILevelData
     {
-        public ulong OffsetMs { get; }
-        public GuidelineColors GuidelineColor { get; }
-
-        public Guideline(ulong offset, GuidelineColors guidelineColor) 
-        {
-            OffsetMs = offset;
-            GuidelineColor = guidelineColor;
-        }
+        public ulong OffsetMs { get; } = offset;
+        public GuidelineColors GuidelineColor { get; } = guidelineColor;
 
         public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), Constants.GuidelinesSeparator)
                                                         .AppendWithSeparator(GuidelineColor.GuidelineColor, Constants.GuidelinesSeparator)

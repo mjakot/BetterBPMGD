@@ -1,15 +1,13 @@
 ﻿namespace BetterBPMGDCLI.Models.Level
 {
-    public struct GuidelineColors
+    public readonly struct GuidelineColors(double color)
     {
-        public readonly double GuidelineColor { get; }
+        public readonly double GuidelineColor { get; } = color;
 
         public static GuidelineColors None => new(0.1);
         public static GuidelineColors Orange => new(0.8);
         public static GuidelineColors Yellow => new(0.9);
         public static GuidelineColors Green => new(1.0);
-
-        public GuidelineColors(double color) => GuidelineColor = color;
 
         public static GuidelineColors GetGuidelineColor(char color) => color switch
         {

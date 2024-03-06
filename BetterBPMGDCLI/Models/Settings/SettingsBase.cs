@@ -26,6 +26,6 @@ namespace BetterBPMGDCLI.Models.Settings
                     property.SetValue(this, defaultValue);
         }
         public abstract override string ToString();
-        public static SettingsBase FromString(string settings) => null;
+        public static SettingsBase FromString(string settings) => throw new NotImplementedException();
     }
 }

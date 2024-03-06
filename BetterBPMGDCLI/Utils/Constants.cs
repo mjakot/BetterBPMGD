@@ -1,6 +1,7 @@
-﻿namespace BetterBPMGDCLI.Utils
+﻿// Ignore Spelling: Utils
+namespace BetterBPMGDCLI.Utils
 {
-    public struct Constants
+    public readonly struct Constants
     {
         public const string FirstLevelKey = "k_0";
         public const string LevelOnTopKey = "k_-1";

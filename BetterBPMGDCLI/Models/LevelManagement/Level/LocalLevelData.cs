@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace BetterBPMGDCLI.Models.Level
 {
     //TODO: Add CalculateSpeedPortals()
-    public class LocalLevelData
+    public partial class LocalLevelData
     {
         public const string GuideLinesPattern = """kA14,(.*?),""";
         public const string SpeedPortalsPattern = """;1,200|201|202|203|1334,2,\d+,3,\d+(?:,13\d+)?""";
@@ -34,7 +34,7 @@ namespace BetterBPMGDCLI.Models.Level
 
         public string Encode(bool clearLevelObjects)
         {
-            StringBuilder result = new(Regex.Replace(LevelData, GuideLinesPattern, match => $"kA14,{EncodeLevelDataCollection(Guidelines)},"));
+            StringBuilder result = new(GuidelinesRegex().Replace(LevelData, match => $"kA14,{EncodeLevelDataCollection(Guidelines)},"));
 
             if (clearLevelObjects)
             {
@@ -55,8 +55,8 @@ namespace BetterBPMGDCLI.Models.Level
             List<Guideline> guidelines = [];
             List<SpeedPortal> speedPortals = [];
 
-            Match guidelineMatch = new Regex(GuideLinesPattern).Match(data);
-            MatchCollection speedPortalsMatches = new Regex(SpeedPortalsPattern).Matches(data);
+            Match guidelineMatch = GuidelinesRegex().Match(data);
+            MatchCollection speedPortalsMatches = SpeedPortalsRegex().Matches(data);
 
             {
                 GroupCollection captured = guidelineMatch.Groups;
@@ -103,7 +103,7 @@ namespace BetterBPMGDCLI.Models.Level
 
         private void CalculateSpeedPortals() => SpeedPortals = [];
 
-        private string EncodeLevelDataCollection(IReadOnlyList<ILevelData> levelData)
+        private static string EncodeLevelDataCollection(IReadOnlyList<ILevelData> levelData)
         {
             StringBuilder stringBuilder = new();
 
@@ -111,5 +111,10 @@ namespace BetterBPMGDCLI.Models.Level
 
             return stringBuilder.ToString();
         }
+
+        [GeneratedRegex(GuideLinesPattern)]
+        private static partial Regex GuidelinesRegex();
+        [GeneratedRegex(SpeedPortalsPattern)]
+        private static partial Regex SpeedPortalsRegex();
     }
 }
