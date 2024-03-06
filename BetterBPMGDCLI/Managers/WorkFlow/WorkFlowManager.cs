@@ -99,9 +99,9 @@ namespace BetterBPMGDCLI.Managers
                     ?.AddBeforeSelf(new XElement(Constants.KeyElementTag, level.LevelKey));
 
             levels.FindElementByKeyValue(level.LevelKey, Constants.KeyElementTag)
-                    ?.AddAfterSelf(XElement.Parse(level.Encode()));
+                    ?.AddBeforeSelf(XElement.Parse(level.Encode()));
 
-            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
+            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, Constants.GDXMLDeclaration + levels.ToString(SaveOptions.DisableFormatting));
         }
 
         public void BackupLocalLevels()

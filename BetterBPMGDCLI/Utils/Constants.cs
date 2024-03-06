@@ -39,6 +39,8 @@
         public const string DefaultInnerSeparator = "=";
         public const string DefaultOuterSeparator = ",";
 
+        public const string GDXMLDeclaration = "<?xml version=\"1.0\"?>";
+
 
         public const int MillisecondsInMinute = 60000;  
         public const int RoundToDecimalPlaces = 5;

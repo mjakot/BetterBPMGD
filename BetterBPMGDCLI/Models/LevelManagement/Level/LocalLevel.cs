@@ -28,7 +28,7 @@ namespace BetterBPMGDCLI.Models.Level
             return XmlLevel.ToString(SaveOptions.DisableFormatting);
         }
 
-        public static LocalLevel Parse(string level, string levelKey) => Parse(XElement.Parse(level), levelKey);
+        public static LocalLevel Parse(string level, string levelKey) => Parse(XElement.Load(level), levelKey);
 
         public static LocalLevel Parse(XElement level, string levelKey)
         {
