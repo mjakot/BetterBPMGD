@@ -27,7 +27,7 @@ namespace BetterBPMGDCLI.Managers
             string currentProjectName = Guid.NewGuid().ToString();
 
             if (File.Exists(pathSettings.CurrentProjectSaveFilePath))
-                currentProjectName = FileUtility.ReadFromFile(pathSettings.CurrentProjectSaveFilePath);
+                currentProjectName = File.ReadAllText(pathSettings.CurrentProjectSaveFilePath);
 
             if (Directory.Exists(Path.Combine(pathSettings.TimingProjectsFolderPath, currentProjectName))) //TODO: check this somewhere else
                     CurrentTimingProject = Project.ReadProject(ConfigManager, currentProjectName);
@@ -40,7 +40,7 @@ namespace BetterBPMGDCLI.Managers
         public void Dispose()
         {
             if (!string.IsNullOrEmpty(CurrentTimingProject.Name))
-                FileUtility.WriteToFile(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
+                File.WriteAllText(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
 
             CurrentTimingProject.Dispose();
             ConfigManager.Dispose();
@@ -105,8 +105,8 @@ namespace BetterBPMGDCLI.Managers
         }
 
         public void BackupLocalLevels()
-            => FileUtility.CopyFile(pathSettings.GeometryDashLevelsSavePath, Path.Combine(pathSettings.BackupFolderPath,
-                                        $"CCLocalLevels_Backup_{DateTime.Now:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"));
+            => File.Copy(pathSettings.GeometryDashLevelsSavePath, Path.Combine(pathSettings.BackupFolderPath,
+                            $"CCLocalLevels_Backup_{DateTime.Now:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"), true);
 
         private void ConfigManagerPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

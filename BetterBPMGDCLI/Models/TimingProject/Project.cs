@@ -52,8 +52,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             string projectPath = pathSettings.GetTimingProjectFolderPath(Name);
 
-            FileUtility.WriteToFile(Path.Combine(projectPath, pathSettings.SongListPath), SerializeSongs(SongIds));
-            FileUtility.WriteToFile(Path.Combine(projectPath, pathSettings.TimingListPath), SerializeTimings(Timings));
+            File.WriteAllText(Path.Combine(projectPath, pathSettings.SongListPath), SerializeSongs(SongIds));
+            File.WriteAllText(Path.Combine(projectPath, pathSettings.TimingListPath), SerializeTimings(Timings));
         }
 
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);
@@ -88,8 +88,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
             string timingsListPath = Path.Combine(projectFolderPath, timingsListFileName);
 
             string name = Path.GetFileName(Path.GetDirectoryName(projectFolderPath) ?? string.Empty);
-            string songs = FileUtility.ReadFromFile(songsListPath);
-            string timings = FileUtility.ReadFromFile(timingsListPath);
+            string songs = File.ReadAllText(songsListPath);
+            string timings = File.ReadAllText(timingsListPath);
 
             Project result = new(config, name, DesirializeSongs(songs), DesirializeTimings(timings));
 
@@ -101,8 +101,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
             string serializedTimings = SerializeTimings(timings);
             string serializedSongs = SerializeSongs(songIds);
 
-            FileUtility.WriteToFile(pathSettings.GetTimingListPath(Name), serializedTimings);
-            FileUtility.WriteToFile(pathSettings.GetSongListPath(Name), serializedSongs);
+            File.WriteAllText(pathSettings.GetTimingListPath(Name), serializedTimings);
+            File.WriteAllText(pathSettings.GetSongListPath(Name), serializedSongs);
         }
 
         public void InjectTimings(LocalLevel level)
@@ -123,10 +123,12 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             if (File.Exists(initialSongPath)) //TODO: something something error handling something something
             {
-                FileUtility.CreateNewFolder(projectPath);
-                FileUtility.CopyFile(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)));
-                FileUtility.WriteToFile(config.PathSettings.GetTimingListPath(projectName), string.Empty);
-                FileUtility.WriteToFile(config.PathSettings.GetSongListPath(projectName), string.Empty);
+                Directory.CreateDirectory(projectPath);
+
+                File.Copy(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)), true);
+
+                File.WriteAllText(config.PathSettings.GetTimingListPath(projectName), string.Empty);
+                File.WriteAllText(config.PathSettings.GetSongListPath(projectName), string.Empty);
             }
         }
 
