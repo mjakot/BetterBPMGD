@@ -59,7 +59,8 @@ namespace BetterBPMGDCLI.Managers
             Command command = new("stop", "Stops the continuous mode")
             {
                 deleteStartupFile,
-                deleteLocalFiles
+                deleteLocalFiles,
+                deleteBackupFiles
             };
 
             command.AddAlias("exit");
