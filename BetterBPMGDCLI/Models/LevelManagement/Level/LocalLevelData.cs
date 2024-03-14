@@ -60,7 +60,7 @@ namespace BetterBPMGDCLI.Models.Level
             {
                 GroupCollection captured = guidelineMatch.Groups;
 
-                //index = 0 is entire match
+                //index == 0 is entire match
                 guidelines.AddRange(Guideline.ParseGuidelines(captured[1].Value));
             }
 
