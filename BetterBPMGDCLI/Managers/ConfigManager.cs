@@ -34,6 +34,8 @@ namespace BetterBPMGDCLI.Managers
         public void Dispose()
         {
             SaveSettings(PathSettings);
+
+            GC.SuppressFinalize(this);
         }
 
         public void PathSettingsChanged()

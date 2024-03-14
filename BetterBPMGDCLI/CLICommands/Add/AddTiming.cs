@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.Managers;
+using BetterBPMGDCLI.Models.Level;
 using Common;
 using System.CommandLine;
 
@@ -35,7 +36,7 @@ namespace BetterBPMGDCLI.CLICommands
                     return;
                 }
 
-                if (!value.All(c => new char[] { 'o', 'g', 'y', 'n' }.Contains(c)))
+                if (!value.All(c => GuidelineColors.AvailableColors.Contains(c)))
                 {
                     x.ErrorMessage = "Color patter can not be any other character that o, g, y and n";
 

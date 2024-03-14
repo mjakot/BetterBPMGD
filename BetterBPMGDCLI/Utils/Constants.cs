@@ -1,5 +1,4 @@
-﻿// Ignore Spelling: Utils
-namespace BetterBPMGDCLI.Utils
+﻿namespace BetterBPMGDCLI.Utils
 {
     public readonly struct Constants
     {

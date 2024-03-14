@@ -11,11 +11,11 @@ namespace BetterBPMGDCLI.Models.TimingProject
 {
     public class Project : IDisposable
     {
-        private ConfigManager configManager;
+        private readonly ConfigManager configManager;
         private IPathSettings pathSettings;
 
-        private Dictionary<int, ulong> songIds;
-        private List<Timing> timings;
+        private readonly Dictionary<int, ulong> songIds;
+        private readonly List<Timing> timings;
 
         public string Name { get; set; }
         public IReadOnlyDictionary<int, ulong> SongIds => songIds;
@@ -37,7 +37,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             this.configManager = configManager;
             pathSettings = configManager.PathSettings;
             Name = name;
-            songIds = new();
+            songIds = [];
             timings = [];
 
             AddSongs(songIdsIn);
@@ -55,6 +55,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             File.WriteAllText(Path.Combine(projectPath, pathSettings.SongListPath), SerializeSongs(SongIds));
             File.WriteAllText(Path.Combine(projectPath, pathSettings.TimingListPath), SerializeTimings(Timings));
+
+            GC.SuppressFinalize(this);
         }
 
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);
@@ -151,7 +153,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         private static string SerializeSongs(IReadOnlyDictionary<int, ulong> songs) => new StringBuilder().AddDictionary(songs, Constants.DefaultInnerSeparator).ToString();
 
-        private static IEnumerable<Timing> DesirializeTimings(string timings)
+        private static List<Timing> DesirializeTimings(string timings)
         {
             List<Timing> result = [];
 
@@ -168,7 +170,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             return result;
         }
 
-        private static IReadOnlyDictionary<int, ulong> DesirializeSongs(string songs)
+        private static Dictionary<int, ulong> DesirializeSongs(string songs)
         {
             Dictionary<int, ulong> result = [];
 

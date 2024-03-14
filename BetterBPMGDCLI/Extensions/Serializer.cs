@@ -26,7 +26,7 @@ namespace BetterBPMGDCLI.Extensions
 
         public static T Desirialize<T>(this string type, bool oneLine = true) where T : new()
         {
-            T instance = new T();
+            T instance = new();
 
             PropertyInfo[] properties = typeof(T).GetProperties();
 

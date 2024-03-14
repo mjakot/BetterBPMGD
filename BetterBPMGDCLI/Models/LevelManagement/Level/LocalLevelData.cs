@@ -1,5 +1,4 @@
-﻿using BetterBPMGDCLI.Models.Ciphers;
-using BetterBPMGDCLI.Models.LevelObjects;
+﻿using BetterBPMGDCLI.Models.LevelObjects;
 using BetterBPMGDCLI.Utils;
 using Common;
 using System.Text;
@@ -45,9 +44,9 @@ namespace BetterBPMGDCLI.Models.Level
                 result.Remove(++startIndex, result.Length - startIndex);
             }
 
-            end:
-                return result.Append(EncodeLevelDataCollection(SpeedPortals))
-                                .ToString();
+        end:
+            return result.Append(EncodeLevelDataCollection(SpeedPortals))
+                            .ToString();
         }
 
         public static LocalLevelData? Parse(string data)
@@ -61,7 +60,7 @@ namespace BetterBPMGDCLI.Models.Level
             {
                 GroupCollection captured = guidelineMatch.Groups;
 
-                //at index = 0 is stored entire match
+                //index = 0 is entire match
                 guidelines.AddRange(Guideline.ParseGuidelines(captured[1].Value));
             }
 
@@ -75,7 +74,7 @@ namespace BetterBPMGDCLI.Models.Level
             CalculateGuidelines(timings, songDurationMS);
             CalculateSpeedPortals();
         }
-        
+
         private void CalculateGuidelines(IReadOnlyList<Timing> timings, ulong songDurationMS)
         {
             Guidelines.Clear();

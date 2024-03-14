@@ -2,6 +2,8 @@
 {
     public readonly struct GuidelineColors(double color)
     {
+        public static readonly char[] AvailableColors = ['o', 'g', 'y', 'n'];
+
         public readonly double GuidelineColor { get; } = color;
 
         public static GuidelineColors None => new(0.1);

@@ -9,9 +9,10 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<string> name = new(["--name", "-n"], description: "Specifies the name of the project");
-
-            name.ArgumentHelpName = "string";
+            Option<string> name = new(["--name", "-n"], description: "Specifies the name of the project")
+            {
+                ArgumentHelpName = "string"
+            };
 
             Command command = new("proj", "Specifies the current timing project")
             {
@@ -21,7 +22,7 @@ namespace BetterBPMGDCLI.CLICommands
             command.AddAlias("currentproject");
             command.AddAlias("currentProject");
             command.AddAlias("current-project");
-            command.AddAlias("currproj"); // aint no way im adding "cp" as alias
+            command.AddAlias("currproj");
             command.AddAlias("crpj");
             command.AddAlias("cpr"); // why not
             command.AddAlias("pj");
