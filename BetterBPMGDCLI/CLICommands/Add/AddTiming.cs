@@ -1,5 +1,6 @@
 ﻿using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Models.Level;
+using BetterBPMGDCLI.Utils;
 using Common;
 using System.CommandLine;
 
@@ -9,54 +10,92 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
+        private readonly ResourceManager<AddTiming> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+
         public Command BuildCommand()
         {
-            Option<ulong> offset = new(["--offset", "-o"], description: "Specifies offset for the timing") { IsRequired = true, ArgumentHelpName = "ulong" };
-            Option<double> bpm = new(["--bpm", "-b"], description: "Specifies bpm for the timing") { IsRequired = true, ArgumentHelpName = "double" };
-            Option<bool> subdivideBeats = new(["--subdivide", "-d"], description: "Specifies whether to subdivide beats") { IsRequired = true };
-            Option<int> beatSubdivision = new(["--subdivision", "-n"], description: "Specifies beat subdivision for the timing") { IsRequired = true, ArgumentHelpName = "int" };
-            Option<int> speed = new Option<int>(["--speed", "-s"], description: "Specifies speed for the timing. Available speeds: 0 - HALFSPEED, 1 - NORMAL SPEED, 2 - DOUBLE SPEED, 3 - TRPLE SPEED, 4 - QUADRUPLE SPEED") { IsRequired = true, ArgumentHelpName = "int" }.FromAmong("0", "1", "2", "3", "4", "200", "201", "202", "203", "1334");
-            Option<string> colorPatern = new(["--colors", "-c"], description: "Specifies color pattern for the guidelines. Available colors: o - orange, g - green, y - yellow, n - none. Pattern can not be longer than 3 symbols. Example: ogo (orange - green - orange)") { IsRequired = true, ArgumentHelpName = "string" };
+            Option<ulong> offset = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.OffsetOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.OffsetOptionDescription))
+            {
+                IsRequired = true,
+                ArgumentHelpName = "ulong"
+            };
 
-            colorPatern.AddValidator(x =>
+            Option<double> bpm = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BPMOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BPMOptionDescription))
+            {
+                IsRequired = true,
+                ArgumentHelpName = "double"
+            };
+
+            Option<bool> subdivideBeats = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BoolOptionAliases),
+                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BoolOptionDescription))
+            {
+                IsRequired = true
+            };
+
+            Option<int> beatSubdivision = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BeatSubdivisionOptionAliases),
+                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BeatSubdivisionOptionDescription))
+            {
+                IsRequired = true,
+                ArgumentHelpName = "int"
+            };
+
+            Option<int> speed = new Option<int>(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.SpeedOptionAliases),
+                                                    description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.SpeedOptionDescription))
+            {
+                IsRequired = true,
+                ArgumentHelpName = "int"
+            }.FromAmong("0", "1", "2", "3", "4", "200", "201", "202", "203", "1334");
+
+            Option<string> colorPattern = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.ColorPatternOptionAliases),
+                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.ColorPatternOptionDescription))
+            {
+                IsRequired = true,
+                ArgumentHelpName = "string"
+            };
+
+            colorPattern.AddValidator(x =>
             {
                 string? value = x.GetValueOrDefault<string>();
 
                 if (string.IsNullOrEmpty(value))
                 {
-                    x.ErrorMessage = "Color patter can not be an empty string";
+                    x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeAnEmptyString);
 
                     return;
                 }
 
                 if (value.Length > 3)
                 {
-                    x.ErrorMessage = "Color patter can not be longer than 3 characters";
+                    x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeLongerThan);
 
                     return;
                 }
 
                 if (!value.All(c => GuidelineColors.AvailableColors.Contains(c)))
                 {
-                    x.ErrorMessage = "Color patter can not be any other character that o, g, y and n";
+                    x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotInclude);
 
                     return;
                 }
             });
 
-            Command command = new("timing", "Adds new timing to the project. Note: current project must be specified first")
+            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
+                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
             {
                 offset,
                 bpm,
                 subdivideBeats,
                 beatSubdivision,
                 speed,
-                colorPatern
+                colorPattern
             };
 
-            command.AddAlias("ti");
+            foreach (string alias in resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases))
+                command.AddAlias(alias);
 
-            command.SetHandler(AddNewTiming, offset, bpm, subdivideBeats, beatSubdivision, speed, colorPatern);
+            command.SetHandler(AddNewTiming, offset, bpm, subdivideBeats, beatSubdivision, speed, colorPattern);
 
             return command;
         }
@@ -65,7 +104,7 @@ namespace BetterBPMGDCLI.CLICommands
         {
             if (workFlowManager.CurrentTimingProject.Name == string.Empty)
             {
-                Console.WriteLine("Current project must be specified");
+                Console.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.CurrentProjectMustBeSpecified));
 
                 return;
             }

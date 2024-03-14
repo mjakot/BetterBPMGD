@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.Managers;
+using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 using System.Text;
 
@@ -8,27 +9,33 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
+        private ResourceManager<SearchLevelsByNameCommand> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+
         public Command BuildCommand()
         {
-            Option<string> name = new(["--name", "-n"], description: "Specifies the name of the levels") { IsRequired = true };
-            Option<bool> ignoreCase = new(["--case", "-c", "--insensitive", "--caseinsensitive", "--caseInsensitive", "--case-insensitive", "-i", "--ignoreCase", "--ignorecase", "--ignore-case"], description: "Specifies whether search should be case insensitive", getDefaultValue: () => false) { IsRequired = false };
+            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.NameOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.NameOptionDescription))
+            {
+                IsRequired = true,
+                ArgumentHelpName = "string"
+            };
 
-            name.ArgumentHelpName = "string";
+            Option<bool> ignoreCase = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BoolOptionAliases),
+                                            description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BoolOptionDescription),
+                                            getDefaultValue: () => false)
+            {
+                IsRequired = false
+            };
 
-            Command command = new("searchL", description: "Searches levels by name. Returns collection of levels that match the specified name.")
+            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
+                                    description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
             {
                 name,
                 ignoreCase
             };
 
-            command.AddAlias("searchLevels");
-            command.AddAlias("searchlevels");
-            command.AddAlias("search-levels");
-            command.AddAlias("search-l");
-            command.AddAlias("searchl");
-            command.AddAlias("srchl");
-            command.AddAlias("srch-l");
-            command.AddAlias("srchL");
+            foreach (string alias in resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases))
+                command.AddAlias(alias);
 
             command.SetHandler(SearchLevels, name, ignoreCase);
 
@@ -41,7 +48,7 @@ namespace BetterBPMGDCLI.CLICommands
 
             if (!foundLevels.Any())
             {
-                Console.Error.WriteLine("No levels found");
+                Console.Error.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.DoesNotExists));
 
                 return;
             }

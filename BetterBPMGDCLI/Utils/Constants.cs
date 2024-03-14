@@ -46,5 +46,51 @@
         public const int RoundToDecimalPlaces = 5;
 
         public const int XORDecryptionKey = 11;
+
+        public readonly struct ResourceTypes
+        {
+            public const string CLICommandsStrings = "CLICommands";
+        }
+
+        public readonly struct CLICommandsResourcesKeys
+        {
+            public const string CommandNameAliases = "COMMAND_NAME_ALIASES";
+            public const string CommandDescription = "COMMAND_DESCRIPTION";
+            public const string DefaultMessage = "DEFAULT_MESSAGE";
+
+            public const string CanNotBeAnEmptyString = "ERROR_MEMBERCANNOTBEANEMPTYSTRING";
+            public const string CanNotBeLongerThan = "ERROR_MEMBERCANNOTBELONGERTHAN";
+            public const string CanNotInclude = "ERROR_MEMBERCANNOTINCLUDE";
+            public const string DoesNotExists = "ERROR_MEMBERDOESNOTEXISTS";
+
+            public const string CurrentProjectMustBeSpecified = "ERROR_CURRENTPROJECTMUSTBESPECIFIED";
+
+            public const string NameOptionAliases = "OPTION_NAME_ALIASES";
+            public const string NameOptionDescription = "OPTION_NAME_DESCRIPTION";
+
+            public const string SongIDOptionAliases = "OPTION_SONGID_ALIASES";
+            public const string SongIDOptionDescription = "OPTION_SONGID_DESCRIPTION";
+
+            public const string OffsetOptionAliases = "OPTION_OFFSET_ALIASES";
+            public const string OffsetOptionDescription = "OPTION_OFFSET_DESCRIPTION";
+
+            public const string BPMOptionAliases = "OPTION_BPM_ALIASES";
+            public const string BPMOptionDescription = "OPTION_BPM_DESCRIPTION";
+
+            public const string BoolOptionAliases = "OPTION_BOOL_ALIASES";
+            public const string BoolOptionDescription = "OPTION_BOOL_DESCRIPTION";
+
+            public const string BeatSubdivisionOptionAliases = "OPTION_BEATSSUBDIVISION_ALIASES";
+            public const string BeatSubdivisionOptionDescription = "OPTION_BEATSSUBDIVISION_DESCRIPTION";
+
+            public const string SpeedOptionAliases = "OPTION_SPEED_ALIASES";
+            public const string SpeedOptionDescription = "OPTION_SPEED_DESCRIPTION";
+
+            public const string ColorPatternOptionAliases = "OPTION_COLORPATTER_ALIASES";
+            public const string ColorPatternOptionDescription = "OPTION_COLORPATTER_DESCRIPTION";
+
+            public const string KeyOptionAliases = "OPTION_KEY_ALIASES";
+            public const string KeyOptionDescription = "OPTION_KEY_DESCRIPTION";
+        }
     }
 }

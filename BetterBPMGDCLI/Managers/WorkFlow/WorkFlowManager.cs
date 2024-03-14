@@ -34,6 +34,9 @@ namespace BetterBPMGDCLI.Managers
             else
                 CurrentTimingProject = new(configManager);
 
+#if DEBUG
+            return;
+#endif
             DecodeLocalLevels();
         }
 

@@ -1,9 +1,32 @@
-﻿using System.CommandLine;
+﻿using BetterBPMGDCLI.Managers;
+using BetterBPMGDCLI.Utils;
+using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
     public abstract class HostCommandBase
     {
+        protected static Command BuildCommand<T>(ICommand[] commands)
+        {
+            ResourceManager<T> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+
+            return BuildCommand(commands,
+                                    resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases),
+                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription),
+                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.DefaultMessage));
+        }
+
+        protected static Command BuildCommand<T>(ICommand[] commands, Option[] options)
+        {
+            ResourceManager<T> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+
+            return BuildCommand(commands,
+                                    resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases),
+                                    options,
+                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription),
+                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.DefaultMessage));
+        }
+
         protected static Command BuildCommand(ICommand[] commands, string[] aliases, string description, string defaultMessage)
             => BuildCommand(commands, aliases, [], description, defaultMessage);
 

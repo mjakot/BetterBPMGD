@@ -24,7 +24,7 @@ namespace BetterBPMGDCLI.Managers
                 new StatsCommand(workFlowManager).BuildCommand(),
                 new SearchLevelsByNameCommand(workFlowManager).BuildCommand(),
                 new AddCommand(new AddProject(workFlowManager), new AddTiming(workFlowManager)).BuildCommand(),
-                new SetCommand(new SetCurrentProject(workFlowManager)).BuildCommand(),
+                new SetCommand(new CurrentProject(workFlowManager)).BuildCommand(),
                 new InjectCommand(new InjectExisting(workFlowManager), new InjectNew(workFlowManager)).BuildCommand(),
             ];
 
@@ -69,6 +69,12 @@ namespace BetterBPMGDCLI.Managers
 
             command.SetHandler((deleteStartupFile, deleteLocalFiles, deleteBackupFiles) =>
             {
+#if DEBUG
+                deleteBackupFiles = true;
+                deleteLocalFiles = true;
+                deleteStartupFile = true;
+#endif
+
                 if (deleteStartupFile)
                 {
                     try { File.Delete(PathSettings.StartupFilePath); }

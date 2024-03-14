@@ -1,5 +1,6 @@
 ﻿using BetterBPMGDCLI.Extensions;
 using BetterBPMGDCLI.Managers;
+using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 using System.Text;
 
@@ -9,9 +10,12 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
+        private ResourceManager<StatsCommand> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+
         public Command BuildCommand()
         {
-            Command command = new("stats", "Shows all important values. For debugging.");
+            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
+                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription));
 
             command.SetHandler(DisplayDebugInfo);
 
@@ -22,19 +26,18 @@ namespace BetterBPMGDCLI.CLICommands
         {
             StringBuilder result = new();
 
-            result.AppendLine("Current project:");
-
-            result.AppendLine($"\tName - {workFlowManager.CurrentTimingProject.Name}");
-            result.AppendLine();
-            result.AppendLine("\tTimings - ");
+            result.AppendLine("Current project:")
+                    .AppendLine($"\tName - {workFlowManager.CurrentTimingProject.Name}")
+                    .AppendLine()
+                    .AppendLine("\tTimings - ");
 
             foreach (Common.Timing timing in workFlowManager.CurrentTimingProject.Timings)
             {
                 result.AppendLine($"\t\t{timing.Serialize()}");
             }
 
-            result.AppendLine();
-            result.AppendLine("\tSongs - song id = song offset ");
+            result.AppendLine()
+                    .AppendLine("\tSongs - song id = song offset ");
 
             foreach (KeyValuePair<int, ulong> song in workFlowManager.CurrentTimingProject.SongIds)
             {
@@ -50,6 +53,9 @@ namespace BetterBPMGDCLI.CLICommands
             {
                 result.AppendLine($"\t{project}");
             }
+
+            result.AppendLine()
+                    .AppendLine($"Current culture: {Thread.CurrentThread.CurrentCulture}");
 
             Console.WriteLine(result.ToString());
         }

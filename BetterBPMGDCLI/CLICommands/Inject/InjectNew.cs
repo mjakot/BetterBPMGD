@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.Managers;
+using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
@@ -7,16 +8,25 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
+        private ResourceManager<InjectNew> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+
         public Command BuildCommand()
         {
-            Option<string> name = new(["--name", "-n"], description: "Specifies the name for the level") { IsRequired = true, ArgumentHelpName = "string" };
+            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.NameOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.NameOptionDescription))
+            {
+                IsRequired = true,
+                ArgumentHelpName = "string"
+            };
 
-            Command command = new("new", description: "Creates new level and injects timings into it from current project")
+            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
+                                    description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
             {
                 name
             };
 
-            command.AddAlias("nw");
+            foreach (string alias in resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases))
+                command.AddAlias(alias);
 
             command.SetHandler(Inject, name);
 

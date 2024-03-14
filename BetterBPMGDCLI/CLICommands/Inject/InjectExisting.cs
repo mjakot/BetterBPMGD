@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.Managers;
+using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
@@ -7,16 +8,25 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
+        private readonly ResourceManager<InjectExisting> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+
         public Command BuildCommand()
         {
-            Option<string> key = new(["--key", "-k"], description: "Specifies the key of the existing level") { IsRequired = true, ArgumentHelpName = "string" };
+            Option<string> key = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.KeyOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.KeyOptionDescription))
+            {
+                IsRequired = true,
+                ArgumentHelpName = "string"
+            };
 
-            Command command = new("existing", description: "Injects timings from current project into existing level specified by the key")
+            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
+                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
             {
                 key,
             };
 
-            command.AddAlias("xsg");
+            foreach (string alias in resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases))
+                command.AddAlias(alias);
 
             command.SetHandler(Inject, key);
 
