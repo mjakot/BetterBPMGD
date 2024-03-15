@@ -108,18 +108,18 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         /// <summary>
         ///   Looks up a localized string similar to --name,-n.
         /// </summary>
-        internal static string OPTION_NAME_ALIASES {
+        internal static string OPTION_STRING_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_NAME_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_STRING_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies the name of the levels.
         /// </summary>
-        internal static string OPTION_NAME_DESCRIPTION {
+        internal static string OPTION_STRING_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_NAME_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_STRING_DESCRIPTION", resourceCulture);
             }
         }
     }

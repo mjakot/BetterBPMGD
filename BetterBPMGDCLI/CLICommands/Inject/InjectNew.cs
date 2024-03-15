@@ -8,12 +8,12 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private ResourceManager<InjectNew> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+        private readonly ResourceManager<InjectNew> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
 
         public Command BuildCommand()
         {
-            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.NameOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.NameOptionDescription))
+            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
             {
                 IsRequired = true,
                 ArgumentHelpName = "string"

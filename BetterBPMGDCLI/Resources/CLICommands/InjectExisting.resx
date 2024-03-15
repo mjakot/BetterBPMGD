@@ -123,10 +123,10 @@
   <data name="COMMAND_NAME_ALIASES" xml:space="preserve">
     <value>xsg,existing</value>
   </data>
-  <data name="OPTION_KEY_ALIASES" xml:space="preserve">
+  <data name="OPTION_STRING_ALIASES" xml:space="preserve">
     <value>--key,-k</value>
   </data>
-  <data name="OPTION_KEY_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_STRING_DESCRIPTION" xml:space="preserve">
     <value>Specifies the key of the existing level</value>
   </data>
 </root>

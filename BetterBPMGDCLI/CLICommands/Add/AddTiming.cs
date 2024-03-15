@@ -14,15 +14,15 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<ulong> offset = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.OffsetOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.OffsetOptionDescription))
+            Option<ulong> offset = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.ULongsOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.ULongsOptionDescription))
             {
                 IsRequired = true,
                 ArgumentHelpName = "ulong"
             };
 
-            Option<double> bpm = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BPMOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BPMOptionDescription))
+            Option<double> bpm = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.DoubleOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.DoubleOptionDescription))
             {
                 IsRequired = true,
                 ArgumentHelpName = "double"
@@ -34,22 +34,22 @@ namespace BetterBPMGDCLI.CLICommands
                 IsRequired = true
             };
 
-            Option<int> beatSubdivision = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BeatSubdivisionOptionAliases),
-                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BeatSubdivisionOptionDescription))
+            Option<int> beatSubdivision = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases),
+                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription))
             {
                 IsRequired = true,
                 ArgumentHelpName = "int"
             };
 
-            Option<int> speed = new Option<int>(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.SpeedOptionAliases),
-                                                    description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.SpeedOptionDescription))
+            Option<int> speed = new Option<int>(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases + "1"),
+                                                    description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription + "1"))
             {
                 IsRequired = true,
                 ArgumentHelpName = "int"
             }.FromAmong("0", "1", "2", "3", "4", "200", "201", "202", "203", "1334");
 
-            Option<string> colorPattern = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.ColorPatternOptionAliases),
-                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.ColorPatternOptionDescription))
+            Option<string> colorPattern = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
+                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
             {
                 IsRequired = true,
                 ArgumentHelpName = "string"

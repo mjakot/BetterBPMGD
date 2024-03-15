@@ -81,18 +81,18 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         /// <summary>
         ///   Looks up a localized string similar to --key,-k.
         /// </summary>
-        internal static string OPTION_KEY_ALIASES {
+        internal static string OPTION_STRING_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_KEY_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_STRING_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies the key of the existing level.
         /// </summary>
-        internal static string OPTION_KEY_DESCRIPTION {
+        internal static string OPTION_STRING_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_KEY_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_STRING_DESCRIPTION", resourceCulture);
             }
         }
     }

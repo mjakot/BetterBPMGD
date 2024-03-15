@@ -12,22 +12,22 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.NameOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.NameOptionDescription))
+            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
             {
                 IsRequired = true,
                 ArgumentHelpName = "string"
             };
 
-            Option<int> sondId = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.SongIDOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.SongIDOptionDescription))
+            Option<int> sondId = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription))
             {
                 IsRequired = true,
                 ArgumentHelpName = "int"
             };
 
-            Option<ulong> offset = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.OffsetOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.OffsetOptionDescription))
+            Option<ulong> offset = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.ULongsOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.ULongsOptionDescription))
             {
                 IsRequired = true,
                 ArgumentHelpName = "ulong"

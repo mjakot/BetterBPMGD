@@ -115,24 +115,6 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to --subdivision,-n.
-        /// </summary>
-        internal static string OPTION_BEATSSUBDIVISION_ALIASES {
-            get {
-                return ResourceManager.GetString("OPTION_BEATSSUBDIVISION_ALIASES", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies beat subdivision for the timing.
-        /// </summary>
-        internal static string OPTION_BEATSSUBDIVISION_DESCRIPTION {
-            get {
-                return ResourceManager.GetString("OPTION_BEATSSUBDIVISION_DESCRIPTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to --subdivide,-d.
         /// </summary>
         internal static string OPTION_BOOL_ALIASES {
@@ -153,72 +135,90 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         /// <summary>
         ///   Looks up a localized string similar to --bpm,-b.
         /// </summary>
-        internal static string OPTION_BPM_ALIASES {
+        internal static string OPTION_DOUBLE_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_BPM_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_DOUBLE_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies bpm for the timing.
         /// </summary>
-        internal static string OPTION_BPM_DESCRIPTION {
+        internal static string OPTION_DOUBLE_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_BPM_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_DOUBLE_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --subdivision,-n.
+        /// </summary>
+        internal static string OPTION_INT_ALIASES {
+            get {
+                return ResourceManager.GetString("OPTION_INT_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to --colors,-c.
         /// </summary>
-        internal static string OPTION_COLORPATTER_ALIASES {
+        internal static string OPTION_INT_ALIASES1 {
             get {
-                return ResourceManager.GetString("OPTION_COLORPATTER_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT_ALIASES1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies beat subdivision for the timing.
+        /// </summary>
+        internal static string OPTION_INT_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("OPTION_INT_DESCRIPTION", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies color pattern for the guidelines. Available colors: o - orange, g - green, y - yellow, n - none. Pattern can not be longer than 3 symbols. Example: ogo (orange - green - orange).
         /// </summary>
-        internal static string OPTION_COLORPATTER_DESCRIPTION {
+        internal static string OPTION_INT_DESCRIPTION1 {
             get {
-                return ResourceManager.GetString("OPTION_COLORPATTER_DESCRIPTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to --offset,-o.
-        /// </summary>
-        internal static string OPTION_OFFSET_ALIASES {
-            get {
-                return ResourceManager.GetString("OPTION_OFFSET_ALIASES", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies offset for the timing.
-        /// </summary>
-        internal static string OPTION_OFFSET_DESCRIPTION {
-            get {
-                return ResourceManager.GetString("OPTION_OFFSET_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT_DESCRIPTION1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to --speed,-s.
         /// </summary>
-        internal static string OPTION_SPEED_ALIASES {
+        internal static string OPTION_STRING_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_SPEED_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_STRING_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies speed for the timing. Available speeds: 0 - HALFSPEED, 1 - NORMAL SPEED, 2 - DOUBLE SPEED, 3 - TRPLE SPEED, 4 - QUADRUPLE SPEED.
         /// </summary>
-        internal static string OPTION_SPEED_DESCRIPTION {
+        internal static string OPTION_STRING_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_SPEED_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_STRING_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --offset,-o.
+        /// </summary>
+        internal static string OPTION_ULONG_ALIASES {
+            get {
+                return ResourceManager.GetString("OPTION_ULONG_ALIASES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies offset for the timing.
+        /// </summary>
+        internal static string OPTION_ULONG_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("OPTION_ULONG_DESCRIPTION", resourceCulture);
             }
         }
     }

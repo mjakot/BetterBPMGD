@@ -12,8 +12,8 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            Option<string> key = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.KeyOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.KeyOptionDescription))
+            Option<string> key = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
+                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionAliases))
             {
                 IsRequired = true,
                 ArgumentHelpName = "string"

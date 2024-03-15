@@ -132,10 +132,10 @@
   <data name="OPTION_BOOL_DESCRIPTION" xml:space="preserve">
     <value>Specifies whether search should be case insensitive</value>
   </data>
-  <data name="OPTION_NAME_ALIASES" xml:space="preserve">
+  <data name="OPTION_STRING_ALIASES" xml:space="preserve">
     <value>--name,-n</value>
   </data>
-  <data name="OPTION_NAME_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_STRING_DESCRIPTION" xml:space="preserve">
     <value>Specifies the name of the levels</value>
   </data>
 </root>

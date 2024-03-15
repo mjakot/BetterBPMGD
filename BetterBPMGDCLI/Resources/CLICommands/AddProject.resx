@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="COMMAND_DESCRIPTION" xml:space="preserve">
-    <value>creates new project</value>
+    <value>Creates a new project</value>
   </data>
   <data name="COMMAND_NAME_ALIASES" xml:space="preserve">
     <value>project,pj,proj</value>
   </data>
-  <data name="OPTION_NAME_ALIASES" xml:space="preserve">
-    <value>--name,-n</value>
-  </data>
-  <data name="OPTION_NAME_DESCRIPTION" xml:space="preserve">
-    <value>Specifies the name for the project</value>
-  </data>
-  <data name="OPTION_OFFSET_ALIASES" xml:space="preserve">
-    <value>--offset,-o</value>
-  </data>
-  <data name="OPTION_OFFSET_DESCRIPTION" xml:space="preserve">
-    <value>Specifies the offset for the initial song of the project</value>
-  </data>
-  <data name="OPTION_SONGID_ALIASES" xml:space="preserve">
+  <data name="OPTION_INT_ALIASES" xml:space="preserve">
     <value>--song,-s</value>
   </data>
-  <data name="OPTION_SONGID_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_INT_DESCRIPTION" xml:space="preserve">
     <value>Specifies the id for the initial song of the project</value>
+  </data>
+  <data name="OPTION_STRING_ALIASES" xml:space="preserve">
+    <value>--name,-n</value>
+  </data>
+  <data name="OPTION_STRING_DESCRIPTION" xml:space="preserve">
+    <value>Specifies the name for the project</value>
+  </data>
+  <data name="OPTION_ULONG_ALIASES" xml:space="preserve">
+    <value>--offset,-o</value>
+  </data>
+  <data name="OPTION_ULONG_DESCRIPTION" xml:space="preserve">
+    <value>Specifies the offset for the initial song of the project</value>
   </data>
 </root>

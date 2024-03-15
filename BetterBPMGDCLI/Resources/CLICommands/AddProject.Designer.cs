@@ -61,7 +61,7 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to creates new project.
+        ///   Looks up a localized string similar to Creates a new project.
         /// </summary>
         internal static string COMMAND_DESCRIPTION {
             get {
@@ -79,56 +79,56 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to --name,-n.
-        /// </summary>
-        internal static string OPTION_NAME_ALIASES {
-            get {
-                return ResourceManager.GetString("OPTION_NAME_ALIASES", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies the name for the project.
-        /// </summary>
-        internal static string OPTION_NAME_DESCRIPTION {
-            get {
-                return ResourceManager.GetString("OPTION_NAME_DESCRIPTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to --offset,-o.
-        /// </summary>
-        internal static string OPTION_OFFSET_ALIASES {
-            get {
-                return ResourceManager.GetString("OPTION_OFFSET_ALIASES", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies the offset for the initial song of the project.
-        /// </summary>
-        internal static string OPTION_OFFSET_DESCRIPTION {
-            get {
-                return ResourceManager.GetString("OPTION_OFFSET_DESCRIPTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to --song,-s.
         /// </summary>
-        internal static string OPTION_SONGID_ALIASES {
+        internal static string OPTION_INT_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_SONGID_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies the id for the initial song of the project.
         /// </summary>
-        internal static string OPTION_SONGID_DESCRIPTION {
+        internal static string OPTION_INT_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_SONGID_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --name,-n.
+        /// </summary>
+        internal static string OPTION_STRING_ALIASES {
+            get {
+                return ResourceManager.GetString("OPTION_STRING_ALIASES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies the name for the project.
+        /// </summary>
+        internal static string OPTION_STRING_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("OPTION_STRING_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --offset,-o.
+        /// </summary>
+        internal static string OPTION_ULONG_ALIASES {
+            get {
+                return ResourceManager.GetString("OPTION_ULONG_ALIASES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies the offset for the initial song of the project.
+        /// </summary>
+        internal static string OPTION_ULONG_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("OPTION_ULONG_DESCRIPTION", resourceCulture);
             }
         }
     }

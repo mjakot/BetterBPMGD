@@ -65,32 +65,20 @@
 
             public const string CurrentProjectMustBeSpecified = "ERROR_CURRENTPROJECTMUSTBESPECIFIED";
 
-            public const string NameOptionAliases = "OPTION_NAME_ALIASES";
-            public const string NameOptionDescription = "OPTION_NAME_DESCRIPTION";
+            public const string StringOptionAliases = "OPTION_STRING_ALIASES";
+            public const string StringOptionDescription = "OPTION_STRING_DESCRIPTION";
 
-            public const string SongIDOptionAliases = "OPTION_SONGID_ALIASES";
-            public const string SongIDOptionDescription = "OPTION_SONGID_DESCRIPTION";
+            public const string IntOptionAliases = "OPTION_INT_ALIASES";
+            public const string IntOptionDescription = "OPTION_INT_DESCRIPTION";
 
-            public const string OffsetOptionAliases = "OPTION_OFFSET_ALIASES";
-            public const string OffsetOptionDescription = "OPTION_OFFSET_DESCRIPTION";
+            public const string ULongsOptionAliases = "OPTION_ULONG_ALIASES";
+            public const string ULongsOptionDescription = "OPTION_ULONG_DESCRIPTION";
 
-            public const string BPMOptionAliases = "OPTION_BPM_ALIASES";
-            public const string BPMOptionDescription = "OPTION_BPM_DESCRIPTION";
+            public const string DoubleOptionAliases = "OPTION_DOUBLE_ALIASES";
+            public const string DoubleOptionDescription = "OPTION_DOUBLE_DESCRIPTION";
 
             public const string BoolOptionAliases = "OPTION_BOOL_ALIASES";
             public const string BoolOptionDescription = "OPTION_BOOL_DESCRIPTION";
-
-            public const string BeatSubdivisionOptionAliases = "OPTION_BEATSSUBDIVISION_ALIASES";
-            public const string BeatSubdivisionOptionDescription = "OPTION_BEATSSUBDIVISION_DESCRIPTION";
-
-            public const string SpeedOptionAliases = "OPTION_SPEED_ALIASES";
-            public const string SpeedOptionDescription = "OPTION_SPEED_DESCRIPTION";
-
-            public const string ColorPatternOptionAliases = "OPTION_COLORPATTER_ALIASES";
-            public const string ColorPatternOptionDescription = "OPTION_COLORPATTER_DESCRIPTION";
-
-            public const string KeyOptionAliases = "OPTION_KEY_ALIASES";
-            public const string KeyOptionDescription = "OPTION_KEY_DESCRIPTION";
         }
     }
 }
