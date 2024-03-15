@@ -73,6 +73,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>StatsCommand.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\CLICommands\StopCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StopCommand.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\CLICommands\TestCommand.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -124,6 +129,10 @@
     <EmbeddedResource Update="Resources\CLICommands\StatsCommand.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StatsCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\StopCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StopCommand.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\CLICommands\TestCommand.resx">
       <Generator>ResXFileCodeGenerator</Generator>

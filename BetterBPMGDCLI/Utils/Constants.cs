@@ -69,6 +69,8 @@
 
             public const string CurrentProjectMustBeSpecified = "ERROR_CURRENTPROJECTMUSTBESPECIFIED";
 
+            public const string Success = "MESSAGE_SUCCESS";
+
             public const string BaseOptionAliases = "OPTION__ALIASES";
             public const string BaseOptionDescription = "OPTION__DESCRIPTION";
 
