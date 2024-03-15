@@ -54,7 +54,7 @@
 
         public readonly struct ResourceTypes
         {
-            public const string CLICommandsStrings = "CLICommands";
+            public const string CLICommands = "CLICommands";
         }
 
         public readonly struct CLICommandsResourcesKeys
@@ -70,20 +70,23 @@
 
             public const string CurrentProjectMustBeSpecified = "ERROR_CURRENTPROJECTMUSTBESPECIFIED";
 
+            public const string BaseOptionAliases = "OPTION__ALIASES";
+            public const string BaseOptionDescription = "OPTION__DESCRIPTION";
+
             public const string StringOptionAliases = "OPTION_STRING_ALIASES";
             public const string StringOptionDescription = "OPTION_STRING_DESCRIPTION";
 
-            public const string IntOptionAliases = "OPTION_INT_ALIASES";
-            public const string IntOptionDescription = "OPTION_INT_DESCRIPTION";
+            public const string IntOptionAliases = "OPTION_INT32_ALIASES";
+            public const string IntOptionDescription = "OPTION_INT32_DESCRIPTION";
 
-            public const string ULongsOptionAliases = "OPTION_ULONG_ALIASES";
-            public const string ULongsOptionDescription = "OPTION_ULONG_DESCRIPTION";
+            public const string ULongsOptionAliases = "OPTION_UINT64_ALIASES";
+            public const string ULongsOptionDescription = "OPTION_UINT64_DESCRIPTION";
 
             public const string DoubleOptionAliases = "OPTION_DOUBLE_ALIASES";
             public const string DoubleOptionDescription = "OPTION_DOUBLE_DESCRIPTION";
 
-            public const string BoolOptionAliases = "OPTION_BOOL_ALIASES";
-            public const string BoolOptionDescription = "OPTION_BOOL_DESCRIPTION";
+            public const string BoolOptionAliases = "OPTION_BOOLEAN_ALIASES";
+            public const string BoolOptionDescription = "OPTION_BOOLEAN_DESCRIPTION";
         }
     }
 }

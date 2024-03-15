@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.CLICommands.Core;
+using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Models.Level;
 using BetterBPMGDCLI.Utils;
 using Common;
@@ -10,96 +11,41 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<AddTiming> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+        private readonly ResourceManager<AddTiming> resourceManager = new(Constants.ResourceTypes.CLICommands);
 
         public Command BuildCommand()
-        {
-            Option<ulong> offset = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.ULongsOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.ULongsOptionDescription))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.UnsignedLongTypeName
-            };
+            => new CommandBuilder<AddTiming>().AddOption<ulong>(true)
+                                                .AddOption<double>(true)
+                                                .AddOption<bool>(false, null, () => false, [])
+                                                .AddOption<int>(true)
+                                                .AddOption<int>(true, null, null, "0", "1", "2", "3", "4", "200", "201", "202", "203", "1334")
+                                                .AddOption<string>(true, x =>
+                                                {
+                                                    string? value = x.GetValueOrDefault<string>();
 
-            Option<double> bpm = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.DoubleOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.DoubleOptionDescription))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.DoubleTypeName
-            };
+                                                    if (string.IsNullOrEmpty(value))
+                                                    {
+                                                        x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeAnEmptyString);
 
-            Option<bool> subdivideBeats = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BoolOptionAliases),
-                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BoolOptionDescription),
-                                                getDefaultValue: () => false)
-            {
-                IsRequired = false
-            };
+                                                        return;
+                                                    }
 
-            Option<int> beatSubdivision = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases),
-                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.IntTypeName
-            };
+                                                    if (value.Length > 3)
+                                                    {
+                                                        x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeLongerThan);
 
-            Option<int> speed = new Option<int>(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases + "1"),
-                                                    description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription + "1"))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.IntTypeName
-            }.FromAmong("0", "1", "2", "3", "4", "200", "201", "202", "203", "1334");
+                                                        return;
+                                                    }
 
-            Option<string> colorPattern = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
-                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.StringTypeName
-            };
+                                                    if (!value.All(c => GuidelineColors.AvailableColors.Contains(c)))
+                                                    {
+                                                        x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotInclude);
 
-            colorPattern.AddValidator(x =>
-            {
-                string? value = x.GetValueOrDefault<string>();
-
-                if (string.IsNullOrEmpty(value))
-                {
-                    x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeAnEmptyString);
-
-                    return;
-                }
-
-                if (value.Length > 3)
-                {
-                    x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeLongerThan);
-
-                    return;
-                }
-
-                if (!value.All(c => GuidelineColors.AvailableColors.Contains(c)))
-                {
-                    x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotInclude);
-
-                    return;
-                }
-            });
-
-            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
-                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
-            {
-                offset,
-                bpm,
-                subdivideBeats,
-                beatSubdivision,
-                speed,
-                colorPattern
-            };
-
-            foreach (string alias in resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases))
-                command.AddAlias(alias);
-
-            command.SetHandler(AddNewTiming, offset, bpm, subdivideBeats, beatSubdivision, speed, colorPattern);
-
-            return command;
-        }
+                                                        return;
+                                                    }
+                                                }, null, [])
+                                                .SetHandler<ulong, double, bool, int, int, string>(AddNewTiming)
+                                                .BuildCommand();
 
         private void AddNewTiming(ulong offset, double bpm, bool subdivideBeats, int beatSubdivision, int speed, string colorPattern)
         {

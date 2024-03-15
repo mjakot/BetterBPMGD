@@ -135,10 +135,10 @@
   <data name="ERROR_MEMBERCANNOTINCLUDE" xml:space="preserve">
     <value>Color patter can not be any other character that o, g, y and n</value>
   </data>
-  <data name="OPTION_BOOL_ALIASES" xml:space="preserve">
+  <data name="OPTION_BOOLEAN_ALIASES" xml:space="preserve">
     <value>--subdivide,-d</value>
   </data>
-  <data name="OPTION_BOOL_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_BOOLEAN_DESCRIPTION" xml:space="preserve">
     <value>Specifies whether to subdivide beats</value>
   </data>
   <data name="OPTION_DOUBLE_ALIASES" xml:space="preserve">
@@ -147,28 +147,28 @@
   <data name="OPTION_DOUBLE_DESCRIPTION" xml:space="preserve">
     <value>Specifies bpm for the timing</value>
   </data>
-  <data name="OPTION_INT_ALIASES" xml:space="preserve">
-    <value>--subdivision,-n</value>
-  </data>
-  <data name="OPTION_INT_ALIASES1" xml:space="preserve">
-    <value>--colors,-c</value>
-  </data>
-  <data name="OPTION_INT_DESCRIPTION" xml:space="preserve">
-    <value>Specifies beat subdivision for the timing</value>
-  </data>
-  <data name="OPTION_INT_DESCRIPTION1" xml:space="preserve">
-    <value>Specifies color pattern for the guidelines. Available colors: o - orange, g - green, y - yellow, n - none. Pattern can not be longer than 3 symbols. Example: ogo (orange - green - orange)</value>
-  </data>
-  <data name="OPTION_STRING_ALIASES" xml:space="preserve">
+  <data name="OPTION_INT32_1_ALIASES" xml:space="preserve">
     <value>--speed,-s</value>
   </data>
-  <data name="OPTION_STRING_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_INT32_1_DESCRIPTION" xml:space="preserve">
     <value>Specifies speed for the timing. Available speeds: 0 - HALFSPEED, 1 - NORMAL SPEED, 2 - DOUBLE SPEED, 3 - TRPLE SPEED, 4 - QUADRUPLE SPEED</value>
   </data>
-  <data name="OPTION_ULONG_ALIASES" xml:space="preserve">
+  <data name="OPTION_INT32_ALIASES" xml:space="preserve">
+    <value>--subdivision,-n</value>
+  </data>
+  <data name="OPTION_INT32_DESCRIPTION" xml:space="preserve">
+    <value>Specifies beat subdivision for the timing</value>
+  </data>
+  <data name="OPTION_STRING_ALIASES" xml:space="preserve">
+    <value>--colors,-c</value>
+  </data>
+  <data name="OPTION_STRING_DESCRIPTION" xml:space="preserve">
+    <value>Specifies color pattern for the guidelines. Available colors: o - orange, g - green, y - yellow, n - none. Pattern can not be longer than 3 symbols. Example: ogo (orange - green - orange)</value>
+  </data>
+  <data name="OPTION_UINT64_ALIASES" xml:space="preserve">
     <value>--offset,-o</value>
   </data>
-  <data name="OPTION_ULONG_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_UINT64_DESCRIPTION" xml:space="preserve">
     <value>Specifies offset for the timing</value>
   </data>
 </root>

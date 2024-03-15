@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.CLICommands.Core;
+using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
@@ -8,28 +9,11 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<CurrentProject> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+        private readonly ResourceManager<CurrentProject> resourceManager = new(Constants.ResourceTypes.CLICommands);
 
-        public Command BuildCommand()
-        {
-            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
-            {
-                ArgumentHelpName = Constants.StringTypeName
-            };
-
-            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],  resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
-            {
-                name
-            };
-
-            foreach (string alias in resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases))
-                command.AddAlias(alias); //bye bye why not and cp :(
-
-            command.SetHandler(SetProject, name);
-
-            return command;
-        }
+        public Command BuildCommand() => new CommandBuilder<CurrentProject>().AddOption<string>(true) //bye bye why not and cp :(, farewell bulky command declaration :(((
+                                                                                .SetHandler<string>(SetProject)
+                                                                                .BuildCommand();
 
         private void SetProject(string name)
         {

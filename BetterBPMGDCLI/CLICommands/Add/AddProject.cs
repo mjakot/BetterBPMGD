@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.CLICommands.Core;
+using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
@@ -8,52 +9,19 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<AddProject> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+        private readonly ResourceManager<AddProject> resourceManager = new(Constants.ResourceTypes.CLICommands);
 
-        public Command BuildCommand()
-        {
-            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.StringTypeName
-            };
-
-            Option<int> sondId = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.IntTypeName
-            };
-
-            Option<ulong> offset = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.ULongsOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.ULongsOptionDescription))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.UnsignedLongTypeName
-            };
-
-            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
-                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
-            {
-                name,
-                sondId,
-                offset
-            };
-
-            foreach (string alias in resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases))
-                command.AddAlias(alias);
-
-            command.SetHandler(CreateNewProject, name, sondId, offset);
-
-            return command;
-        }
+        public Command BuildCommand() => new CommandBuilder<AddProject>().AddOption<string>()
+                                                                            .AddOption<int>()
+                                                                            .AddOption<ulong>()
+                                                                            .SetHandler<string, int, ulong>(CreateNewProject)
+                                                                            .BuildCommand();
 
         private void CreateNewProject(string name, int sondId, ulong offset)
         {
             if (string.IsNullOrEmpty(name))
             {
-                Console.Error.WriteLine("Name could not be an empty string");
+                Console.Error.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeAnEmptyString));
 
                 return;
             }

@@ -126,10 +126,10 @@
   <data name="ERROR_MEMBERDOESNOTEXISTS" xml:space="preserve">
     <value>No levels found</value>
   </data>
-  <data name="OPTION_BOOL_ALIASES" xml:space="preserve">
+  <data name="OPTION_BOOLEAN_ALIASES" xml:space="preserve">
     <value>--case,-c,--insensitive,--caseinsensitive,--caseInsensitive,--case-insensitive,-i,--ignoreCase,--ignorecase,--ignore-case</value>
   </data>
-  <data name="OPTION_BOOL_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_BOOLEAN_DESCRIPTION" xml:space="preserve">
     <value>Specifies whether search should be case insensitive</value>
   </data>
   <data name="OPTION_STRING_ALIASES" xml:space="preserve">

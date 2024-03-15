@@ -117,18 +117,18 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         /// <summary>
         ///   Looks up a localized string similar to --subdivide,-d.
         /// </summary>
-        internal static string OPTION_BOOL_ALIASES {
+        internal static string OPTION_BOOLEAN_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_BOOL_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_BOOLEAN_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies whether to subdivide beats.
         /// </summary>
-        internal static string OPTION_BOOL_DESCRIPTION {
+        internal static string OPTION_BOOLEAN_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_BOOL_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_BOOLEAN_DESCRIPTION", resourceCulture);
             }
         }
         
@@ -151,43 +151,43 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to --subdivision,-n.
+        ///   Looks up a localized string similar to --speed,-s.
         /// </summary>
-        internal static string OPTION_INT_ALIASES {
+        internal static string OPTION_INT32_1_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_INT_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT32_1_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to --colors,-c.
+        ///   Looks up a localized string similar to Specifies speed for the timing. Available speeds: 0 - HALFSPEED, 1 - NORMAL SPEED, 2 - DOUBLE SPEED, 3 - TRPLE SPEED, 4 - QUADRUPLE SPEED.
         /// </summary>
-        internal static string OPTION_INT_ALIASES1 {
+        internal static string OPTION_INT32_1_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_INT_ALIASES1", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT32_1_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --subdivision,-n.
+        /// </summary>
+        internal static string OPTION_INT32_ALIASES {
+            get {
+                return ResourceManager.GetString("OPTION_INT32_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies beat subdivision for the timing.
         /// </summary>
-        internal static string OPTION_INT_DESCRIPTION {
+        internal static string OPTION_INT32_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_INT_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT32_DESCRIPTION", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies color pattern for the guidelines. Available colors: o - orange, g - green, y - yellow, n - none. Pattern can not be longer than 3 symbols. Example: ogo (orange - green - orange).
-        /// </summary>
-        internal static string OPTION_INT_DESCRIPTION1 {
-            get {
-                return ResourceManager.GetString("OPTION_INT_DESCRIPTION1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to --speed,-s.
+        ///   Looks up a localized string similar to --colors,-c.
         /// </summary>
         internal static string OPTION_STRING_ALIASES {
             get {
@@ -196,7 +196,7 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies speed for the timing. Available speeds: 0 - HALFSPEED, 1 - NORMAL SPEED, 2 - DOUBLE SPEED, 3 - TRPLE SPEED, 4 - QUADRUPLE SPEED.
+        ///   Looks up a localized string similar to Specifies color pattern for the guidelines. Available colors: o - orange, g - green, y - yellow, n - none. Pattern can not be longer than 3 symbols. Example: ogo (orange - green - orange).
         /// </summary>
         internal static string OPTION_STRING_DESCRIPTION {
             get {
@@ -207,18 +207,18 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         /// <summary>
         ///   Looks up a localized string similar to --offset,-o.
         /// </summary>
-        internal static string OPTION_ULONG_ALIASES {
+        internal static string OPTION_UINT64_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_ULONG_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_UINT64_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies offset for the timing.
         /// </summary>
-        internal static string OPTION_ULONG_DESCRIPTION {
+        internal static string OPTION_UINT64_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_ULONG_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_UINT64_DESCRIPTION", resourceCulture);
             }
         }
     }

@@ -1,6 +1,6 @@
-﻿using BetterBPMGDCLI.Extensions;
+﻿using BetterBPMGDCLI.CLICommands.Core;
+using BetterBPMGDCLI.Extensions;
 using BetterBPMGDCLI.Managers;
-using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 using System.Text;
 
@@ -10,17 +10,8 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private ResourceManager<StatsCommand> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
-
-        public Command BuildCommand()
-        {
-            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
-                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription));
-
-            command.SetHandler(DisplayDebugInfo);
-
-            return command;
-        }
+        public Command BuildCommand() => new CommandBuilder<StatsCommand>().SetHandler(DisplayDebugInfo)
+                                                                             .BuildCommand();
 
         private void DisplayDebugInfo()
         {

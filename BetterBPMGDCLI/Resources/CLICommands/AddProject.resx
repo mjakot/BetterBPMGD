@@ -123,10 +123,13 @@
   <data name="COMMAND_NAME_ALIASES" xml:space="preserve">
     <value>project,pj,proj</value>
   </data>
-  <data name="OPTION_INT_ALIASES" xml:space="preserve">
+  <data name="ERROR_MEMBERCANNOTBEANEMPTYSTRING" xml:space="preserve">
+    <value>Name could not be an empty string</value>
+  </data>
+  <data name="OPTION_INT32_ALIASES" xml:space="preserve">
     <value>--song,-s</value>
   </data>
-  <data name="OPTION_INT_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_INT32_DESCRIPTION" xml:space="preserve">
     <value>Specifies the id for the initial song of the project</value>
   </data>
   <data name="OPTION_STRING_ALIASES" xml:space="preserve">
@@ -135,10 +138,10 @@
   <data name="OPTION_STRING_DESCRIPTION" xml:space="preserve">
     <value>Specifies the name for the project</value>
   </data>
-  <data name="OPTION_ULONG_ALIASES" xml:space="preserve">
+  <data name="OPTION_UINT64_ALIASES" xml:space="preserve">
     <value>--offset,-o</value>
   </data>
-  <data name="OPTION_ULONG_DESCRIPTION" xml:space="preserve">
+  <data name="OPTION_UINT64_DESCRIPTION" xml:space="preserve">
     <value>Specifies the offset for the initial song of the project</value>
   </data>
 </root>

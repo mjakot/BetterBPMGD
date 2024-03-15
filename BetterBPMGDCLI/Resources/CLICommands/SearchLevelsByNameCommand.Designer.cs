@@ -90,18 +90,18 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         /// <summary>
         ///   Looks up a localized string similar to --case,-c,--insensitive,--caseinsensitive,--caseInsensitive,--case-insensitive,-i,--ignoreCase,--ignorecase,--ignore-case.
         /// </summary>
-        internal static string OPTION_BOOL_ALIASES {
+        internal static string OPTION_BOOLEAN_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_BOOL_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_BOOLEAN_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies whether search should be case insensitive.
         /// </summary>
-        internal static string OPTION_BOOL_DESCRIPTION {
+        internal static string OPTION_BOOLEAN_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_BOOL_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_BOOLEAN_DESCRIPTION", resourceCulture);
             }
         }
         

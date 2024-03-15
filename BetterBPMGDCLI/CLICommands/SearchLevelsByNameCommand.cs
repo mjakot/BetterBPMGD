@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.CLICommands.Core;
+using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 using System.Text;
@@ -9,38 +10,12 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<SearchLevelsByNameCommand> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+        private readonly ResourceManager<SearchLevelsByNameCommand> resourceManager = new(Constants.ResourceTypes.CLICommands);
 
-        public Command BuildCommand()
-        {
-            Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
-                                        description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
-            {
-                IsRequired = true,
-                ArgumentHelpName = Constants.StringTypeName
-            };
-
-            Option<bool> ignoreCase = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BoolOptionAliases),
-                                            description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BoolOptionDescription),
-                                            getDefaultValue: () => false)
-            {
-                IsRequired = false
-            };
-
-            Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],
-                                    description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
-            {
-                name,
-                ignoreCase
-            };
-
-            foreach (string alias in resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases))
-                command.AddAlias(alias);
-
-            command.SetHandler(SearchLevels, name, ignoreCase);
-
-            return command;
-        }
+        public Command BuildCommand() => new CommandBuilder<SearchLevelsByNameCommand>().AddOption<string>(true)
+                                                                                            .AddOption<bool>(false, null, () => false, [])
+                                                                                            .SetHandler<string, bool>(SearchLevels)
+                                                                                            .BuildCommand();
 
         private void SearchLevels(string name, bool ignoreCase)
         {

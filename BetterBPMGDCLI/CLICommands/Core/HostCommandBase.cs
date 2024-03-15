@@ -1,51 +1,18 @@
-﻿using BetterBPMGDCLI.Managers;
-using BetterBPMGDCLI.Utils;
+﻿using BetterBPMGDCLI.CLICommands.Core;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
     public abstract class HostCommandBase
     {
-        protected static Command BuildCommand<T>(ICommand[] commands)
+        protected static Command BuildCommand<T>(ICommand[] commands) where T : class, ICommand
         {
-            ResourceManager<T> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
+            Command hostCommand = new CommandBuilder<T>().BuildCommand();
 
-            return BuildCommand(commands,
-                                    resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases),
-                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription),
-                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.DefaultMessage));
-        }
+            foreach (ICommand command in commands)
+                hostCommand.AddCommand(command.BuildCommand());
 
-        protected static Command BuildCommand<T>(ICommand[] commands, Option[] options)
-        {
-            ResourceManager<T> resourceManager = new(Constants.ResourceTypes.CLICommandsStrings);
-
-            return BuildCommand(commands,
-                                    resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases),
-                                    options,
-                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription),
-                                    resourceManager.GetString(Constants.CLICommandsResourcesKeys.DefaultMessage));
-        }
-
-        protected static Command BuildCommand(ICommand[] commands, string[] aliases, string description, string defaultMessage)
-            => BuildCommand(commands, aliases, [], description, defaultMessage);
-
-        protected static Command BuildCommand(ICommand[] commands, string[] aliases, Option[] options, string description, string defaultMessage)
-        {
-            Command command = new(aliases[0], description);
-
-            foreach (ICommand cmd in commands)
-                command.AddCommand(cmd.BuildCommand());
-
-            foreach (Option option in options)
-                command.AddOption(option);
-
-            for (int i = 1; i < aliases.Length; i++)
-                command.AddAlias(aliases[i]);
-
-            command.SetHandler(() => Console.WriteLine(defaultMessage));
-
-           return command;
+            return hostCommand;
         }
     }
 }

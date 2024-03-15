@@ -79,20 +79,29 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name could not be an empty string.
+        /// </summary>
+        internal static string ERROR_MEMBERCANNOTBEANEMPTYSTRING {
+            get {
+                return ResourceManager.GetString("ERROR_MEMBERCANNOTBEANEMPTYSTRING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --song,-s.
         /// </summary>
-        internal static string OPTION_INT_ALIASES {
+        internal static string OPTION_INT32_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_INT_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT32_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies the id for the initial song of the project.
         /// </summary>
-        internal static string OPTION_INT_DESCRIPTION {
+        internal static string OPTION_INT32_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_INT_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_INT32_DESCRIPTION", resourceCulture);
             }
         }
         
@@ -117,18 +126,18 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         /// <summary>
         ///   Looks up a localized string similar to --offset,-o.
         /// </summary>
-        internal static string OPTION_ULONG_ALIASES {
+        internal static string OPTION_UINT64_ALIASES {
             get {
-                return ResourceManager.GetString("OPTION_ULONG_ALIASES", resourceCulture);
+                return ResourceManager.GetString("OPTION_UINT64_ALIASES", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies the offset for the initial song of the project.
         /// </summary>
-        internal static string OPTION_ULONG_DESCRIPTION {
+        internal static string OPTION_UINT64_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTION_ULONG_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTION_UINT64_DESCRIPTION", resourceCulture);
             }
         }
     }
