@@ -17,7 +17,7 @@ namespace BetterBPMGDCLI.CLICommands
                                         description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
             {
                 IsRequired = true,
-                ArgumentHelpName = "string"
+                ArgumentHelpName = Constants.StringTypeName
             };
 
             Option<bool> ignoreCase = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BoolOptionAliases),

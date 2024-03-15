@@ -41,6 +41,11 @@
 
         public const string GDXMLDeclaration = """<?xml version="1.0"?>""";
 
+        public static readonly string StringTypeName = typeof(string).Name;
+        public static readonly string IntTypeName = typeof(int).Name;
+        public static readonly string UnsignedLongTypeName = typeof(ulong).Name;
+        public static readonly string DoubleTypeName = typeof(double).Name;
+
 
         public const int MillisecondsInMinute = 60000;  
         public const int RoundToDecimalPlaces = 5;

@@ -18,41 +18,42 @@ namespace BetterBPMGDCLI.CLICommands
                                         description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.ULongsOptionDescription))
             {
                 IsRequired = true,
-                ArgumentHelpName = "ulong"
+                ArgumentHelpName = Constants.UnsignedLongTypeName
             };
 
             Option<double> bpm = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.DoubleOptionAliases),
                                         description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.DoubleOptionDescription))
             {
                 IsRequired = true,
-                ArgumentHelpName = "double"
+                ArgumentHelpName = Constants.DoubleTypeName
             };
 
             Option<bool> subdivideBeats = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BoolOptionAliases),
-                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BoolOptionDescription))
+                                                description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BoolOptionDescription),
+                                                getDefaultValue: () => false)
             {
-                IsRequired = true
+                IsRequired = false
             };
 
             Option<int> beatSubdivision = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases),
                                                 description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription))
             {
                 IsRequired = true,
-                ArgumentHelpName = "int"
+                ArgumentHelpName = Constants.IntTypeName
             };
 
             Option<int> speed = new Option<int>(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases + "1"),
                                                     description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription + "1"))
             {
                 IsRequired = true,
-                ArgumentHelpName = "int"
+                ArgumentHelpName = Constants.IntTypeName
             }.FromAmong("0", "1", "2", "3", "4", "200", "201", "202", "203", "1334");
 
             Option<string> colorPattern = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
                                                 description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
             {
                 IsRequired = true,
-                ArgumentHelpName = "string"
+                ArgumentHelpName = Constants.StringTypeName
             };
 
             colorPattern.AddValidator(x =>

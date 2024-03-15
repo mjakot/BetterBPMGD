@@ -16,21 +16,21 @@ namespace BetterBPMGDCLI.CLICommands
                                         description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
             {
                 IsRequired = true,
-                ArgumentHelpName = "string"
+                ArgumentHelpName = Constants.StringTypeName
             };
 
             Option<int> sondId = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.IntOptionAliases),
                                         description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.IntOptionDescription))
             {
                 IsRequired = true,
-                ArgumentHelpName = "int"
+                ArgumentHelpName = Constants.IntTypeName
             };
 
             Option<ulong> offset = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.ULongsOptionAliases),
                                         description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.ULongsOptionDescription))
             {
                 IsRequired = true,
-                ArgumentHelpName = "ulong"
+                ArgumentHelpName = Constants.UnsignedLongTypeName
             };
 
             Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],

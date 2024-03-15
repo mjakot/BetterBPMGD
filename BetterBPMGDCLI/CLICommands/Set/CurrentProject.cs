@@ -15,7 +15,7 @@ namespace BetterBPMGDCLI.CLICommands
             Option<string> name = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.StringOptionAliases),
                                         description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.StringOptionDescription))
             {
-                ArgumentHelpName = "string"
+                ArgumentHelpName = Constants.StringTypeName
             };
 
             Command command = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases)[0],  resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription))
