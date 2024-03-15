@@ -38,6 +38,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ClearCommand.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\CLICommands\CLIManager.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CLIManager.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\CLICommands\InjectCommand.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -101,6 +106,10 @@
     <EmbeddedResource Update="Resources\CLICommands\ClearCommand.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ClearCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\CLIManager.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CLIManager.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\CLICommands\InjectCommand.resx">
       <Generator>ResXFileCodeGenerator</Generator>

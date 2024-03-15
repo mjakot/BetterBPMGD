@@ -1,14 +1,17 @@
 ﻿using BetterBPMGDCLI.CLICommands;
-using BetterBPMGDCLI.Models.Settings;
+using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.Managers
 {
     public class CLIManager(WorkFlowManager workFlowManager)
     {
+        private readonly WorkFlowManager workFlowManager = workFlowManager;
+
+        private readonly ResourceManager<CLIManager> resourceManager = new(Constants.ResourceTypes.CLICommands);
+
         private bool isRunning = false;
 
-        private readonly WorkFlowManager workFlowManager = workFlowManager;
 
         public event EventHandler? StopContinuousMode;
 
@@ -16,7 +19,9 @@ namespace BetterBPMGDCLI.Managers
         {
             StopContinuousMode += CLIManager_StopContinuousMode;
 
-            Option<bool> continuous = new(["--continuous", "-c", "-t"], description: "Enables the continuous mode", getDefaultValue: () => false);
+            Option<bool> continuous = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BoolOptionAliases), // enable continuous mode
+                                            description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BoolOptionDescription),
+                                            getDefaultValue: () => false);
 
             RootCommand rootCommand =
             [
@@ -49,7 +54,7 @@ namespace BetterBPMGDCLI.Managers
 
             workFlowManager.Dispose();
 
-            await Console.Out.WriteLineAsync("Press enter to exit");
+            await Console.Out.WriteLineAsync(resourceManager.GetString(Constants.CLICommandsResourcesKeys.Success));
 
             Console.ReadLine();
         }

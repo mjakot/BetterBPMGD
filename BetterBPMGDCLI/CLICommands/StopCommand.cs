@@ -15,9 +15,9 @@ namespace BetterBPMGDCLI.CLICommands
 
         public Command BuildCommand()
         {
-            return new CommandBuilder<StopCommand>().AddOption(false, null, () => false)
-                                                        .AddOption(false, null, () => false)
-                                                        .AddOption(false, null, () => false)
+            return new CommandBuilder<StopCommand>().AddOption(false, null, () => false)     // delete startup file
+                                                        .AddOption(false, null, () => false) // delete local files
+                                                        .AddOption(false, null, () => false) // delete backup files
                                                         .SetHandler<bool, bool, bool>(Stop)
                                                         .BuildCommand();
         }
