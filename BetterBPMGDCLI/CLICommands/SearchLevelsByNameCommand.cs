@@ -12,8 +12,8 @@ namespace BetterBPMGDCLI.CLICommands
 
         private readonly ResourceManager<SearchLevelsByNameCommand> resourceManager = new(Constants.ResourceTypes.CLICommands);
 
-        public Command BuildCommand() => new CommandBuilder<SearchLevelsByNameCommand>().AddOption<string>(true)
-                                                                                            .AddOption<bool>(false, null, () => false, [])
+        public Command BuildCommand() => new CommandBuilder<SearchLevelsByNameCommand>().AddOption<string>(true)                           // name
+                                                                                            .AddOption<bool>(false, null, () => false, []) // case insensitive
                                                                                             .SetHandler<string, bool>(SearchLevels)
                                                                                             .BuildCommand();
 
@@ -29,8 +29,8 @@ namespace BetterBPMGDCLI.CLICommands
             }
 
             foreach (LevelPreview? level in foundLevels)
-                Console.WriteLine( new StringBuilder().AppendLine(level.ToString())
-                                                        .AppendLine() );
+                Console.WriteLine(new StringBuilder().AppendLine(level.ToString())
+                                                        .AppendLine());
         }
     }
 }

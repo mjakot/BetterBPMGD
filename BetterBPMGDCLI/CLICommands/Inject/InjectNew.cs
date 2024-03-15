@@ -8,7 +8,7 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        public Command BuildCommand() => new CommandBuilder<InjectNew>().AddOption<string>()
+        public Command BuildCommand() => new CommandBuilder<InjectNew>().AddOption<string>() // name
                                                                             .SetHandler<string>(Inject)
                                                                             .BuildCommand();
 

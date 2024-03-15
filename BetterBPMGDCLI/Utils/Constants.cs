@@ -41,16 +41,15 @@
 
         public const string GDXMLDeclaration = """<?xml version="1.0"?>""";
 
-        public static readonly string StringTypeName = typeof(string).Name;
-        public static readonly string IntTypeName = typeof(int).Name;
-        public static readonly string UnsignedLongTypeName = typeof(ulong).Name;
-        public static readonly string DoubleTypeName = typeof(double).Name;
+        public const string ResourceKeySeparator = "_";
 
 
         public const int MillisecondsInMinute = 60000;  
         public const int RoundToDecimalPlaces = 5;
 
         public const int XORDecryptionKey = 11;
+
+        public const int BaseOptionInsertionIndex = 7;
 
         public readonly struct ResourceTypes
         {

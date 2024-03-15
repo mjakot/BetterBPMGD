@@ -11,9 +11,9 @@ namespace BetterBPMGDCLI.CLICommands
 
         private readonly ResourceManager<CurrentProject> resourceManager = new(Constants.ResourceTypes.CLICommands);
 
-        public Command BuildCommand() => new CommandBuilder<CurrentProject>().AddOption<string>(true) //bye bye why not and cp :(, farewell bulky command declaration :(((
+        public Command BuildCommand() => new CommandBuilder<CurrentProject>().AddOption<string>(true) // name
                                                                                 .SetHandler<string>(SetProject)
-                                                                                .BuildCommand();
+                                                                                .BuildCommand(); //bye bye why not and cp :(, farewell bulky command declaration :(((
 
         private void SetProject(string name)
         {

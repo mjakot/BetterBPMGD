@@ -8,12 +8,14 @@ namespace BetterBPMGDCLI.CLICommands.Core
 {
     public partial class CommandBuilder<T> : ICommand where T : class, ICommand
     {
-        private readonly ResourceManager<T> resourceManager = new(Constants.ResourceTypes.CLICommands);
+        private readonly ResourceManager<T> resourceManager;
 
         private readonly Command command;
 
         public CommandBuilder()
         {
+            resourceManager = new(Constants.ResourceTypes.CLICommands);
+
             string[] aliases = resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases);
 
             command = new(aliases[0], resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription));
@@ -23,6 +25,8 @@ namespace BetterBPMGDCLI.CLICommands.Core
 
             command.SetHandler(() => Console.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.DefaultMessage)));
         }
+
+        public Command BuildCommand() => command;
 
         public CommandBuilder<T> AddOption<OptionType>(bool isRequired = true) where OptionType : notnull, IConvertible => AddOption<OptionType>(isRequired, null, null, []);
 
@@ -41,11 +45,11 @@ namespace BetterBPMGDCLI.CLICommands.Core
                                                                                 ?? false);
 
             if (sameTypeOptionsCount > 0)
-                typeName += $"_{sameTypeOptionsCount}";
+                typeName += Constants.ResourceKeySeparator + sameTypeOptionsCount;
 
 
-            string optionAliasesKey = Constants.CLICommandsResourcesKeys.BaseOptionAliases.Insert(7, typeName);
-            string optionDescriptionKey = Constants.CLICommandsResourcesKeys.BaseOptionDescription.Insert(7, typeName);
+            string optionAliasesKey = Constants.CLICommandsResourcesKeys.BaseOptionAliases.Insert(Constants.BaseOptionInsertionIndex, typeName);
+            string optionDescriptionKey = Constants.CLICommandsResourcesKeys.BaseOptionDescription.Insert(Constants.BaseOptionInsertionIndex, typeName);
 
             Option<OptionType> option = new(resourceManager.GetStringArray(optionAliasesKey),
                                                 getDefaultValue ?? (() => default!),
@@ -191,7 +195,5 @@ namespace BetterBPMGDCLI.CLICommands.Core
 
             return this;
         }
-
-        public Command BuildCommand() => command;
     }
 }

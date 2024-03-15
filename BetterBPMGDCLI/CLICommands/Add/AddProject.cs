@@ -11,9 +11,9 @@ namespace BetterBPMGDCLI.CLICommands
 
         private readonly ResourceManager<AddProject> resourceManager = new(Constants.ResourceTypes.CLICommands);
 
-        public Command BuildCommand() => new CommandBuilder<AddProject>().AddOption<string>()
-                                                                            .AddOption<int>()
-                                                                            .AddOption<ulong>()
+        public Command BuildCommand() => new CommandBuilder<AddProject>().AddOption<string>()   // name
+                                                                            .AddOption<int>()   // song id
+                                                                            .AddOption<ulong>() // offset
                                                                             .SetHandler<string, int, ulong>(CreateNewProject)
                                                                             .BuildCommand();
 
