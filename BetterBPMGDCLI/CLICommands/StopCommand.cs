@@ -11,7 +11,7 @@ namespace BetterBPMGDCLI.CLICommands
         private readonly CLIManager cLIManager = cliManager;
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<StopCommand> resourceManager = new(Constants.ResourceTypes.CLICommands);
+        private readonly ResourceManager<StopCommand> resourceManager = new(Constants.CLICommandsResourceType);
 
         public Command BuildCommand()
         {
@@ -35,7 +35,7 @@ namespace BetterBPMGDCLI.CLICommands
                 try { File.Delete(PathSettings.StartupFilePath); }
                 catch (Exception)
                 {
-                    Console.Error.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.DoesNotExists));
+                    Console.Error.WriteLine(resourceManager.GetString(Constants.DoesNotExistsResourceKey));
 
                     throw;
                 }
@@ -46,7 +46,7 @@ namespace BetterBPMGDCLI.CLICommands
                 try { Directory.Delete(workFlowManager.ConfigManager.PathSettings.BetterBPMGDFolderPath, true); }
                 catch (Exception)
                 {
-                    Console.Error.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.DoesNotExists + 1));
+                    Console.Error.WriteLine(resourceManager.GetString(Constants.DoesNotExistsResourceKey + 1));
 
                     throw;
                 }
@@ -57,7 +57,7 @@ namespace BetterBPMGDCLI.CLICommands
                 try { Directory.Delete(workFlowManager.ConfigManager.PathSettings.BackupFolderPath, true); }
                 catch (Exception)
                 {
-                    Console.Error.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.DoesNotExists + 2));
+                    Console.Error.WriteLine(resourceManager.GetString(Constants.DoesNotExistsResourceKey + 2));
 
                     throw;
                 }
@@ -67,7 +67,7 @@ namespace BetterBPMGDCLI.CLICommands
             if (deleteStartupFile && deleteLocalFiles)
                 Environment.Exit(0);
 
-            Console.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.Success));
+            Console.WriteLine(resourceManager.GetString(Constants.SuccessResourceKey));
 
             cLIManager.InvokeStop();
         }

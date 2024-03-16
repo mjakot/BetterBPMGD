@@ -14,16 +14,16 @@ namespace BetterBPMGDCLI.CLICommands.Core
 
         public CommandBuilder()
         {
-            resourceManager = new(Constants.ResourceTypes.CLICommands);
+            resourceManager = new(Constants.CLICommandsResourceType);
 
-            string[] aliases = resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.CommandNameAliases);
+            string[] aliases = resourceManager.GetStringArray(Constants.CommandNameAliasesResourceKey);
 
-            command = new(aliases[0], resourceManager.GetString(Constants.CLICommandsResourcesKeys.CommandDescription));
+            command = new(aliases[0], resourceManager.GetString(Constants.CommandDescriptionResourceKey));
 
             for (int i = 1; i < aliases.Length; i++)
                 command.AddAlias(aliases[i]);
 
-            command.SetHandler(() => Console.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.DefaultMessage)));
+            command.SetHandler(() => Console.WriteLine(resourceManager.GetString(Constants.DefaultMessageResourceKey)));
         }
 
         public Command BuildCommand() => command;
@@ -48,8 +48,8 @@ namespace BetterBPMGDCLI.CLICommands.Core
                 typeName += Constants.ResourceKeySeparator + sameTypeOptionsCount;
 
 
-            string optionAliasesKey = Constants.CLICommandsResourcesKeys.BaseOptionAliases.Insert(Constants.BaseOptionInsertionIndex, typeName);
-            string optionDescriptionKey = Constants.CLICommandsResourcesKeys.BaseOptionDescription.Insert(Constants.BaseOptionInsertionIndex, typeName);
+            string optionAliasesKey = Constants.BaseOptionAliasesResourceKey.Insert(Constants.BaseOptionInsertionIndex, typeName);
+            string optionDescriptionKey = Constants.BaseOptionDescriptionResourceKey.Insert(Constants.BaseOptionInsertionIndex, typeName);
 
             Option<OptionType> option = new(resourceManager.GetStringArray(optionAliasesKey),
                                                 getDefaultValue ?? (() => default!),

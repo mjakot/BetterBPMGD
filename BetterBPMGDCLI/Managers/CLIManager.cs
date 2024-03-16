@@ -8,7 +8,7 @@ namespace BetterBPMGDCLI.Managers
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<CLIManager> resourceManager = new(Constants.ResourceTypes.CLICommands);
+        private readonly ResourceManager<CLIManager> resourceManager = new(Constants.CLICommandsResourceType);
 
         private bool isRunning = false;
 
@@ -19,8 +19,8 @@ namespace BetterBPMGDCLI.Managers
         {
             StopContinuousMode += CLIManager_StopContinuousMode;
 
-            Option<bool> continuous = new(resourceManager.GetStringArray(Constants.CLICommandsResourcesKeys.BoolOptionAliases), // enable continuous mode
-                                            description: resourceManager.GetString(Constants.CLICommandsResourcesKeys.BoolOptionDescription),
+            Option<bool> continuous = new(resourceManager.GetStringArray(Constants.BoolOptionAliasesResourceKey), // enable continuous mode
+                                            description: resourceManager.GetString(Constants.BoolOptionDescriptionResourceKey),
                                             getDefaultValue: () => false);
 
             RootCommand rootCommand =
@@ -54,7 +54,7 @@ namespace BetterBPMGDCLI.Managers
 
             workFlowManager.Dispose();
 
-            await Console.Out.WriteLineAsync(resourceManager.GetString(Constants.CLICommandsResourcesKeys.Success));
+            await Console.Out.WriteLineAsync(resourceManager.GetString(Constants.SuccessResourceKey));
 
             Console.ReadLine();
         }

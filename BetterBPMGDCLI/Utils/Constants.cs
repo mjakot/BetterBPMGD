@@ -43,6 +43,39 @@
 
         public const string ResourceKeySeparator = "_";
 
+        public const string CommandNameAliasesResourceKey = "COMMAND_NAME_ALIASES";
+        public const string CommandDescriptionResourceKey = "COMMAND_DESCRIPTION";
+        public const string DefaultMessageResourceKey = "DEFAULT_MESSAGE";
+
+        public const string CanNotBeAnEmptyStringResourceKey = "ERROR_MEMBERCANNOTBEANEMPTYSTRING";
+        public const string CanNotBeLongerThanResourceKey = "ERROR_MEMBERCANNOTBELONGERTHAN";
+        public const string CanNotIncludeResourceKey = "ERROR_MEMBERCANNOTINCLUDE";
+        public const string DoesNotExistsResourceKey = "ERROR_MEMBERDOESNOTEXISTS";
+
+        public const string CurrentProjectMustBeSpecifiedResourceKey = "ERROR_CURRENTPROJECTMUSTBESPECIFIED";
+
+        public const string SuccessResourceKey = "MESSAGE_SUCCESS";
+
+        public const string BaseOptionAliasesResourceKey = "OPTION__ALIASES";
+        public const string BaseOptionDescriptionResourceKey = "OPTION__DESCRIPTION";
+
+        public const string StringOptionAliasesResourceKey = "OPTION_STRING_ALIASES";
+        public const string StringOptionDescriptionResourceKey = "OPTION_STRING_DESCRIPTION";
+
+        public const string IntOptionAliasesResourceKey = "OPTION_INT32_ALIASES";
+        public const string IntOptionDescriptionResourceKey = "OPTION_INT32_DESCRIPTION";
+
+        public const string ULongsOptionAliasesResourceKey = "OPTION_UINT64_ALIASES";
+        public const string ULongsOptionDescriptionResourceKey = "OPTION_UINT64_DESCRIPTION";
+
+        public const string DoubleOptionAliasesResourceKey = "OPTION_DOUBLE_ALIASES";
+        public const string DoubleOptionDescriptionResourceKey = "OPTION_DOUBLE_DESCRIPTION";
+
+        public const string BoolOptionAliasesResourceKey = "OPTION_BOOLEAN_ALIASES";
+        public const string BoolOptionDescriptionResourceKey = "OPTION_BOOLEAN_DESCRIPTION";
+
+        public const string CLICommandsResourceType = "CLICommands";
+
 
         public const int MillisecondsInMinute = 60000;  
         public const int RoundToDecimalPlaces = 5;
@@ -50,44 +83,5 @@
         public const int XORDecryptionKey = 11;
 
         public const int BaseOptionInsertionIndex = 7;
-
-        public readonly struct ResourceTypes
-        {
-            public const string CLICommands = "CLICommands";
-        }
-
-        public readonly struct CLICommandsResourcesKeys
-        {
-            public const string CommandNameAliases = "COMMAND_NAME_ALIASES";
-            public const string CommandDescription = "COMMAND_DESCRIPTION";
-            public const string DefaultMessage = "DEFAULT_MESSAGE";
-
-            public const string CanNotBeAnEmptyString = "ERROR_MEMBERCANNOTBEANEMPTYSTRING";
-            public const string CanNotBeLongerThan = "ERROR_MEMBERCANNOTBELONGERTHAN";
-            public const string CanNotInclude = "ERROR_MEMBERCANNOTINCLUDE";
-            public const string DoesNotExists = "ERROR_MEMBERDOESNOTEXISTS";
-
-            public const string CurrentProjectMustBeSpecified = "ERROR_CURRENTPROJECTMUSTBESPECIFIED";
-
-            public const string Success = "MESSAGE_SUCCESS";
-
-            public const string BaseOptionAliases = "OPTION__ALIASES";
-            public const string BaseOptionDescription = "OPTION__DESCRIPTION";
-
-            public const string StringOptionAliases = "OPTION_STRING_ALIASES";
-            public const string StringOptionDescription = "OPTION_STRING_DESCRIPTION";
-
-            public const string IntOptionAliases = "OPTION_INT32_ALIASES";
-            public const string IntOptionDescription = "OPTION_INT32_DESCRIPTION";
-
-            public const string ULongsOptionAliases = "OPTION_UINT64_ALIASES";
-            public const string ULongsOptionDescription = "OPTION_UINT64_DESCRIPTION";
-
-            public const string DoubleOptionAliases = "OPTION_DOUBLE_ALIASES";
-            public const string DoubleOptionDescription = "OPTION_DOUBLE_DESCRIPTION";
-
-            public const string BoolOptionAliases = "OPTION_BOOLEAN_ALIASES";
-            public const string BoolOptionDescription = "OPTION_BOOLEAN_DESCRIPTION";
-        }
     }
 }

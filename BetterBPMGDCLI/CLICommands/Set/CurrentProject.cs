@@ -9,7 +9,7 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<CurrentProject> resourceManager = new(Constants.ResourceTypes.CLICommands);
+        private readonly ResourceManager<CurrentProject> resourceManager = new(Constants.CLICommandsResourceType);
 
         public Command BuildCommand() => new CommandBuilder<CurrentProject>().AddOption<string>(true) // name
                                                                                 .SetHandler<string>(SetProject)
@@ -19,7 +19,7 @@ namespace BetterBPMGDCLI.CLICommands
         {
             if (!Directory.Exists(Path.Combine(workFlowManager.ConfigManager.PathSettings.TimingProjectsFolderPath, name)))
             {
-                Console.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.DoesNotExists));
+                Console.WriteLine(resourceManager.GetString(Constants.DoesNotExistsResourceKey));
 
                 return;
             }

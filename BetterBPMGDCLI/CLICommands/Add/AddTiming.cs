@@ -12,7 +12,7 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<AddTiming> resourceManager = new(Constants.ResourceTypes.CLICommands);
+        private readonly ResourceManager<AddTiming> resourceManager = new(Constants.CLICommandsResourceType);
 
         public Command BuildCommand()
             => new CommandBuilder<AddTiming>().AddOption<ulong>(true)                                                                          // offset
@@ -30,21 +30,21 @@ namespace BetterBPMGDCLI.CLICommands
 
             if (string.IsNullOrEmpty(value))
             {
-                x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeAnEmptyString);
+                x.ErrorMessage = resourceManager.GetString(Constants.CanNotBeAnEmptyStringResourceKey);
 
                 return;
             }
 
             if (value.Length > 3)
             {
-                x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotBeLongerThan);
+                x.ErrorMessage = resourceManager.GetString(Constants.CanNotBeLongerThanResourceKey);
 
                 return;
             }
 
             if (!value.All(c => GuidelineColors.AvailableColors.Contains(c)))
             {
-                x.ErrorMessage = resourceManager.GetString(Constants.CLICommandsResourcesKeys.CanNotInclude);
+                x.ErrorMessage = resourceManager.GetString(Constants.CanNotIncludeResourceKey);
 
                 return;
             }
@@ -54,7 +54,7 @@ namespace BetterBPMGDCLI.CLICommands
         {
             if (workFlowManager.CurrentTimingProject.Name == string.Empty)
             {
-                Console.WriteLine(resourceManager.GetString(Constants.CLICommandsResourcesKeys.CurrentProjectMustBeSpecified));
+                Console.WriteLine(resourceManager.GetString(Constants.CurrentProjectMustBeSpecifiedResourceKey));
 
                 return;
             }
