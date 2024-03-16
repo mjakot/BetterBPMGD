@@ -48,7 +48,7 @@ namespace BetterBPMGDCLI.CLICommands
             result.AppendLine()
                     .AppendLine($"Current culture: {Thread.CurrentThread.CurrentCulture}");
 
-            Console.WriteLine(result.ToString());
+            CLIManager.ConsoleMessage(result.ToString(), ConsoleMessageTypes.Message);
         }
     }
 }

@@ -9,8 +9,6 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<SetCurrentProject> resourceManager = new(Constants.CLICommandsResourceType);
-
         public Command BuildCommand() => new CommandBuilder<SetCurrentProject>().AddOption<string>(true) // name
                                                                                 .SetHandler<string>(SetProject)
                                                                                 .BuildCommand(); //bye bye why not and cp :(, farewell bulky command declaration :(((
@@ -19,7 +17,7 @@ namespace BetterBPMGDCLI.CLICommands
         {
             if (!Directory.Exists(Path.Combine(workFlowManager.ConfigManager.PathSettings.TimingProjectsFolderPath, name)))
             {
-                Console.WriteLine(resourceManager.GetString(Constants.DoesNotExistsResourceKey));
+                CLIManager.ConsoleError<SetCurrentProject>(Constants.DoesNotExistsResourceKey);
 
                 return;
             }

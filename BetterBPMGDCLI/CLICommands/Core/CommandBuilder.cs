@@ -24,7 +24,7 @@ namespace BetterBPMGDCLI.CLICommands
             for (int i = 1; i < aliases.Length; i++)
                 command.AddAlias(aliases[i]);
 
-            command.SetHandler(() => Console.WriteLine(resourceManager.GetString(Constants.DefaultMessageResourceKey)));
+            command.SetHandler(() => CLIManager.ConsoleError<T>(Constants.DefaultMessageResourceKey));
         }
 
         public Command BuildCommand() => command;

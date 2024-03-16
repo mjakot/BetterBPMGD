@@ -10,8 +10,6 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<SearchLevelsByNameCommand> resourceManager = new(Constants.CLICommandsResourceType);
-
         public Command BuildCommand() => new CommandBuilder<SearchLevelsByNameCommand>().AddOption<string>(true)                           // name
                                                                                             .AddOption<bool>(false, null, () => false, []) // case insensitive
                                                                                             .SetHandler<string, bool>(SearchLevels)
@@ -23,14 +21,16 @@ namespace BetterBPMGDCLI.CLICommands
 
             if (!foundLevels.Any())
             {
-                Console.Error.WriteLine(resourceManager.GetString(Constants.DoesNotExistsResourceKey));
+                CLIManager.ConsoleError<SearchLevelsByNameCommand>(Constants.DoesNotExistsResourceKey);
 
                 return;
             }
 
             foreach (LevelPreview? level in foundLevels)
-                Console.WriteLine(new StringBuilder().AppendLine(level.ToString())
-                                                        .AppendLine());
+                CLIManager.ConsoleMessage(new StringBuilder().AppendLine(level.ToString())
+                                                                .AppendLine()
+                                                                .ToString(),
+                                            ConsoleMessageTypes.Message);
         }
     }
 }

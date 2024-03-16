@@ -9,8 +9,6 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<AddProject> resourceManager = new(Constants.CLICommandsResourceType);
-
         public Command BuildCommand() => new CommandBuilder<AddProject>().AddOption<string>()   // name
                                                                             .AddOption<int>()   // song id
                                                                             .AddOption<ulong>() // offset
@@ -21,7 +19,7 @@ namespace BetterBPMGDCLI.CLICommands
         {
             if (string.IsNullOrEmpty(name))
             {
-                Console.Error.WriteLine(resourceManager.GetString(Constants.CanNotBeAnEmptyStringResourceKey));
+                CLIManager.ConsoleError<AddProject>(Constants.CanNotBeAnEmptyStringResourceKey);
 
                 return;
             }

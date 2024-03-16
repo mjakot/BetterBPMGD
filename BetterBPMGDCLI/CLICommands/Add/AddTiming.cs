@@ -54,7 +54,7 @@ namespace BetterBPMGDCLI.CLICommands
         {
             if (workFlowManager.CurrentTimingProject.Name == string.Empty)
             {
-                Console.WriteLine(resourceManager.GetString(Constants.CurrentProjectMustBeSpecifiedResourceKey));
+                CLIManager.ConsoleError<AddTiming>(Constants.CurrentProjectMustBeSpecifiedResourceKey);
 
                 return;
             }
