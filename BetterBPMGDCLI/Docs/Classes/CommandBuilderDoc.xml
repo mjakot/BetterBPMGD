@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Provides a mechanism for creating <see cref="System.CommandLine.Command">commands</see>
+      </para>
+      <list>
+        <listheader>
+          Classes using this builder:
+        </listheader>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.InjectCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.InjectExisting"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.InjectNew"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.SetCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.SetCurrentProject"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.AddCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.AddProject"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.AddTiming"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.ClearCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.SearchLevelsByNameCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.StatsCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.StopCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.TestCommand"/>
+        </item>
+      </list>
+    </summary>
+    <typeparam name="T">
+      Specifies the type of the <see cref="System.CommandLine.Command"/>
+    </typeparam>
+  </type>
+
+  <method name="AddOptionSimple">
+    <summary>
+      Adds an option to the command
+    </summary>
+    <typeparam name="OptionType">
+      Specifies the option type
+    </typeparam>
+    <param name="isRequired">
+      Specifies whether an option is required. Default is <see langword="true"/>
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="AddOptionFull">
+    <summary>
+      Adds an option to the command
+    </summary>
+    <typeparam name="OptionType">
+      Specifies the option type
+    </typeparam>
+    <param name="isRequired">
+      Specifies whether an option is required. Default is <see langword="true"/>
+    </param>
+    <param name="validator">
+      Specifies the validator for the argument. Set to <see langword="null"/> to skip
+    </param>
+    <param name="getDefaultValue">
+      Specifies the default value for the argument. Set to <see langword="null"/> to skip
+    </param>
+    <param name="fromAmong">
+      Specifies the array of choices for the argument. Set to <see langword="[]"/> to skip
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler0">
+    <summary>
+      Sets handler with no arguments for the command
+    </summary>
+    <param name="handler">
+      Specifies the handler with no arguments
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler1">
+    <summary>
+      Sets handler with 1 argument for the command
+    </summary>
+    <typeparam name="T1">
+      Specifies the argument type
+    </typeparam>
+    <param name="handler">
+      Specifies the handler with 1 argument of type provided
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler2">
+    <summary>
+      Sets handler with 2 arguments for the command
+    </summary>
+    <typeparam name="T1">
+      Specifies the first argument type
+    </typeparam>
+    <typeparam name="T2">
+      Specifies the second argument type
+    </typeparam>
+    <param name="handler">
+      Specifies the handler with 2 arguments of provided types in provided order
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler3">
+    <summary>
+      Sets handler with 3 arguments for the command
+    </summary>
+    <typeparam name="T1">
+      Specifies the first argument type
+    </typeparam>
+    <typeparam name="T2">
+      Specifies the second argument type
+    </typeparam>
+    <typeparam name="T3">
+      Specifies the third argument type
+    </typeparam>
+    <param name="handler">
+      Specifies the handler with 3 arguments of provided types in provided order
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler4">
+    <summary>
+      Sets handler with 4 arguments for the command
+    </summary>
+    <typeparam name="T1">
+      Specifies the first argument type
+    </typeparam>
+    <typeparam name="T2">
+      Specifies the second argument type
+    </typeparam>
+    <typeparam name="T3">
+      Specifies the third argument type
+    </typeparam>
+    <typeparam name="T4">
+      Specifies the fourth argument type
+    </typeparam>
+    <param name="handler">
+      Specifies the handler with 4 arguments of provided types in provided order
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler5">
+    <summary>
+      Sets handler with 5 arguments for the command
+    </summary>
+    <typeparam name="T1">
+      Specifies the first argument type
+    </typeparam>
+    <typeparam name="T2">
+      Specifies the second argument type
+    </typeparam>
+    <typeparam name="T3">
+      Specifies the third argument type
+    </typeparam>
+    <typeparam name="T4">
+      Specifies the fourth argument type
+    </typeparam>
+    <typeparam name="T5">
+      Specifies the fifth argument type
+    </typeparam>
+    <param name="handler">
+      Specifies the handler with 5 arguments of provided types in provided order
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler6">
+    <summary>
+      Sets handler with 6 arguments for the command
+    </summary>
+    <typeparam name="T1">
+      Specifies the first argument type
+    </typeparam>
+    <typeparam name="T2">
+      Specifies the second argument type
+    </typeparam>
+    <typeparam name="T3">
+      Specifies the third argument type
+    </typeparam>
+    <typeparam name="T4">
+      Specifies the fourth argument type
+    </typeparam>
+    <typeparam name="T5">
+      Specifies the fifth argument type
+    </typeparam>
+    <typeparam name="T6">
+      Specifies the sixth argument type
+    </typeparam>
+    <param name="handler">
+      Specifies the handler with 6 arguments of provided types in provided order
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler7">
+    <summary>
+      Sets handler with 7 arguments for the command
+    </summary>
+    <typeparam name="T1">
+      Specifies the first argument type
+    </typeparam>
+    <typeparam name="T2">
+      Specifies the second argument type
+    </typeparam>
+    <typeparam name="T3">
+      Specifies the third argument type
+    </typeparam>
+    <typeparam name="T4">
+      Specifies the fourth argument type
+    </typeparam>
+    <typeparam name="T5">
+      Specifies the fifth argument type
+    </typeparam>
+    <typeparam name="T6">
+      Specifies the sixth argument type
+    </typeparam>
+    <typeparam name="T7">
+      Specifies the seventh argument type
+    </typeparam>
+    <param name="handler">
+      Specifies the handler with 7 arguments of provided types in provided order
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+
+  <method name="SetHandler8">
+    <summary>
+      Sets handler with 8 arguments for the command
+    </summary>
+    <typeparam name="T1">
+      Specifies the first argument type
+    </typeparam>
+    <typeparam name="T2">
+      Specifies the second argument type
+    </typeparam>
+    <typeparam name="T3">
+      Specifies the third argument type
+    </typeparam>
+    <typeparam name="T4">
+      Specifies the fourth argument type
+    </typeparam>
+    <typeparam name="T5">
+      Specifies the fifth argument type
+    </typeparam>
+    <typeparam name="T6">
+      Specifies the sixth argument type
+    </typeparam>
+    <typeparam name="T7">
+      Specifies the seventh argument type
+    </typeparam>
+    <typeparam name="T8">
+      Specifies the eighth argument type
+    </typeparam>
+    <param name="handler">
+      Specifies the handler with 8 arguments of provided types in provided order
+    </param>
+    <returns>
+      <see cref="BetterBPMGDCLI.CLICommands.CommandBuilder{T}"/>
+    </returns>
+  </method>
+</doc>

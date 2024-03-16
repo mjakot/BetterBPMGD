@@ -33,7 +33,7 @@ namespace BetterBPMGDCLI.Managers
                 new SearchLevelsByNameCommand(workFlowManager).BuildCommand(),
                 new StopCommand(this, workFlowManager).BuildCommand(),
                 new AddCommand(new AddProject(workFlowManager), new AddTiming(workFlowManager)).BuildCommand(),
-                new SetCommand(new CurrentProject(workFlowManager)).BuildCommand(),
+                new SetCommand(new SetCurrentProject(workFlowManager)).BuildCommand(),
                 new InjectCommand(new InjectExisting(workFlowManager), new InjectNew(workFlowManager)).BuildCommand(),
             ];
 

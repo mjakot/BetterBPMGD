@@ -1,11 +1,11 @@
-﻿using BetterBPMGDCLI.CLICommands.Core;
-using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    /// <include file='..\Docs\Classes\StopCommandDoc.xml' path='doc/type'/>
     public class StopCommand(CLIManager cliManager, WorkFlowManager workFlowManager) : ICommand
     {
         private readonly CLIManager cLIManager = cliManager;

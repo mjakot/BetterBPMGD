@@ -1,12 +1,11 @@
-﻿using BetterBPMGDCLI.CLICommands.Core;
-using BetterBPMGDCLI.Extensions;
+﻿using BetterBPMGDCLI.Extensions;
 using BetterBPMGDCLI.Managers;
 using System.CommandLine;
 using System.Text;
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    ///<include file='../Docs/Classes/StatsCommandDoc.xml' path='doc/type'/>
+    ///<include file='..\Docs\Classes\StatsCommandDoc.xml' path='doc/type'/>
     public class StatsCommand(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;

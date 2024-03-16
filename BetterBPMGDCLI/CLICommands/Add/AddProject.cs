@@ -1,10 +1,10 @@
-﻿using BetterBPMGDCLI.CLICommands.Core;
-using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    /// <include file='..\..\Docs\Classes\AddProjectDoc.xml' path='doc/type'/>
     public class AddProject(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;

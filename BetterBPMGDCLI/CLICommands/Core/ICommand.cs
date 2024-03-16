@@ -2,10 +2,10 @@
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    /// <include file="..\..\Docs\Classes\ICommandDoc.xml" path="doc/type"/>
+    /// <include file='..\..\Docs\Classes\ICommandDoc.xml' path='doc/type'/>
     public interface ICommand
     {
-        /// <include file="..\..\Docs\Classes\ICommandDoc.xml" path="doc/method"/>
+        /// <include file='..\..\Docs\Classes\ICommandDoc.xml' path='doc/method'/>
         Command BuildCommand();
     }
 }

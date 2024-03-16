@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Represents <see cref="BetterBPMGDCLI.CLICommands.AddCommand"/> sub-command for adding new <see cref="BetterBPMGDCLI.Models.TimingProject.Project"/>
+      </para>
+    </summary>
+    <param name="workFlowManager">
+      <see cref="BetterBPMGDCLI.Managers.WorkFlowManager"/> reference
+    </param>
+  </type>
+</doc>

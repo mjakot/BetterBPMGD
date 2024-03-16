@@ -1,5 +1,4 @@
-﻿using BetterBPMGDCLI.CLICommands.Core;
-using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Models.Level;
 using BetterBPMGDCLI.Utils;
 using Common;
@@ -8,6 +7,7 @@ using System.CommandLine.Parsing;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    /// <include file='..\..\Docs\Classes\AddTimingDoc.xml' path='doc/type'/>
     public class AddTiming(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
