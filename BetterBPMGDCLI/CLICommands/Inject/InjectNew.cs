@@ -4,11 +4,13 @@ using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    /// <include file="..\..\Docs\Classes\InjectNewDoc.xml" path="doc/type"/>
     public class InjectNew(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        public Command BuildCommand() => new CommandBuilder<InjectNew>().AddOption<string>() // name
+        /// <include file="..\..\Docs\Classes\InjectExistingDoc.xml" path="doc/method"/>
+		public Command BuildCommand() => new CommandBuilder<InjectNew>().AddOption<string>() // name
                                                                             .SetHandler<string>(Inject)
                                                                             .BuildCommand();
 

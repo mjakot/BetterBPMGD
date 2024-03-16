@@ -6,6 +6,7 @@ using System.Text;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    ///<include file='../Docs/Classes/StatsCommandDoc.xml' path='doc/type'/>
     public class StatsCommand(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;

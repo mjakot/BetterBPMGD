@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Represents a host <see cref="System.CommandLine.Command"/> for setting different values
+      </para>
+      <remarks>
+        Could be applied to any field that could be changed at a runtime, like <see cref="BetterBPMGDCLI.Models.Settings.ISettings"/> or <see cref="BetterBPMGDCLI.Managers.WorkFlowManager.CurrentTimingProject"/>
+      </remarks>
+      <list>
+        <listheader>
+          Defined sub-commands:
+        </listheader>
+        <item><see cref="BetterBPMGDCLI.CLICommands.SetCurrentProject"/></item>
+      </list>
+    </summary>
+    <param name="setCommands">
+      Set <see cref="BetterBPMGDCLI.CLICommands.ICommand">commands</see> to include in the host command
+    </param>
+  </type>
+</doc>

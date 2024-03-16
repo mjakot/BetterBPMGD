@@ -6,6 +6,7 @@ using System.Text;
 
 namespace BetterBPMGDCLI.CLICommands
 {
+    ///<include file='../Docs/Classes/SearchLevelsByNameCommandDoc.xml' path='doc/type'/>
     public class SearchLevelsByNameCommand(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;

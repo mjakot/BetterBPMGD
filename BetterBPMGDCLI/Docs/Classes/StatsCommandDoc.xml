@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Represents a <see cref="System.CommandLine.Command"/> for printing out some values that may be useful when debugging.
+      </para>
+      <remarks>
+        <c>Note: This command is likely temporary and may be replaced by another command with improved formatting.</c>
+      </remarks>
+      <list>
+        <listheader>
+          Currently outputting:
+        </listheader>
+        <item>
+          <see cref="BetterBPMGDCLI.Models.TimingProject.Project.Name">BetterBPMGDCLI.Managers.WorkFlowManager.CurrentTimingProject.Name</see>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.Models.TimingProject.Project.Timings">BetterBPMGDCLI.Managers.WorkFlowManager.CurrentTimingProject.Timings</see>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.Models.TimingProject.Project.SongIds">BetterBPMGDCLI.Managers.WorkFlowManager.CurrentTimingProject.SongIds</see>
+        </item>
+        <item>
+          All existing <see cref="BetterBPMGDCLI.Models.TimingProject.Project">Projects</see> paths
+        </item>
+      </list>
+    </summary>
+    <param name="workFlowManager">
+      <see cref="BetterBPMGDCLI.Managers.WorkFlowManager"/> reference
+    </param>
+  </type>
+</doc>

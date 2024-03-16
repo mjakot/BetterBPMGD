@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?> 
+<doc>
+  <type>
+    <summary>
+      <para>
+        Provides a mechanism for creating and building <see cref="System.CommandLine.Command">commands</see> in a separate classes
+      </para>
+      <remarks>
+        All the desired <see cref="BetterBPMGDCLI.CLICommands.ICommand">commands</see> should be added to a <see cref="System.CommandLine.RootCommand"/> and built via <see cref="BetterBPMGDCLI.CLICommands.ICommand.BuildCommand"/> into <see cref="System.CommandLine.Command"/>
+      </remarks>
+    </summary>
+  </type>
+
+  <method>
+    <summary>
+      Builds the command
+    </summary>
+    <returns>
+      <see cref="System.CommandLine.Command"/>
+    </returns>
+  </method>
+</doc>
