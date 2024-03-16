@@ -6,12 +6,7 @@
         Provides a mechanism for creating <see cref="System.CommandLine.Command">commands</see> (host commands) with multiple sub-commands
       </para>
       <remarks>
-        <para>
-          Use <see cref="BetterBPMGDCLI.CLICommands.HostCommandBase.BuildCommand(ICommand[], string[], string, string)"/> or <see cref="BetterBPMGDCLI.CLICommands.HostCommandBase.BuildCommand(ICommand[], string[], Option[], string, string)"/> to build host command
-        </para>
-        <para>
-          <c>Note: Host commands do not support any form of execution by themselves other than printing a help message.</c>
-        </para>
+         <c>Note: Host commands do not support any form of execution by themselves other than printing a help message.</c>
       </remarks>
       <list>
         <listheader>
@@ -24,54 +19,24 @@
           <see cref="BetterBPMGDCLI.CLICommands.SetCommand"/>
         </item>
         <item>
-          <see cref="BetterBPMGDCLI.CLICommands.NewCommand"/>
+          <see cref="BetterBPMGDCLI.CLICommands.AddCommand"/>
         </item>
       </list>
     </summary>
   </type>
   
-  <method name="BuildCommandExcludeOptions">
+  <method name="BuildCommand">
     <summary>
-      Builds the host command
+      Builds the <see cref="System.CommandLine.Command">host command</see>
      </summary>
+    <typeparam name="T">
+      Specifies <see cref="System.CommandLine.Command">host command</see> type
+    </typeparam>
     <param name="commands">
       Commands to include in the host command
-    </param>
-    <param name="aliases">
-      Aliases for the host command
-    </param>
-    <param name="description">
-      Description for the host command
-    </param>
-    <param name="defaultMessage">
-      Message that the host command will print if no sub-commands were invoked
     </param>
     <returns>
       <see cref="System.CommandLine.Command"/>
     </returns>
    </method>
-
-  <method name="BuildCommandIncludeOptions">
-    <summary>
-      Builds the host command
-    </summary>
-    <param name="commands">
-      Commands to include in the host command
-    </param>
-    <param name="aliases">
-      Aliases for the host command
-    </param>
-    <param name="options">
-      Options for the host command
-    </param>
-    <param name="description">
-      Description for the host command
-    </param>
-    <param name="defaultMessage">
-      Message that the host command will print if no sub-commands were invoked
-    </param>
-    <returns>
-      <see cref="System.CommandLine.Command"/>
-    </returns>
-  </method>
  </doc>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Represents a <see cref="System.CommandLine.Command"/> for stopping the continuous mode ( when <see cref="BetterBPMGDCLI.Managers.CLIManager.isRunning"/> is set to <see langword="true"/> ).
+      </para>
+    </summary>
+    <param name="cliManager">
+      <see cref="BetterBPMGDCLI.Managers.CLIManager"/> reference
+    </param>
+    <param name="workFlowManager">
+      <see cref="BetterBPMGDCLI.Managers.WorkFlowManager"/> reference
+    </param>
+  </type>
+</doc>

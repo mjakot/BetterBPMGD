@@ -4,9 +4,10 @@ using System.CommandLine;
 using System.CommandLine.Binding;
 using System.CommandLine.Parsing;
 
-namespace BetterBPMGDCLI.CLICommands.Core
+namespace BetterBPMGDCLI.CLICommands
 {
-    public partial class CommandBuilder<T> : ICommand where T : class, ICommand
+    /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/type'/>
+    public class CommandBuilder<T> : ICommand where T : class, ICommand
     {
         private readonly ResourceManager<T> resourceManager;
 
@@ -28,8 +29,10 @@ namespace BetterBPMGDCLI.CLICommands.Core
 
         public Command BuildCommand() => command;
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="AddOptionSimple"]'/>
         public CommandBuilder<T> AddOption<OptionType>(bool isRequired = true) where OptionType : notnull, IConvertible => AddOption<OptionType>(isRequired, null, null, []);
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="AddOptionFull"]'/>
         public CommandBuilder<T> AddOption<OptionType>(bool isRequired = true,
                                                         ValidateSymbolResult<OptionResult>? validator = null,
                                                         Func<OptionType>? getDefaultValue = null,
@@ -70,6 +73,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler0"]'/>
         public CommandBuilder<T> SetHandler(Action handler)
         {
             command.SetHandler(handler);
@@ -77,6 +81,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler1"]'/>
         public CommandBuilder<T> SetHandler<T1>(Action<T1> handler) where T1 : notnull, IConvertible
         {
             command.SetHandler(handler, (IValueDescriptor<T1>)command.Options[0]);
@@ -84,6 +89,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler2"]'/>
         public CommandBuilder<T> SetHandler<T1, T2>(Action<T1, T2> handler) where T1 : notnull, IConvertible
                                                                                 where T2 : notnull, IConvertible
         {
@@ -94,6 +100,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler3"]'/>
         public CommandBuilder<T> SetHandler<T1, T2, T3>(Action<T1, T2, T3> handler) where T1 : notnull, IConvertible
                                                                                         where T2 : notnull, IConvertible
                                                                                         where T3 : notnull, IConvertible
@@ -106,6 +113,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler4"]'/>
         public CommandBuilder<T> SetHandler<T1, T2, T3, T4>(Action<T1, T2, T3, T4> handler) where T1 : notnull, IConvertible
                                                                                                 where T2 : notnull, IConvertible
                                                                                                 where T3 : notnull, IConvertible
@@ -120,6 +128,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler5"]'/>
         public CommandBuilder<T> SetHandler<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> handler) where T1 : notnull, IConvertible
                                                                                                         where T2 : notnull, IConvertible
                                                                                                         where T3 : notnull, IConvertible
@@ -136,6 +145,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler6"]'/>
         public CommandBuilder<T> SetHandler<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> handler) where T1 : notnull, IConvertible
                                                                                                                 where T2 : notnull, IConvertible
                                                                                                                 where T3 : notnull, IConvertible
@@ -154,6 +164,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler7"]'/>
         public CommandBuilder<T> SetHandler<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> handler) where T1 : notnull, IConvertible
                                                                                                                         where T2 : notnull, IConvertible
                                                                                                                         where T3 : notnull, IConvertible
@@ -174,6 +185,7 @@ namespace BetterBPMGDCLI.CLICommands.Core
             return this;
         }
 
+        /// <include file='..\..\Docs\Classes\CommandBuilderDoc.xml' path='doc/method[@name="SetHandler8"]'/>
         public CommandBuilder<T> SetHandler<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> handler) where T1 : notnull, IConvertible
                                                                                                                                 where T2 : notnull, IConvertible
                                                                                                                                 where T3 : notnull, IConvertible

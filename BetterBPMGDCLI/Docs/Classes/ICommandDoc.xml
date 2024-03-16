@@ -3,7 +3,7 @@
   <type>
     <summary>
       <para>
-        Provides a mechanism for creating and building <see cref="System.CommandLine.Command">commands</see> in a separate classes
+        Provides a mechanism for defining <see cref="System.CommandLine.Command">commands</see> in a separate classes
       </para>
       <remarks>
         All the desired <see cref="BetterBPMGDCLI.CLICommands.ICommand">commands</see> should be added to a <see cref="System.CommandLine.RootCommand"/> and built via <see cref="BetterBPMGDCLI.CLICommands.ICommand.BuildCommand"/> into <see cref="System.CommandLine.Command"/>

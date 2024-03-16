@@ -1,12 +1,11 @@
-﻿using BetterBPMGDCLI.CLICommands.Core;
-using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 using System.Text;
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    ///<include file='../Docs/Classes/SearchLevelsByNameCommandDoc.xml' path='doc/type'/>
+    ///<include file='..\Docs\Classes\SearchLevelsByNameCommandDoc.xml' path='doc/type'/>
     public class SearchLevelsByNameCommand(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;

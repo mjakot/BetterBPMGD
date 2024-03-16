@@ -1,17 +1,17 @@
-﻿using BetterBPMGDCLI.CLICommands.Core;
-using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.Managers;
 using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    public class CurrentProject(WorkFlowManager workFlowManager) : ICommand
+    /// <include file='..\..\Docs\Classes\SetCurrentProjectDoc.xml' path='doc/type'/>
+    public class SetCurrentProject(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
 
-        private readonly ResourceManager<CurrentProject> resourceManager = new(Constants.CLICommandsResourceType);
+        private readonly ResourceManager<SetCurrentProject> resourceManager = new(Constants.CLICommandsResourceType);
 
-        public Command BuildCommand() => new CommandBuilder<CurrentProject>().AddOption<string>(true) // name
+        public Command BuildCommand() => new CommandBuilder<SetCurrentProject>().AddOption<string>(true) // name
                                                                                 .SetHandler<string>(SetProject)
                                                                                 .BuildCommand(); //bye bye why not and cp :(, farewell bulky command declaration :(((
 
