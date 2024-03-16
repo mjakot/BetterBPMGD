@@ -15,7 +15,8 @@ namespace BetterBPMGDCLI.Extensions
             stringBuilder.AppendWithSeparator(key?.ToString() ?? string.Empty, separator);
             stringBuilder.Append(value?.ToString());
 
-            if (addNewLine) stringBuilder.AppendLine();
+            if (addNewLine)
+                stringBuilder.AppendLine();
 
             return stringBuilder;
         }

@@ -9,14 +9,14 @@ namespace BetterBPMGDCLI.Managers
 
         public static WorkFlowManager Startup<T>(T pathSettings) where T : SettingsBase, IPathSettings, new()
         {
-            if (!File.Exists(PathSettings.StartupFilePath) || string.IsNullOrEmpty(FileUtility.ReadFromFile(PathSettings.StartupFilePath)))
+            if (!File.Exists(PathSettings.StartupFilePath) || string.IsNullOrEmpty(File.ReadAllText(PathSettings.StartupFilePath)))
             {
                 WriteToStartupFile(pathSettings);
 
                 return InitializeFileSystem(pathSettings);
             }
 
-            string[] pathSettingsPathTypePair = FileUtility.ReadFromFile(PathSettings.StartupFilePath).Split(Constants.DefaultInnerSeparator);
+            string[] pathSettingsPathTypePair = File.ReadAllText(PathSettings.StartupFilePath).Split(Constants.DefaultInnerSeparator);
 
             if (typeof(T).Name != pathSettingsPathTypePair[1])
             {
@@ -30,7 +30,8 @@ namespace BetterBPMGDCLI.Managers
             return new(ConfigManager.CreateInstance<T>());
         }
 
-        private static void WriteToStartupFile<T>(T pathSettings) where T : SettingsBase, IPathSettings, new() => FileUtility.WriteToFile(PathSettings.StartupFilePath, PathSettings.GetSerializationPath(pathSettings) + Constants.DefaultInnerSeparator + typeof(T).Name);
+        private static void WriteToStartupFile<T>(T pathSettings) where T : SettingsBase, IPathSettings, new()
+            => File.WriteAllText(PathSettings.StartupFilePath, PathSettings.GetSerializationPath(pathSettings) + Constants.DefaultInnerSeparator + typeof(T).Name);
 
         private static WorkFlowManager InitializeFileSystem<T>(T pathSettings) where T : SettingsBase, IPathSettings, new()
         {
@@ -42,7 +43,7 @@ namespace BetterBPMGDCLI.Managers
             Directory.CreateDirectory(pathSettings.TimingProjectsFolderPath);
             Directory.CreateDirectory(pathSettings.BackupFolderPath);
 
-            FileUtility.WriteToFile(pathSettings.MinimalLevelPath, minimalLevel);
+            File.WriteAllText(pathSettings.MinimalLevelPath, minimalLevel);
 
             return new(new(pathSettings));
         }

@@ -1,5 +1,4 @@
 ﻿using BetterBPMGDCLI.Managers;
-using BetterBPMGDCLI.Managers.WorkFlow;
 using BetterBPMGDCLI.Utils;
 using System.Xml.Linq;
 
@@ -28,11 +27,11 @@ namespace BetterBPMGDCLI.Extensions
         {
 
             foreach (XElement? level in (from nameKey in xElement.Descendants(Constants.KeyElementTag)
-                                            where ignoreCase ? nameKey.Value == Constants.NameElementKey : nameKey.Value.ToLower() == Constants.NameElementKey
-                                            let nameTag = nameKey.NextNode as XElement
-                                            where ignoreCase ? nameTag?.Name == Constants.StringElementTag : nameTag?.Name.ToString().ToLower() == Constants.StringElementTag
-                                            where ignoreCase ? nameTag?.Value == levelName : nameTag?.Value.ToLower() == levelName
-                                            select nameKey.Parent)
+                                         where ignoreCase ? nameKey.Value == Constants.NameElementKey : nameKey.Value.Equals(Constants.NameElementKey, StringComparison.OrdinalIgnoreCase)
+                                         let nameTag = nameKey.NextNode as XElement
+                                         where ignoreCase ? nameTag?.Name == Constants.StringElementTag : nameTag.Name.ToString().Equals(Constants.StringElementTag, StringComparison.OrdinalIgnoreCase)
+                                         where ignoreCase ? nameTag?.Value == levelName : nameTag.Value.Equals(levelName, StringComparison.OrdinalIgnoreCase)
+                                         select nameKey.Parent)
                                         as IEnumerable<XElement?> ?? [])
 
                 yield return new((level?.PreviousNode as XElement)?.Value ?? Constants.NotFoundPlaceholder,

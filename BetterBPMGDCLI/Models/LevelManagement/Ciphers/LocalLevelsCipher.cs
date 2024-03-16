@@ -29,7 +29,8 @@ namespace BetterBPMGDCLI.Models.Ciphers
 
         private void XOR(int key)
         {
-            for (int i = 0; i < dataString.Length; i++) dataByteArray[i] = (byte)(dataByteArray[i] ^ key);
+            for (int i = 0; i < dataString.Length; i++)
+                dataByteArray[i] = (byte)(dataByteArray[i] ^ key);
 
             DataByteArray = dataByteArray;
         }

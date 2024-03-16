@@ -28,13 +28,19 @@ namespace BetterBPMGDCLI.Models.Level
             return XmlLevel.ToString(SaveOptions.DisableFormatting);
         }
 
-        public static LocalLevel Parse(string level, string levelKey) => Parse(XElement.Parse(level), levelKey);
+        public static LocalLevel Parse(string level, string levelKey) => Parse(XElement.Load(level), levelKey);
 
         public static LocalLevel Parse(XElement level, string levelKey)
         {
             (XElement name, XElement description, XElement officialSong, XElement customSong, XElement data) = GetLevelElements(level);
 
-            return new(levelKey, name.Value, description.Value, int.Parse(officialSong.Value), int.Parse(customSong.Value), LocalLevelData.Parse(new LocalLevelDataCipher(data.Value).Decode()), level);
+            return new(levelKey,
+                        name.Value,
+                        description.Value,
+                        int.Parse(officialSong.Value),
+                        int.Parse(customSong.Value),
+                        LocalLevelData.Parse(new LocalLevelDataCipher(data.Value).Decode()),
+                        level);
         }
 
         private static (XElement nameElement, XElement descriptionElement, XElement officialSongIdElement, XElement customSongIdElement, XElement levelDataElement) GetLevelElements(XElement level)

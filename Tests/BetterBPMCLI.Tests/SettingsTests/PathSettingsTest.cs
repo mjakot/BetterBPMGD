@@ -20,7 +20,7 @@ namespace BetterBPMCLI.Tests.SettingsTests
             Assert.Equal(expected, actual);
         }
 
-        [Fact(Skip = "outdated")]
+        [Fact(Skip = "later")]
         public void ToString_PathSettings_SettingsString()
         {
             PathSettings settings = new();

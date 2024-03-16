@@ -27,20 +27,23 @@ namespace BetterBPMGDCLI.Managers
             string currentProjectName = Guid.NewGuid().ToString();
 
             if (File.Exists(pathSettings.CurrentProjectSaveFilePath))
-                currentProjectName = FileUtility.ReadFromFile(pathSettings.CurrentProjectSaveFilePath);
+                currentProjectName = File.ReadAllText(pathSettings.CurrentProjectSaveFilePath);
 
             if (Directory.Exists(Path.Combine(pathSettings.TimingProjectsFolderPath, currentProjectName))) //TODO: check this somewhere else
                     CurrentTimingProject = Project.ReadProject(ConfigManager, currentProjectName);
             else
                 CurrentTimingProject = new(configManager);
 
+#if DEBUG
+            return;
+#endif
             DecodeLocalLevels();
         }
 
         public void Dispose()
         {
             if (!string.IsNullOrEmpty(CurrentTimingProject.Name))
-                FileUtility.WriteToFile(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
+                File.WriteAllText(pathSettings.CurrentProjectSaveFilePath, CurrentTimingProject.Name);
 
             CurrentTimingProject.Dispose();
             ConfigManager.Dispose();
@@ -49,13 +52,12 @@ namespace BetterBPMGDCLI.Managers
         }
 
         public void NewTimingProject(string projectName, int songId, ulong songOffset = 0)
-        {
-            CurrentTimingProject = Project.CreateNew(ConfigManager, projectName, songId, songOffset);
-        }
+            => CurrentTimingProject = Project.CreateNew(ConfigManager, projectName, songId, songOffset);
 
         public void ReadExistingTimingProject(string projectName)
         {
-            if (projectName == CurrentTimingProject.Name) return;
+            if (projectName == CurrentTimingProject.Name)
+                return;
 
             CurrentTimingProject.Dispose();
 
@@ -81,14 +83,14 @@ namespace BetterBPMGDCLI.Managers
 
             xmlLevel = XElement.Parse(level.Encode() ?? Constants.NotFoundPlaceholder);
 
-            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
+            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, Constants.GDXMLDeclaration + levels.ToString(SaveOptions.DisableFormatting));
         }
 
         public void InjectToNew(string levelName)
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));
 
-            LocalLevel level = LocalLevel.Parse(pathSettings.MinimalLevelPath, Constants.LevelsOnTopKey); // places level at the top of the list
+            LocalLevel level = LocalLevel.Parse(pathSettings.MinimalLevelPath, Constants.LevelOnTopKey); // places level at the top of the list
 
             level.LevelName = levelName;
 
@@ -99,14 +101,14 @@ namespace BetterBPMGDCLI.Managers
                     ?.AddBeforeSelf(new XElement(Constants.KeyElementTag, level.LevelKey));
 
             levels.FindElementByKeyValue(level.LevelKey, Constants.KeyElementTag)
-                    ?.AddAfterSelf(XElement.Parse(level.Encode()));
+                    ?.AddBeforeSelf(XElement.Parse(level.Encode()));
 
-            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, levels.ToString(SaveOptions.DisableFormatting));
+            FileUtility.HeavyWriteToFile(pathSettings.GeometryDashLevelsSavePath, Constants.GDXMLDeclaration + levels.ToString(SaveOptions.DisableFormatting));
         }
 
         public void BackupLocalLevels()
-            => FileUtility.CopyFile(pathSettings.GeometryDashLevelsSavePath, Path.Combine(pathSettings.BackupFolderPath,
-                                        $"CCLocalLevels_Backup_{DateTime.Now:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"));
+            => File.Copy(pathSettings.GeometryDashLevelsSavePath, Path.Combine(pathSettings.BackupFolderPath,
+                            $"CCLocalLevels_Backup_{DateTime.Now:gg_MM_dd_yy-hh_mm_ss_fff}{Constants.TXTExtension}"), true);
 
         private void ConfigManagerPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

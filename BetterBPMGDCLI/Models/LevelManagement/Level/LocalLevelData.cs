@@ -1,5 +1,4 @@
-﻿using BetterBPMGDCLI.Models.Ciphers;
-using BetterBPMGDCLI.Models.LevelObjects;
+﻿using BetterBPMGDCLI.Models.LevelObjects;
 using BetterBPMGDCLI.Utils;
 using Common;
 using System.Text;
@@ -8,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace BetterBPMGDCLI.Models.Level
 {
     //TODO: Add CalculateSpeedPortals()
-    public class LocalLevelData
+    public partial class LocalLevelData
     {
         public const string GuideLinesPattern = """kA14,(.*?),""";
         public const string SpeedPortalsPattern = """;1,200|201|202|203|1334,2,\d+,3,\d+(?:,13\d+)?""";
@@ -34,7 +33,7 @@ namespace BetterBPMGDCLI.Models.Level
 
         public string Encode(bool clearLevelObjects)
         {
-            StringBuilder result = new(Regex.Replace(LevelData, GuideLinesPattern, match => $"kA14,{EncodeLevelDataCollection(Guidelines)},"));
+            StringBuilder result = new(GuidelinesRegex().Replace(LevelData, match => $"kA14,{EncodeLevelDataCollection(Guidelines)},"));
 
             if (clearLevelObjects)
             {
@@ -45,9 +44,9 @@ namespace BetterBPMGDCLI.Models.Level
                 result.Remove(++startIndex, result.Length - startIndex);
             }
 
-            end:
-                return result.Append(EncodeLevelDataCollection(SpeedPortals))
-                                .ToString();
+        end:
+            return result.Append(EncodeLevelDataCollection(SpeedPortals))
+                            .ToString();
         }
 
         public static LocalLevelData? Parse(string data)
@@ -55,13 +54,13 @@ namespace BetterBPMGDCLI.Models.Level
             List<Guideline> guidelines = [];
             List<SpeedPortal> speedPortals = [];
 
-            Match guidelineMatch = new Regex(GuideLinesPattern).Match(data);
-            MatchCollection speedPortalsMatches = new Regex(SpeedPortalsPattern).Matches(data);
+            Match guidelineMatch = GuidelinesRegex().Match(data);
+            MatchCollection speedPortalsMatches = SpeedPortalsRegex().Matches(data);
 
             {
                 GroupCollection captured = guidelineMatch.Groups;
 
-                // entire match is stored at index = 0
+                //index == 0 is entire match
                 guidelines.AddRange(Guideline.ParseGuidelines(captured[1].Value));
             }
 
@@ -75,7 +74,7 @@ namespace BetterBPMGDCLI.Models.Level
             CalculateGuidelines(timings, songDurationMS);
             CalculateSpeedPortals();
         }
-        
+
         private void CalculateGuidelines(IReadOnlyList<Timing> timings, ulong songDurationMS)
         {
             Guidelines.Clear();
@@ -103,7 +102,7 @@ namespace BetterBPMGDCLI.Models.Level
 
         private void CalculateSpeedPortals() => SpeedPortals = [];
 
-        private string EncodeLevelDataCollection(IReadOnlyList<ILevelData> levelData)
+        private static string EncodeLevelDataCollection(IReadOnlyList<ILevelData> levelData)
         {
             StringBuilder stringBuilder = new();
 
@@ -111,5 +110,11 @@ namespace BetterBPMGDCLI.Models.Level
 
             return stringBuilder.ToString();
         }
+
+        [GeneratedRegex(GuideLinesPattern)]
+        private static partial Regex GuidelinesRegex();
+
+        [GeneratedRegex(SpeedPortalsPattern)]
+        private static partial Regex SpeedPortalsRegex();
     }
 }

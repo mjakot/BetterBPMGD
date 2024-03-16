@@ -4,16 +4,10 @@ using BetterBPMGDCLI.Utils;
 
 namespace BetterBPMGDCLI.Models.Level
 {
-    public class Guideline : ILevelData
+    public class Guideline(ulong offset, GuidelineColors guidelineColor) : ILevelData
     {
-        public ulong OffsetMs { get; }
-        public GuidelineColors GuidelineColor { get; }
-
-        public Guideline(ulong offset, GuidelineColors guidelineColor) 
-        {
-            OffsetMs = offset;
-            GuidelineColor = guidelineColor;
-        }
+        public ulong OffsetMs { get; } = offset;
+        public GuidelineColors GuidelineColor { get; } = guidelineColor;
 
         public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), Constants.GuidelinesSeparator)
                                                         .AppendWithSeparator(GuidelineColor.GuidelineColor, Constants.GuidelinesSeparator)
@@ -22,14 +16,15 @@ namespace BetterBPMGDCLI.Models.Level
         {
             string[] offsetColorPair = guideline.Split(Constants.GuidelinesSeparator);
 
-            if (offsetColorPair.Length < 2) return null;
+            if (offsetColorPair.Length < 2)
+                return null;
 
             return new(BPMCalculations.GetMilliseconds(ulong.Parse(offsetColorPair[0])), new(double.Parse(offsetColorPair[1])));
         }
 
         public static IEnumerable<Guideline> ParseGuidelines(string guidelines)
         {
-            sbyte counter = 0;
+            int counter = 0;
 
             string[] splittedGuidelines = guidelines.Split(Constants.GuidelinesSeparator);
 
@@ -48,7 +43,8 @@ namespace BetterBPMGDCLI.Models.Level
                     stringBuilder.Clear();
                 }
 
-                else counter++;
+                else
+                    counter++;
             }
         }
     }

@@ -7,6 +7,6 @@ namespace BetterBPMGDCLI.CLICommands
     {
         private readonly ICommand[] setCommands = setCommands;
 
-        public Command BuildCommand() => BuildCommand(setCommands, ["set", "st"], "Sets values", "Specify what value to change");
+        public Command BuildCommand() => BuildCommand<SetCommand>(setCommands);
     }
 }

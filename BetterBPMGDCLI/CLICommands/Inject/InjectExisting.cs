@@ -1,4 +1,5 @@
-﻿using BetterBPMGDCLI.Managers;
+﻿using BetterBPMGDCLI.CLICommands.Core;
+using BetterBPMGDCLI.Managers;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
@@ -7,23 +8,11 @@ namespace BetterBPMGDCLI.CLICommands
     public class InjectExisting(WorkFlowManager workFlowManager) : ICommand
     {
         private readonly WorkFlowManager workFlowManager = workFlowManager;
-
+		
         /// <include file="..\..\Docs\Classes\InjectExistingDoc.xml" path="doc/method"/>
-        public Command BuildCommand()
-        {
-            Option<string> key = new(["--key", "-k"], description: "Specifies the key of the existing level") { IsRequired = true };
-
-            Command command = new("existing", description: "Injects timings from current project into existing level specified by the key")
-            {
-                key,
-            };
-
-            command.AddAlias("xng");
-
-            command.SetHandler(Inject, key);
-
-            return command;
-        }
+		public Command BuildCommand() => new CommandBuilder<InjectExisting>().AddOption<string>() // key
+                                                                                .SetHandler<string>(Inject)
+                                                                                .BuildCommand();
 
         private void Inject(string key) => workFlowManager.InjectToExisting(key);
     }

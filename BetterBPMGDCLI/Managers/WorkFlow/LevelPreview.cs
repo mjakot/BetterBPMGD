@@ -1,5 +1,4 @@
-﻿using BetterBPMGDCLI.Managers.WorkFlow;
-using System.Text;
+﻿using System.Text;
 
 namespace BetterBPMGDCLI.Managers
 {
@@ -12,10 +11,10 @@ namespace BetterBPMGDCLI.Managers
         public LevelLength Length { get; set; } = length;
 
         public override string ToString() => new StringBuilder().AppendLine($"Key - {LevelKey}")
-                                                                .AppendLine($"Name - {LevelName}")
-                                                                .AppendLine($"Description - {LevelDescription}")
-                                                                .AppendLine($"Object count - {ObjectCount}")
-                                                                .AppendLine($"Length - {Length}")
-                                                                .ToString();
+                                                                 .AppendLine($"Name - {LevelName}")
+                                                                 .AppendLine($"Description - {LevelDescription}")
+                                                                 .AppendLine($"Object count - {ObjectCount}")
+                                                                 .AppendLine($"Length - {Length}")
+                                                                 .ToString();
     }
 }

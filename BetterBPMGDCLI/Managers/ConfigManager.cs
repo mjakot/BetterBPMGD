@@ -34,6 +34,8 @@ namespace BetterBPMGDCLI.Managers
         public void Dispose()
         {
             SaveSettings(PathSettings);
+
+            GC.SuppressFinalize(this);
         }
 
         public void PathSettingsChanged()
@@ -47,8 +49,10 @@ namespace BetterBPMGDCLI.Managers
 
         protected void OnPropertyChanged(string propertyName) => OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
 
-        private void SaveSettings<T>(T settings) where T : ISettings => FileUtility.HeavyWriteToFile(Path.Combine(PathSettings.SettingsFolderPath, Path.ChangeExtension(typeof(T).Name, Constants.TXTExtension)), settings.Serialize(false));
+        private void SaveSettings<T>(T settings) where T : ISettings
+            => FileUtility.HeavyWriteToFile(Path.Combine(PathSettings.SettingsFolderPath, Path.ChangeExtension(typeof(T).Name, Constants.TXTExtension)),
+                                             settings.Serialize(false));
 
-        private static T ReadSettings<T>(string settingsPath) where T : SettingsBase, ISettings, new() => FileUtility.ReadFromFile(settingsPath).Desirialize<T>(false);
+        private static T ReadSettings<T>(string settingsPath) where T : SettingsBase, ISettings, new() => File.ReadAllText(settingsPath).Desirialize<T>(false);
     }
 }

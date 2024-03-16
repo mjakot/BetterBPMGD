@@ -11,11 +11,11 @@ namespace BetterBPMGDCLI.Models.TimingProject
 {
     public class Project : IDisposable
     {
-        private ConfigManager configManager;
+        private readonly ConfigManager configManager;
         private IPathSettings pathSettings;
 
-        private Dictionary<int, ulong> songIds;
-        private List<Timing> timings;
+        private readonly Dictionary<int, ulong> songIds;
+        private readonly List<Timing> timings;
 
         public string Name { get; set; }
         public IReadOnlyDictionary<int, ulong> SongIds => songIds;
@@ -37,7 +37,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             this.configManager = configManager;
             pathSettings = configManager.PathSettings;
             Name = name;
-            songIds = new();
+            songIds = [];
             timings = [];
 
             AddSongs(songIdsIn);
@@ -48,12 +48,15 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         public void Dispose()
         {
-            if (string.IsNullOrEmpty(Name)) return;
+            if (string.IsNullOrEmpty(Name))
+                return;
 
             string projectPath = pathSettings.GetTimingProjectFolderPath(Name);
 
-            FileUtility.WriteToFile(Path.Combine(projectPath, pathSettings.SongListPath), SerializeSongs(SongIds));
-            FileUtility.WriteToFile(Path.Combine(projectPath, pathSettings.TimingListPath), SerializeTimings(Timings));
+            File.WriteAllText(Path.Combine(projectPath, pathSettings.SongListPath), SerializeSongs(SongIds));
+            File.WriteAllText(Path.Combine(projectPath, pathSettings.TimingListPath), SerializeTimings(Timings));
+
+            GC.SuppressFinalize(this);
         }
 
         public void AddSong(int id, ulong offset) => songIds.Add(id, offset);
@@ -77,19 +80,23 @@ namespace BetterBPMGDCLI.Models.TimingProject
             return new(config, projectName, initialSongId, songOffsetMS);
         }
 
-        public static Project ReadProject(ConfigManager config, string projectName) => ReadProject(config, config.PathSettings.GetTimingProjectFolderPath(projectName), config.PathSettings.SongListPath, config.PathSettings.TimingListPath);
+        public static Project ReadProject(ConfigManager config, string projectName)
+            => ReadProject(config, config.PathSettings.GetTimingProjectFolderPath(projectName), config.PathSettings.SongListPath, config.PathSettings.TimingListPath);
 
         public static Project ReadProject(ConfigManager config, string projectFolderPath, string songsListFileName, string timingsListFileName)
         {
-            if (!Path.HasExtension(songsListFileName)) songsListFileName += Path.ChangeExtension(songsListFileName, Constants.MP3Extension);
-            if (!Path.HasExtension(timingsListFileName)) timingsListFileName += Path.ChangeExtension(timingsListFileName, Constants.MP3Extension);
+            if (!Path.HasExtension(songsListFileName))
+                songsListFileName += Path.ChangeExtension(songsListFileName, Constants.MP3Extension);
+
+            if (!Path.HasExtension(timingsListFileName))
+                timingsListFileName += Path.ChangeExtension(timingsListFileName, Constants.MP3Extension);
 
             string songsListPath = Path.Combine(projectFolderPath, songsListFileName);
             string timingsListPath = Path.Combine(projectFolderPath, timingsListFileName);
 
             string name = Path.GetFileName(Path.GetDirectoryName(projectFolderPath) ?? string.Empty);
-            string songs = FileUtility.ReadFromFile(songsListPath);
-            string timings = FileUtility.ReadFromFile(timingsListPath);
+            string songs = File.ReadAllText(songsListPath);
+            string timings = File.ReadAllText(timingsListPath);
 
             Project result = new(config, name, DesirializeSongs(songs), DesirializeTimings(timings));
 
@@ -101,15 +108,17 @@ namespace BetterBPMGDCLI.Models.TimingProject
             string serializedTimings = SerializeTimings(timings);
             string serializedSongs = SerializeSongs(songIds);
 
-            FileUtility.WriteToFile(pathSettings.GetTimingListPath(Name), serializedTimings);
-            FileUtility.WriteToFile(pathSettings.GetSongListPath(Name), serializedSongs);
+            File.WriteAllText(pathSettings.GetTimingListPath(Name), serializedTimings);
+            File.WriteAllText(pathSettings.GetSongListPath(Name), serializedSongs);
         }
 
         public void InjectTimings(LocalLevel level)
         {
             KeyValuePair<int, ulong> lastSong = songIds.OrderBy(pair => pair.Value).LastOrDefault();
 
-            using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name), Path.ChangeExtension(lastSong.Key.ToString(), Constants.MP3Extension)));
+            using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name),
+                                              Path.ChangeExtension(lastSong.Key.ToString(),
+                                              Constants.MP3Extension)));
 
             ulong duration = (ulong)reader.TotalTime.TotalMilliseconds;
 
@@ -123,10 +132,12 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             if (File.Exists(initialSongPath)) //TODO: something something error handling something something
             {
-                FileUtility.CreateNewFolder(projectPath);
-                FileUtility.CopyFile(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)));
-                FileUtility.WriteToFile(config.PathSettings.GetTimingListPath(projectName), string.Empty);
-                FileUtility.WriteToFile(config.PathSettings.GetSongListPath(projectName), string.Empty);
+                Directory.CreateDirectory(projectPath);
+
+                File.Copy(initialSongPath, Path.Combine(projectPath, Path.GetFileName(initialSongPath)), true);
+
+                File.WriteAllText(config.PathSettings.GetTimingListPath(projectName), string.Empty);
+                File.WriteAllText(config.PathSettings.GetSongListPath(projectName), string.Empty);
             }
         }
 
@@ -142,7 +153,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         private static string SerializeSongs(IReadOnlyDictionary<int, ulong> songs) => new StringBuilder().AddDictionary(songs, Constants.DefaultInnerSeparator).ToString();
 
-        private static IEnumerable<Timing> DesirializeTimings(string timings)
+        private static List<Timing> DesirializeTimings(string timings)
         {
             List<Timing> result = [];
 
@@ -150,7 +161,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             foreach (string timing in splittedTimings)
             {
-                if (string.IsNullOrEmpty(timing)) continue;
+                if (string.IsNullOrEmpty(timing))
+                    continue;
 
                 result.Add(TimingExtension.FromString(timing));
             }
@@ -158,7 +170,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             return result;
         }
 
-        private static IReadOnlyDictionary<int, ulong> DesirializeSongs(string songs)
+        private static Dictionary<int, ulong> DesirializeSongs(string songs)
         {
             Dictionary<int, ulong> result = [];
 
@@ -166,7 +178,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
             foreach (string pair in splttedSongs)
             {
-                if (string.IsNullOrEmpty(pair)) continue;
+                if (string.IsNullOrEmpty(pair))
+                    continue;
 
                 IReadOnlyList<string> values = pair.Split(Constants.DefaultInnerSeparator);
 

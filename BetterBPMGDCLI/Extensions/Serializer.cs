@@ -17,7 +17,8 @@ namespace BetterBPMGDCLI.Extensions
             {    
                 stringBuilder.AddKeyValuePair(property.Name, property.GetValue(type, null), Constants.DefaultInnerSeparator, !oneLine);
 
-                if (oneLine) stringBuilder.Append(Constants.DefaultOuterSeparator);
+                if (oneLine)
+                    stringBuilder.Append(Constants.DefaultOuterSeparator);
             }
 
             return stringBuilder.ToString();
@@ -25,7 +26,7 @@ namespace BetterBPMGDCLI.Extensions
 
         public static T Desirialize<T>(this string type, bool oneLine = true) where T : new()
         {
-            T instance = new T();
+            T instance = new();
 
             PropertyInfo[] properties = typeof(T).GetProperties();
 
@@ -41,7 +42,8 @@ namespace BetterBPMGDCLI.Extensions
 
                 int index = Array.FindIndex(properties, prop => prop.Name == keyValuePair[0]);
 
-                if (index == -1) continue;
+                if (index == -1)
+                    continue;
 
                 PropertyInfo propertyInfo = properties[index];
 

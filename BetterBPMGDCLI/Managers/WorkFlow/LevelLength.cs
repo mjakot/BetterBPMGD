@@ -1,4 +1,4 @@
-﻿namespace BetterBPMGDCLI.Managers.WorkFlow
+﻿namespace BetterBPMGDCLI.Managers
 {
     public enum LevelLength : int
     {
