@@ -43,7 +43,12 @@ namespace BetterBPMGDCLI.Models.Level
                         level);
         }
 
-        private static (XElement nameElement, XElement descriptionElement, XElement officialSongIdElement, XElement customSongIdElement, XElement levelDataElement) GetLevelElements(XElement level)
+        private static (XElement nameElement,
+                            XElement descriptionElement,
+                            XElement officialSongIdElement,
+                            XElement customSongIdElement,
+                            XElement levelDataElement)
+            GetLevelElements(XElement level)
         {
             XElement name = level.FindElementByKeyValue(Constants.NameElementKey, Constants.StringElementTag) ?? new(Constants.NotFoundPlaceholder);
             XElement description = level.FindElementByKeyValue(Constants.DescriptionElementKey, Constants.StringElementTag) ?? new(Constants.NotFoundPlaceholder);

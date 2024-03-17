@@ -9,9 +9,9 @@ namespace BetterBPMGDCLI.Models.Level
         public ulong OffsetMs { get; } = offset;
         public GuidelineColors GuidelineColor { get; } = guidelineColor;
 
-        public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetMinutes(OffsetMs), Constants.GuidelinesSeparator)
+        public string Encode() => new StringBuilder().AppendWithSeparator(BPMCalculations.GetSeconds(OffsetMs), Constants.GuidelinesSeparator)
                                                         .AppendWithSeparator(GuidelineColor.GuidelineColor, Constants.GuidelinesSeparator)
-                                                        .ToString(); // bro why offset for guidelines in gd is in minutes wtf
+                                                        .ToString(); // bro why offset for guidelines in gd is in minutes wtf or is it in seconds ????
         public static Guideline? Parse(string guideline)
         {
             string[] offsetColorPair = guideline.Split(Constants.GuidelinesSeparator);

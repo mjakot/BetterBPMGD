@@ -77,7 +77,8 @@
         public const string CLICommandsResourceType = "CLICommands";
 
 
-        public const int MillisecondsInMinute = 60000;  
+        public const int MillisecondsInMinute = MillisecondsInSecond * 60;
+        public const int MillisecondsInSecond = 1000;
         public const int RoundToDecimalPlaces = 5;
 
         public const int XORDecryptionKey = 11;

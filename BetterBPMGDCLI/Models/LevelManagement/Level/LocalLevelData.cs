@@ -39,7 +39,8 @@ namespace BetterBPMGDCLI.Models.Level
             {
                 int startIndex = result.ToString().IndexOf(Constants.ObjectEnd);
 
-                if (startIndex == -1) goto end;
+                if (startIndex == -1)
+                    goto end;
 
                 result.Remove(++startIndex, result.Length - startIndex);
             }
@@ -106,7 +107,8 @@ namespace BetterBPMGDCLI.Models.Level
         {
             StringBuilder stringBuilder = new();
 
-            Parallel.ForEach(levelData, data => stringBuilder.Append(data.Encode()));
+            foreach (var data in levelData)
+                stringBuilder.Append(data.Encode());
 
             return stringBuilder.ToString();
         }

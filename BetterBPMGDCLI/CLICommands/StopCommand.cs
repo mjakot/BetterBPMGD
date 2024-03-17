@@ -22,12 +22,6 @@ namespace BetterBPMGDCLI.CLICommands
 
         private void Stop(bool deleteStartupFile, bool deleteLocalFiles, bool deleteBackupFiles)
         {
-#if DEBUG
-            deleteBackupFiles = true;
-            deleteLocalFiles = true;
-            deleteStartupFile = true;
-#endif
-
             if (deleteStartupFile)
             {
                 try { File.Delete(PathSettings.StartupFilePath); }
