@@ -1,4 +1,5 @@
 ﻿using BetterBPMGDCLI.Managers;
+using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
 namespace BetterBPMGDCLI.CLICommands
@@ -12,6 +13,11 @@ namespace BetterBPMGDCLI.CLICommands
                                                                                 .SetHandler<string>(Inject)
                                                                                 .BuildCommand();
 
-        private void Inject(string key) => workFlowManager.InjectToExisting(key);
+        private void Inject(string key)
+        {
+            workFlowManager.InjectToExisting(key);
+
+            CLIManager.ConsoleSuccess<InjectExisting>(Constants.SuccessResourceKey);
+        }
     }
 }

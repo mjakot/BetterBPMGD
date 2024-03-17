@@ -123,6 +123,9 @@
   <data name="COMMAND_NAME_ALIASES" xml:space="preserve">
     <value>new,nw</value>
   </data>
+  <data name="MESSAGE_SUCCESS" xml:space="preserve">
+    <value>Successfully injected timings into new level</value>
+  </data>
   <data name="OPTION_STRING_ALIASES" xml:space="preserve">
     <value>--name,-n</value>
   </data>

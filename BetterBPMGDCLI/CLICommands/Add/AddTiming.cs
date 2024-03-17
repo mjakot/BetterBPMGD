@@ -70,6 +70,8 @@ namespace BetterBPMGDCLI.CLICommands
             };
 
             workFlowManager.CurrentTimingProject.AddTiming(new(offset, bpm, subdivideBeats, beatSubdivision, type, colorPattern));
+
+            CLIManager.ConsoleSuccess<AddTiming>(Constants.SuccessResourceKey);
         }
     }
 }

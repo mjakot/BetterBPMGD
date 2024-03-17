@@ -135,6 +135,9 @@
   <data name="ERROR_MEMBERCANNOTINCLUDE" xml:space="preserve">
     <value>Color patter can not be any other character that o, g, y and n</value>
   </data>
+  <data name="MESSAGE_SUCCESS" xml:space="preserve">
+    <value>Successfully added new timing</value>
+  </data>
   <data name="OPTION_BOOLEAN_ALIASES" xml:space="preserve">
     <value>--subdivide,-d</value>
   </data>

@@ -88,6 +88,15 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully added new project.
+        /// </summary>
+        internal static string MESSAGE_SUCCESS {
+            get {
+                return ResourceManager.GetString("MESSAGE_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --song,-s.
         /// </summary>
         internal static string OPTION_INT32_ALIASES {

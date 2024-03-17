@@ -115,6 +115,15 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully added new timing.
+        /// </summary>
+        internal static string MESSAGE_SUCCESS {
+            get {
+                return ResourceManager.GetString("MESSAGE_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --subdivide,-d.
         /// </summary>
         internal static string OPTION_BOOLEAN_ALIASES {

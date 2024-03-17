@@ -79,6 +79,15 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully injected timings into new level.
+        /// </summary>
+        internal static string MESSAGE_SUCCESS {
+            get {
+                return ResourceManager.GetString("MESSAGE_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --name,-n.
         /// </summary>
         internal static string OPTION_STRING_ALIASES {

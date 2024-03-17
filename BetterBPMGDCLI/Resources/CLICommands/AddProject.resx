@@ -126,6 +126,9 @@
   <data name="ERROR_MEMBERCANNOTBEANEMPTYSTRING" xml:space="preserve">
     <value>Name could not be an empty string</value>
   </data>
+  <data name="MESSAGE_SUCCESS" xml:space="preserve">
+    <value>Successfully added new project</value>
+  </data>
   <data name="OPTION_INT32_ALIASES" xml:space="preserve">
     <value>--song,-s</value>
   </data>

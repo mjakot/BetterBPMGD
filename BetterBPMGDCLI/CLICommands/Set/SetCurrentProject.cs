@@ -23,6 +23,8 @@ namespace BetterBPMGDCLI.CLICommands
             }
 
             workFlowManager.ReadExistingTimingProject(name);
+
+            CLIManager.ConsoleSuccess<SetCurrentProject>(Constants.SuccessResourceKey);
         }
     }
 }
