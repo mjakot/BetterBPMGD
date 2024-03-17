@@ -50,17 +50,19 @@ namespace BetterBPMGDCLI.CLICommands
             if (sameTypeOptionsCount > 0)
                 typeName += Constants.ResourceKeySeparator + sameTypeOptionsCount;
 
-
             string optionAliasesKey = Constants.BaseOptionAliasesResourceKey.Insert(Constants.BaseOptionInsertionIndex, typeName);
             string optionDescriptionKey = Constants.BaseOptionDescriptionResourceKey.Insert(Constants.BaseOptionInsertionIndex, typeName);
 
-            Option<OptionType> option = new(resourceManager.GetStringArray(optionAliasesKey),
-                                                getDefaultValue ?? (() => default!),
-                                                resourceManager.GetString(optionDescriptionKey))
-            {
-                ArgumentHelpName = typeName,
-                IsRequired = isRequired
-            };
+            Option<OptionType> option;
+
+            if (getDefaultValue is null)
+                option = new(resourceManager.GetStringArray(optionAliasesKey), resourceManager.GetString(optionDescriptionKey));
+
+            else
+                option = new(resourceManager.GetStringArray(optionAliasesKey), getDefaultValue, resourceManager.GetString(optionDescriptionKey));
+
+            option.ArgumentHelpName = typeName;
+            option.IsRequired = isRequired;
 
             if (validator is not null)
                 option.AddValidator(validator);

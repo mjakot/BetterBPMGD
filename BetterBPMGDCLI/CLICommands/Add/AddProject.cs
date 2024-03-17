@@ -27,6 +27,7 @@ namespace BetterBPMGDCLI.CLICommands
             workFlowManager.NewTimingProject(name, sondId, offset);
 
             CLIManager.ConsoleSuccess<AddProject>(Constants.SuccessResourceKey);
+            CLIManager.ConsoleSuccess<SetCurrentProject>(Constants.SuccessResourceKey);
         }
     }
 }
