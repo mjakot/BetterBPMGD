@@ -43,7 +43,7 @@ namespace BetterBPMGDCLI.Managers
                 ConsoleMessageTypes.Error => ConsoleColor.Red,
                 ConsoleMessageTypes.Success => ConsoleColor.Green,
                 ConsoleMessageTypes.Message => ConsoleColor.White,
-                _ => ConsoleColor.White,
+                _ => ConsoleColor.Gray,
             };
 
             Console.ForegroundColor = color;
@@ -53,7 +53,7 @@ namespace BetterBPMGDCLI.Managers
             else
                 Console.WriteLine(message);
 
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         public async Task RunAsync(string[] args)
