@@ -5,7 +5,9 @@ using BetterBPMGDCLI.Models.Settings;
 using BetterBPMGDCLI.Utils;
 using Common;
 using NAudio.Wave;
+using System.ComponentModel;
 using System.Text;
+using System.Xml.Linq;
 
 namespace BetterBPMGDCLI.Models.TimingProject
 {
@@ -114,13 +116,17 @@ namespace BetterBPMGDCLI.Models.TimingProject
 
         public void InjectTimings(LocalLevel level)
         {
-            KeyValuePair<int, ulong> lastSong = songIds.OrderBy(pair => pair.Value).LastOrDefault();
+            IOrderedEnumerable<KeyValuePair<int, ulong>> orderedSongIds = songIds.OrderBy(pair => pair.Value);
+
+            KeyValuePair<int, ulong> lastSong = orderedSongIds.LastOrDefault();
 
             using Mp3FileReader reader = new(Path.Combine(pathSettings.GetTimingProjectFolderPath(Name),
                                               Path.ChangeExtension(lastSong.Key.ToString(),
                                               Constants.MP3Extension)));
 
             ulong duration = (ulong)reader.TotalTime.TotalMilliseconds;
+
+            InjectSongs(level.XmlLevel, orderedSongIds.FirstOrDefault());
 
             level.LevelData?.Calculate(timings, duration + lastSong.Value);
         }
@@ -189,7 +195,15 @@ namespace BetterBPMGDCLI.Models.TimingProject
             return result;
         }
 
-        private void ConfigManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private static void InjectSongs(XElement level, KeyValuePair<int, ulong> song)
+        {
+            XElement? customSong = level.FindElementByKeyValue("k45", Constants.IntegerElementTag);
+
+            if (customSong is not null)
+                customSong.Value = song.Key.ToString();
+        }
+
+        private void ConfigManager_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(configManager.PathSettings))
                 pathSettings = configManager.PathSettings;
