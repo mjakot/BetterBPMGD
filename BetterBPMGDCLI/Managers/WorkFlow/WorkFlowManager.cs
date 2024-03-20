@@ -61,6 +61,12 @@ namespace BetterBPMGDCLI.Managers
             CurrentTimingProject = Project.ReadProject(ConfigManager, projectName);
         }
 
+        public void RemoveTimingProject(string name)
+        {
+            try { Directory.Delete(Path.Combine(pathSettings.TimingProjectsFolderPath, name), true); }
+            catch { return; }
+        }
+
         public IEnumerable<LevelPreview?> FindLevelsByName(string levelName, bool ignoreCase)
         {
             XElement levels = XElement.Parse(FileUtility.HeavyReadFromFile(pathSettings.GeometryDashLevelsSavePath));

@@ -58,6 +58,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>InjectNew.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\CLICommands\RemoveCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RemoveCommand.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\CLICommands\SearchLevelsByNameCommand.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -122,6 +127,10 @@
     <EmbeddedResource Update="Resources\CLICommands\InjectNew.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>InjectNew.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\RemoveCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RemoveCommand.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\CLICommands\SearchLevelsByNameCommand.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -71,6 +71,8 @@ namespace BetterBPMGDCLI.Models.TimingProject
         public void AddTiming(Timing timing) => timings.Add(timing);
         public void AddTimings(IEnumerable<Timing> timings) => this.timings.AddRange(timings);
 
+        public void RemoveTiming(int id) => timings.RemoveAll(timing => timing.Id == id);
+
         public void ClearSongs() => songIds.Clear();
 
         public void ClearTimings() => timings.Clear();
