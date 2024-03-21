@@ -89,6 +89,8 @@ namespace BetterBPMGDCLI.Managers
 
             while (isRunning)
             {
+                Console.Write("-> ");
+
                 string input = Console.ReadLine() ?? string.Empty;
 
                 _ = await rootCommand.InvokeAsync(input);
