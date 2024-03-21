@@ -22,14 +22,14 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class RemoveCommand {
+    internal class RemoveProject {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal RemoveCommand() {
+        internal RemoveProject() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BetterBPMGDCLI.Resources.CLICommands.RemoveCommand", typeof(RemoveCommand).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BetterBPMGDCLI.Resources.CLICommands.RemoveProject", typeof(RemoveProject).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes a project or a timing.
+        ///   Looks up a localized string similar to Removes project.
         /// </summary>
         internal static string COMMAND_DESCRIPTION {
             get {
@@ -70,7 +70,7 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to remove,rm.
+        ///   Looks up a localized string similar to project,pj,prj,proj.
         /// </summary>
         internal static string COMMAND_NAME_ALIASES {
             get {
@@ -79,11 +79,29 @@ namespace BetterBPMGDCLI.Resources.CLICommands {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spcify whether to remove a project or a timing.
+        ///   Looks up a localized string similar to Successfully removed project.
         /// </summary>
-        internal static string DEFAULT_MESSAGE {
+        internal static string MESSAGE_SUCCESS {
             get {
-                return ResourceManager.GetString("DEFAULT_MESSAGE", resourceCulture);
+                return ResourceManager.GetString("MESSAGE_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --name,-n.
+        /// </summary>
+        internal static string OPTION_STRING_ALIASES {
+            get {
+                return ResourceManager.GetString("OPTION_STRING_ALIASES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the project to remove. Use &apos;stats&apos; to learn more..
+        /// </summary>
+        internal static string OPTION_STRING_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("OPTION_STRING_DESCRIPTION", resourceCulture);
             }
         }
     }

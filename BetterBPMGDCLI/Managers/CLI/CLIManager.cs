@@ -76,6 +76,7 @@ namespace BetterBPMGDCLI.Managers
                 new AddCommand(new AddProject(workFlowManager), new AddTiming(workFlowManager)).BuildCommand(),
                 new SetCommand(new SetCurrentProject(workFlowManager)).BuildCommand(),
                 new InjectCommand(new InjectExisting(workFlowManager), new InjectNew(workFlowManager)).BuildCommand(),
+                new RemoveCommand(new RemoveTiming(workFlowManager), new RemoveProject(workFlowManager)).BuildCommand()
             ];
 
             rootCommand.SetHandler((continuousEnable) =>

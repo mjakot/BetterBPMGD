@@ -2,7 +2,7 @@
 using BetterBPMGDCLI.Utils;
 using System.CommandLine;
 
-namespace BetterBPMGDCLI.CLICommands.Remove
+namespace BetterBPMGDCLI.CLICommands
 {
     public class RemoveProject(WorkFlowManager workFlowManager) : ICommand
     {

@@ -63,6 +63,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>RemoveCommand.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\CLICommands\RemoveProject.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RemoveProject.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\RemoveTiming.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RemoveTiming.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\CLICommands\SearchLevelsByNameCommand.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -131,6 +141,14 @@
     <EmbeddedResource Update="Resources\CLICommands\RemoveCommand.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RemoveCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\RemoveProject.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RemoveProject.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\RemoveTiming.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RemoveTiming.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\CLICommands\SearchLevelsByNameCommand.resx">
       <Generator>ResXFileCodeGenerator</Generator>

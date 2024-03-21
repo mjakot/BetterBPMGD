@@ -2,7 +2,7 @@
 
 namespace BetterBPMGDCLI.CLICommands
 {
-    public class RemoveCommand(ICommand[] removeCommands) : HostCommandBase, ICommand
+    public class RemoveCommand(params ICommand[] removeCommands) : HostCommandBase, ICommand
     {
         private readonly ICommand[] removeCommands = removeCommands;
 

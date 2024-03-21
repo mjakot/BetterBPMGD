@@ -118,12 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="COMMAND_DESCRIPTION" xml:space="preserve">
-    <value>Removes a project or a timing</value>
+    <value>Removes timing from the current project</value>
   </data>
   <data name="COMMAND_NAME_ALIASES" xml:space="preserve">
-    <value>remove,rm</value>
+    <value>timing,ti</value>
   </data>
-  <data name="DEFAULT_MESSAGE" xml:space="preserve">
-    <value>Spcify whether to remove a project or a timing</value>
+  <data name="MESSAGE_SUCCESS" xml:space="preserve">
+    <value>Successfully removed timing</value>
+  </data>
+  <data name="OPTION_INT32_ALIASES" xml:space="preserve">
+    <value>--id</value>
+  </data>
+  <data name="OPTION_INT32_DESCRIPTION" xml:space="preserve">
+    <value>Id of the timing to remove. Use 'stats' to learn more.</value>
   </data>
 </root>
