@@ -15,7 +15,7 @@ namespace BetterBPMGDCLI.Extensions
 
             foreach (PropertyInfo property in properties)
             {    
-                stringBuilder.AddKeyValuePair(property.Name, property.GetValue(type, null), Constants.DefaultInnerSeparator, !oneLine);
+                stringBuilder.AppendKeyValuePair(property.Name, property.GetValue(type, null), Constants.DefaultInnerSeparator, !oneLine);
 
                 if (oneLine)
                     stringBuilder.Append(Constants.DefaultOuterSeparator);

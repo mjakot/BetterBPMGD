@@ -63,7 +63,7 @@ namespace BetterBPMCLI.Tests.TimingProjectTests
 
 
             string expectedTimings = tTiming.Serialize();
-            string expectedsSongs = new StringBuilder().AddDictionary(song, Constants.DefaultInnerSeparator).ToString();
+            string expectedsSongs = new StringBuilder().AppendDictionary(song, Constants.DefaultInnerSeparator).ToString();
 
             AssertExtension.EqualSkip(expectedTimings, File.ReadAllText(settings.GetTimingListPath(innerProjectName)).Replace(Environment.NewLine, string.Empty), [ 8 ]); // skip assertion at position 8. it's a counter value which is dependent on an instance.
             Assert.Equal(expectedsSongs, File.ReadAllText(settings.GetSongListPath(innerProjectName)));
