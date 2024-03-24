@@ -98,7 +98,7 @@ namespace BetterBPMGDCLI.Managers
 
             workFlowManager.Dispose();
 
-            await Console.Out.WriteLineAsync(resourceManager.GetString(Constants.SuccessResourceKey));
+            ConsoleMessage<CLIManager>(Constants.SuccessResourceKey);
 
             Console.ReadLine();
         }

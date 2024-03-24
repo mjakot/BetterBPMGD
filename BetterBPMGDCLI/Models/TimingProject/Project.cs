@@ -159,7 +159,7 @@ namespace BetterBPMGDCLI.Models.TimingProject
             return stringBuilder.ToString();
         }
 
-        private static string SerializeSongs(IReadOnlyDictionary<int, ulong> songs) => new StringBuilder().AddDictionary(songs, Constants.DefaultInnerSeparator).ToString();
+        private static string SerializeSongs(IReadOnlyDictionary<int, ulong> songs) => new StringBuilder().AppendDictionary(songs, Constants.DefaultInnerSeparator).ToString();
 
         private static List<Timing> DesirializeTimings(string timings)
         {

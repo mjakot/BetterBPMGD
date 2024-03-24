@@ -18,35 +18,37 @@ namespace BetterBPMGDCLI.CLICommands
             StringBuilder result = new();
 
             result.AppendLine("Current project:")
-                    .AppendLine($"\tName - {workFlowManager.CurrentTimingProject.Name}")
+                    .AppendIndented($"Name: {workFlowManager.CurrentTimingProject.Name}")
                     .AppendLine()
-                    .AppendLine("\tTimings - ");
+                    .AppendIndented("Timings:");
 
             foreach (Common.Timing timing in workFlowManager.CurrentTimingProject.Timings)
             {
-                result.AppendLine($"\t\t{timing.Serialize()}");
+                result.AppendIndented(timing.Serialize(), 2);
             }
 
             result.AppendLine()
-                    .AppendLine("\tSongs - song id = song offset ");
+                    .AppendIndented("Songs - song id = song offset:");
 
             foreach (KeyValuePair<int, ulong> song in workFlowManager.CurrentTimingProject.SongIds)
             {
-                result.AppendLine($"\t\t{song.Key}={song.Value}");
+                result.AppendIndented($"{song.Key}={song.Value}", 2);
             }
 
-            result.AppendLine();
-
-
-            result.AppendLine("All projects:");
+            result.AppendLine()
+                    .AppendLine("All projects:");
 
             foreach (string project in Directory.GetDirectories(workFlowManager.ConfigManager.PathSettings.TimingProjectsFolderPath))
             {
-                result.AppendLine($"\t{project}");
+                result.AppendIndented(project);
             }
 
             result.AppendLine()
                     .AppendLine($"Current culture: {Thread.CurrentThread.CurrentCulture}");
+
+            result.AppendLine()
+                    .AppendLine("Path settings - setting name = value:")
+                    .AppendIndented(workFlowManager.ConfigManager.PathSettings.Serialize(false));
 
             CLIManager.ConsoleMessage(result.ToString(), ConsoleMessageTypes.Message);
         }
