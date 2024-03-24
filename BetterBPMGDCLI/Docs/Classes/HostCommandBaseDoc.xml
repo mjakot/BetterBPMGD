@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Provides a mechanism for creating <see cref="System.CommandLine.Command">commands</see> (host commands) with multiple sub-commands
+      </para>
+      <remarks>
+         <c>Note: Host commands do not support any form of execution by themselves other than printing a help message.</c>
+      </remarks>
+      <list>
+        <listheader>
+          Implemented host commands:
+        </listheader>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.InjectCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.SetCommand"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.AddCommand"/>
+        </item>
+      </list>
+    </summary>
+  </type>
+  
+  <method name="BuildCommand">
+    <summary>
+      Builds the <see cref="System.CommandLine.Command">host command</see>
+     </summary>
+    <typeparam name="T">
+      Specifies <see cref="System.CommandLine.Command">host command</see> type
+    </typeparam>
+    <param name="commands">
+      Commands to include in the host command
+    </param>
+    <returns>
+      <see cref="System.CommandLine.Command"/>
+    </returns>
+   </method>
+ </doc>

@@ -9,10 +9,171 @@
 
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\CLICommands\AddCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AddCommand.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\AddProject.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AddProject.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\AddTiming.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AddTiming.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\ClearCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ClearCommand.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\CLIManager.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CLIManager.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\InjectCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InjectCommand.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\InjectExisting.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InjectExisting.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\InjectNew.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InjectNew.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\RemoveCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RemoveCommand.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\RemoveProject.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RemoveProject.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\RemoveTiming.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RemoveTiming.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\SearchLevelsByNameCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SearchLevelsByNameCommand.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\SetCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SetCommand.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\SetCurrentProject.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SetCurrentProject.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\StatsCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StatsCommand.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\StopCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StopCommand.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CLICommands\TestCommand.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestCommand.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\CLICommands\AddCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\AddProject.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddProject.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\AddTiming.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddTiming.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\ClearCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ClearCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\CLIManager.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CLIManager.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\InjectCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>InjectCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\InjectExisting.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>InjectExisting.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\InjectNew.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>InjectNew.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\RemoveCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RemoveCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\RemoveProject.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RemoveProject.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\RemoveTiming.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RemoveTiming.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\SearchLevelsByNameCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SearchLevelsByNameCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\SetCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SetCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\SetCurrentProject.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SetCurrentProject.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\StatsCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StatsCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\StopCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StopCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CLICommands\TestCommand.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TestCommand.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

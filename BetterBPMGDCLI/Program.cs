@@ -1,12 +1,12 @@
-﻿using BetterBPMGDCLI.Models.Settings;
+﻿using BetterBPMGDCLI.Managers;
 
-namespace BetterBPMGDCLI
+internal class Program
 {
-    internal class Program
+    private static async Task Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            ISettings pathSettings = new PathSettings();
-        }
+        WorkFlowManager workFlowManager = StartupManager.Startup();
+        CLIManager cliManager = new(workFlowManager);
+
+        await cliManager.RunAsync(args);
     }
 }

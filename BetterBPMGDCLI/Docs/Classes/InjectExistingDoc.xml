@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <type>
+    <summary>
+      Represents <see cref="BetterBPMGDCLI.CLICommands.InjectCommand"/> sub-command for injecting <see cref="Common.Timing">Timings</see> into an existing level from the current <see cref="BetterBPMGDCLI.Models.TimingProject.Project"/>
+    </summary>
+    <param name="workFlowManager">
+      <see cref="BetterBPMGDCLI.Managers.WorkFlowManager"/> reference
+    </param>
+  </type>
+</doc>

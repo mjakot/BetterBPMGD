@@ -15,14 +15,16 @@ namespace BetterBPMGDCLI.Extensions
             stringBuilder.AppendWithSeparator(key?.ToString() ?? string.Empty, separator);
             stringBuilder.Append(value?.ToString());
 
-            if (addNewLine) stringBuilder.AppendLine();
+            if (addNewLine)
+                stringBuilder.AppendLine();
 
             return stringBuilder;
         }
 
         public static StringBuilder AddDictionary<TKey, TValue>(this StringBuilder stringBuilder, IReadOnlyDictionary<TKey, TValue> dictionary, string separator)
         {
-            Parallel.ForEach(dictionary, pair => stringBuilder.AddKeyValuePair(pair.Key, pair.Value, separator, true));
+            foreach (KeyValuePair<TKey, TValue> pair in dictionary)
+                stringBuilder.AddKeyValuePair(pair.Key, pair.Value, separator, true);
 
             return stringBuilder;
         }

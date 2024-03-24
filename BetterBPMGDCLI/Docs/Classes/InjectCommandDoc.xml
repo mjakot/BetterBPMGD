@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <type>
+    <summary>
+      <para>
+        Represents a host <see cref="System.CommandLine.Command"/> for injecting <see cref="Common.Timing">Timings</see> into either new or already existing levels.
+      </para>
+      <remarks>
+        Timings are injected from the currently active <see cref="BetterBPMGDCLI.Models.TimingProject.Project"/>
+      </remarks>
+      <list>
+        <listheader>
+          Defined sub-commands:
+        </listheader>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.InjectExisting"/>
+        </item>
+        <item>
+          <see cref="BetterBPMGDCLI.CLICommands.InjectNew"/>
+        </item>
+      </list>
+    </summary>
+    <param name="injectCommands">
+      Inject <see cref="BetterBPMGDCLI.CLICommands.ICommand">commands</see> to include in the host command
+    </param>
+  </type>
+</doc>
