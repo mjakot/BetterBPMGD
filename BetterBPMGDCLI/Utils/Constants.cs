@@ -84,5 +84,7 @@
         public const int XORDecryptionKey = 11;
 
         public const int BaseOptionInsertionIndex = 7;
+
+        public const int SpacesInTab = 4;
     }
 }

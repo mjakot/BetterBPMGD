@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using BetterBPMGDCLI.Utils;
+using System.Text;
 
 namespace BetterBPMGDCLI.Extensions
 {
@@ -41,7 +42,7 @@ namespace BetterBPMGDCLI.Extensions
                 if (string.IsNullOrEmpty(lines[i]))
                     continue;
 
-                lines[i] = lines[i].PadLeft(lines[i].Length + 4 * indentIndex);
+                lines[i] = lines[i].PadLeft(lines[i].Length + Constants.SpacesInTab * indentIndex);
             }
 
             return stringBuilder.Append(string.Join(Environment.NewLine, lines))
