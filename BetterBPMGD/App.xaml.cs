@@ -24,6 +24,11 @@ namespace BetterBPMGD
 
             List<Timing> timings = [];
 
+            if (string.IsNullOrEmpty(Program.WorkFlowManager!.CurrentTimingProject.Name))
+            {
+                Program.WorkFlowManager.NewTimingProject("temp", 0, 0);
+            }
+            
             foreach (Common.Timing timing in Program.WorkFlowManager!.CurrentTimingProject.Timings)
                 timings.Add(new(timing));
 
@@ -50,14 +55,7 @@ namespace BetterBPMGD
             base.OnStartup(e);
         }
 
-        private void MainWindow_Closed(object? sender, System.EventArgs e)
-        {
-            Program.WorkFlowManager!.Dispose();
-
-#if DEBUG
-         //File.Delete(PathSettings.StartupFilePath);
-#endif
-        }
+        private void MainWindow_Closed(object? sender, System.EventArgs e) => Program.WorkFlowManager!.Dispose();
 
         private BPMViewModel CreateBPMViewModel() => new(new(navigationStore, CreateSettingViewModel));
 
