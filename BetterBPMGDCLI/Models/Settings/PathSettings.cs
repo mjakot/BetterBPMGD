@@ -7,7 +7,7 @@ namespace BetterBPMGDCLI.Models.Settings
     {
         public const string StartupFilePath = ".\\startup.txt";
 
-        public static readonly string ProgramName = AppDomain.CurrentDomain.FriendlyName;
+        public static readonly string ProgramName = "BetterBPMGD";
         public static readonly string GeometryDashName = "GeometryDash";
         public static readonly string TimingProjectFolderName = "Projects";
         public static readonly string TimingsListFileName = "Timings.txt";

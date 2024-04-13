@@ -1,12 +1,19 @@
 ﻿using BetterBPMGDCLI.Managers;
 
-internal class Program
+namespace BetterBPMGDCLI
 {
-    private static async Task Main(string[] args)
+    public static class Program
     {
-        WorkFlowManager workFlowManager = StartupManager.Startup();
-        CLIManager cliManager = new(workFlowManager);
+        public static WorkFlowManager WorkFlowManager { get; private set; }
+        public static CLIManager CLIManager { get; private set; }
 
-        await cliManager.RunAsync(args);
+        public static async Task Main(string[] args)
+        {
+            WorkFlowManager = StartupManager.Startup();
+            CLIManager = new(WorkFlowManager);
+
+            if (args[0] != "suppress")
+                await CLIManager.RunAsync(args);
+        }
     }
 }

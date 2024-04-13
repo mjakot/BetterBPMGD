@@ -13,5 +13,8 @@ namespace BetterBPMGD.Models
         public Timing(ulong offsetms, UnitsOfTime timeUnit, double bpm, bool subdivideBeats, int beatSubdivision, SpeedPortalTypes speed, string colorPattern)
                 : base(offsetms, bpm, subdivideBeats, beatSubdivision, speed, colorPattern)
                 => TimeUnit = timeUnit;
+
+        public Timing(Common.Timing timing)
+                : this(timing.OffsetMS, UnitsOfTime.milisecond, timing.Bpm, timing.SubdivideBeats, timing.BeatSubdivision, timing.Speed, timing.ColorPattern) { }
     }
 }

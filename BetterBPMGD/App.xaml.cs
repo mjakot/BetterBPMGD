@@ -1,11 +1,10 @@
 ﻿using BetterBPMGD.Models;
 using BetterBPMGD.Stores;
 using BetterBPMGD.ViewModels;
-using Common;
+using BetterBPMGDCLI;
 using System.Collections.Generic;
 using System.Windows;
 using Level = BetterBPMGD.Models.Level;
-using Timing = BetterBPMGD.Models.Timing;
 
 namespace BetterBPMGD
 {
@@ -20,7 +19,14 @@ namespace BetterBPMGD
 
         public App()
         {
-            level = new([]);
+            _ = Program.Main(["suppress"]);
+
+            List<Timing> timings = new();
+
+            foreach (Common.Timing timing in Program.WorkFlowManager.CurrentTimingProject.Timings)
+                timings.Add(new(timing));
+
+            level = new(timings);
             navigationStore = new();
             settings = new();
         }
