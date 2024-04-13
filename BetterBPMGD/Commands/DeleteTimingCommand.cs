@@ -1,16 +1,15 @@
-﻿using BetterBPMGD.ViewModels;
+﻿using BetterBPMGD.Services;
+using BetterBPMGD.ViewModels;
 
 namespace BetterBPMGD
 {
     public class DeleteTimingCommand : CommandBase
     {
-        private readonly LevelViewModel levelViewModel;
         private readonly BPMViewModel bpmViewModel;
         private int selectedTiming;
 
-        public DeleteTimingCommand(LevelViewModel levelViewModel, BPMViewModel bpmViewModel)
+        public DeleteTimingCommand(BPMViewModel bpmViewModel)
         {
-            this.levelViewModel = levelViewModel;
             this.bpmViewModel = bpmViewModel;
             bpmViewModel.PropertyChanged += BpmViewModel_PropertyChanged;
         }
@@ -24,7 +23,7 @@ namespace BetterBPMGD
 
         public override void Execute(object? parameter)
         {
-            if (bpmViewModel.SelectedItem != null) levelViewModel.RemoveTiming(selectedTiming);
+            if (bpmViewModel.SelectedItem != null) LevelProvider.Level.RemoveTiming(selectedTiming);
         }
     }
 }

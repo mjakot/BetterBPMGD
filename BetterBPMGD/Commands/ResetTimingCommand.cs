@@ -1,15 +1,14 @@
-﻿using BetterBPMGD.ViewModels;
+﻿using BetterBPMGD.Services;
+using BetterBPMGD.ViewModels;
 
 namespace BetterBPMGD
 {
     public class ResetTimingCommand : CommandBase
     {
-        private readonly LevelViewModel levelViewModel;
         private readonly BPMViewModel bpmViewModel;
 
-        public ResetTimingCommand(LevelViewModel levelViewModel, BPMViewModel bpmViewModel)
+        public ResetTimingCommand(BPMViewModel bpmViewModel)
         {
-            this.levelViewModel = levelViewModel;
             this.bpmViewModel = bpmViewModel;
         }
 
@@ -19,7 +18,7 @@ namespace BetterBPMGD
             {
                 bpmViewModel.SelectedItem = new(new(bpmViewModel.SelectedItem!.ID));
 
-                levelViewModel.EditTiming(bpmViewModel.SelectedItem.Timing);
+                LevelProvider.Level.EditTiming(bpmViewModel.SelectedItem.Timing);
             }
         }
     }

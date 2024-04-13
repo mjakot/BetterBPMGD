@@ -1,10 +1,9 @@
 ﻿using BetterBPMGD.Models;
+using BetterBPMGD.Services;
 using BetterBPMGD.Stores;
 using BetterBPMGD.ViewModels;
 using BetterBPMGDCLI;
-using BetterBPMGDCLI.Models.Settings;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using Level = BetterBPMGD.Models.Level;
 
@@ -15,8 +14,8 @@ namespace BetterBPMGD
     /// </summary>
     public partial class App : Application
     {
-        private readonly NavigationStore navigationStore;
         private readonly Level level;
+        private readonly NavigationStore navigationStore;
         private readonly Settings settings;
 
         public App()
@@ -31,6 +30,8 @@ namespace BetterBPMGD
             level = new(timings);
             navigationStore = new();
             settings = new();
+
+            LevelProvider.Level = new(level, Program.WorkFlowManager!);
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -54,11 +55,11 @@ namespace BetterBPMGD
             Program.WorkFlowManager!.Dispose();
 
 #if DEBUG
-         File.Delete(PathSettings.StartupFilePath);
+         //File.Delete(PathSettings.StartupFilePath);
 #endif
         }
 
-        private BPMViewModel CreateBPMViewModel() => new(new(level, Program.WorkFlowManager!), new(navigationStore, CreateSettingViewModel));
+        private BPMViewModel CreateBPMViewModel() => new(new(navigationStore, CreateSettingViewModel));
 
         private SettingsViewModel CreateSettingViewModel() => new(settings, new(navigationStore, CreateBPMViewModel));
     }

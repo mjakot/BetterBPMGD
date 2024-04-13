@@ -9,8 +9,6 @@ namespace BetterBPMGD.ViewModels
 {
     public class BPMViewModel : ViewModelBase
     {
-        private readonly LevelViewModel level;
-
         private ObservableCollection<TimingViewModel> timings;
         private TimingViewModel? selectedItem;
         
@@ -54,22 +52,20 @@ namespace BetterBPMGD.ViewModels
         public ICommand ShowColorPatternHelpCommand { get; }
         public ICommand GenerateBarsCommand { get; }
 
-        public BPMViewModel(LevelViewModel level, NavigationService settingsViewNavigationService)
+        public BPMViewModel(NavigationService settingsViewNavigationService)
         {
-            this.level = level;
-
             PlayCommand = new PlayCommand();
-            AddTimingCommand = new AddTimingCommand(this.level);
-            DeleteTimingCommand = new DeleteTimingCommand(this.level, this);
+            AddTimingCommand = new AddTimingCommand();
+            DeleteTimingCommand = new DeleteTimingCommand(this);
             OpenSettingsCommand = new NavigateCommand(settingsViewNavigationService);
             RefineTimingCommand = new RefineTimingCommand();
-            ResetTimingCommand = new ResetTimingCommand(this.level, this);
+            ResetTimingCommand = new ResetTimingCommand(this);
             ShowColorPatternHelpCommand = new ToggleHelpPopupCommand(ToggleHelpPopup);
             GenerateBarsCommand = new GenerateBarsCommand();
 
-            timings = new ObservableCollection<TimingViewModel>(CreateTimingList(level.LevelTimings));
+            timings = new ObservableCollection<TimingViewModel>(CreateTimingList(LevelProvider.Level.LevelTimings));
 
-            level.PropertyChanged += Level_PropertyChanged;
+            LevelProvider.Level.PropertyChanged += Level_PropertyChanged;
 
             helpPopupDataContext = new("O - orange\nG - Green\nY - yellow\nfirst is bpm bar color\nsecond is subdivided beat color\nthird is even subdibided beats color", ToggleHelpPopup);
         }
@@ -83,7 +79,7 @@ namespace BetterBPMGD.ViewModels
 
         private void Level_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            timings = new ObservableCollection<TimingViewModel>(CreateTimingList(level.LevelTimings));
+            timings = new ObservableCollection<TimingViewModel>(CreateTimingList(LevelProvider.Level.LevelTimings));
             OnPropertyChanged(nameof(Timings));
         }
     }

@@ -1,4 +1,5 @@
 ﻿using BetterBPMGD.Models;
+using BetterBPMGD.Services;
 using Common;
 using Timing = BetterBPMGD.Models.Timing;
 
@@ -50,6 +51,8 @@ namespace BetterBPMGD.ViewModels
                         goto case UnitsOfTime.milisecond;
                 }
 
+                LevelProvider.Level.EditTiming(Timing);
+
                 OnPropertyChanged(nameof(OffsetMSEditable));
                 OnPropertyChanged(nameof(OffsetMSDisplayable));
             }
@@ -61,6 +64,9 @@ namespace BetterBPMGD.ViewModels
             set
             {
                 Timing.TimeUnit = (UnitsOfTime)value;
+
+                LevelProvider.Level.EditTiming(Timing);
+
                 OnPropertyChanged(nameof(TimeUnitEditable));
                 OnPropertyChanged(nameof(OffsetMSDisplayable));
             }
@@ -72,6 +78,9 @@ namespace BetterBPMGD.ViewModels
             set
             {
                 Timing.Bpm = value;
+
+                LevelProvider.Level.EditTiming(Timing);
+
                 OnPropertyChanged(nameof(BpmEditable));
                 OnPropertyChanged(nameof(BpmDisplayable));
             }
@@ -83,6 +92,9 @@ namespace BetterBPMGD.ViewModels
             set
             {
                 Timing.SubdivideBeats = value;
+
+                LevelProvider.Level.EditTiming(Timing);
+
                 OnPropertyChanged(nameof(SubdivideBeatsEditable));
             }
         }
@@ -93,6 +105,9 @@ namespace BetterBPMGD.ViewModels
             set
             {
                 Timing.BeatSubdivision = value;
+
+                LevelProvider.Level.EditTiming(Timing);
+
                 OnPropertyChanged(nameof(BeatSubdivisionEditable));
                 OnPropertyChanged(nameof(BeatSubdivisionDisplayable));
             }
@@ -104,6 +119,9 @@ namespace BetterBPMGD.ViewModels
             set
             {
                 Timing.Speed = (SpeedPortalTypes)value;
+
+                LevelProvider.Level.EditTiming(Timing);
+
                 OnPropertyChanged(nameof(SpeedEditable));
                 OnPropertyChanged(nameof(SpeedDisplayable));
             }
@@ -115,6 +133,9 @@ namespace BetterBPMGD.ViewModels
             set
             {
                 Timing.ColorPattern = value;
+
+                LevelProvider.Level.EditTiming(Timing);
+
                 OnPropertyChanged(nameof(ColorPatternEditable));
             }
         }

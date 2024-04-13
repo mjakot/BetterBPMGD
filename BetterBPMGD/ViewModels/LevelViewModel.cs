@@ -38,7 +38,7 @@ namespace BetterBPMGD.ViewModels
             bool result = level.EditTiming(timing);
             workFlowManager.CurrentTimingProject.RemoveTiming(timing.Id);
             workFlowManager.CurrentTimingProject.AddTiming(timing);
-            OnPropertyChanged(nameof(LevelTimings));
+            //OnPropertyChanged(nameof(LevelTimings));
             return result;
         }
     }
