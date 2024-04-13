@@ -12,7 +12,6 @@ namespace BetterBPMGD
         {
             this.levelViewModel = levelViewModel;
             this.bpmViewModel = bpmViewModel;
-
             bpmViewModel.PropertyChanged += BpmViewModel_PropertyChanged;
         }
 

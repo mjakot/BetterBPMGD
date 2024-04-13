@@ -1,4 +1,5 @@
 ﻿using BetterBPMGD.Models;
+using BetterBPMGDCLI.Managers;
 using System.Collections.Generic;
 
 namespace BetterBPMGD.ViewModels
@@ -6,10 +7,15 @@ namespace BetterBPMGD.ViewModels
     public class LevelViewModel : ViewModelBase
     {
         private readonly Level level;
+        private readonly WorkFlowManager workFlowManager;
 
         public IEnumerable<Timing> LevelTimings => (IEnumerable<Timing>)level.Timings;
 
-        public LevelViewModel(Level level) => this.level = level;
+        public LevelViewModel(Level level, WorkFlowManager workFlowManager)
+        {
+            this.level = level;
+            this.workFlowManager = workFlowManager;
+        }
 
         public bool AddTiming(Timing timing)
         {
@@ -21,6 +27,7 @@ namespace BetterBPMGD.ViewModels
         public bool RemoveTiming(int timingId)
         {
             bool result = level.RemoveTiming(timingId);
+            workFlowManager.CurrentTimingProject.RemoveTiming(timingId);
             OnPropertyChanged(nameof(LevelTimings));
             return result;
         }

@@ -21,9 +21,9 @@ namespace BetterBPMGD
         {
             _ = Program.Main(["suppress"]);
 
-            List<Timing> timings = new();
+            List<Timing> timings = [];
 
-            foreach (Common.Timing timing in Program.WorkFlowManager.CurrentTimingProject.Timings)
+            foreach (Common.Timing timing in Program.WorkFlowManager!.CurrentTimingProject.Timings)
                 timings.Add(new(timing));
 
             level = new(timings);
@@ -42,17 +42,15 @@ namespace BetterBPMGD
 
             MainWindow.Show();
 
+            MainWindow.Closed += MainWindow_Closed;
+
             base.OnStartup(e);
         }
 
-        private BPMViewModel CreateBPMViewModel()
-        {
-            return new(new(level), new(navigationStore, CreateSettingViewModel));
-        }
+        private void MainWindow_Closed(object? sender, System.EventArgs e) => Program.WorkFlowManager!.Dispose();
 
-        private SettingsViewModel CreateSettingViewModel()
-        {
-            return new(settings, new(navigationStore, CreateBPMViewModel));
-        }
+        private BPMViewModel CreateBPMViewModel() => new(new(level, Program.WorkFlowManager!), new(navigationStore, CreateSettingViewModel));
+
+        private SettingsViewModel CreateSettingViewModel() => new(settings, new(navigationStore, CreateBPMViewModel));
     }
 }

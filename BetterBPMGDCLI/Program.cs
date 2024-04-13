@@ -4,8 +4,8 @@ namespace BetterBPMGDCLI
 {
     public static class Program
     {
-        public static WorkFlowManager WorkFlowManager { get; private set; }
-        public static CLIManager CLIManager { get; private set; }
+        public static WorkFlowManager? WorkFlowManager { get; private set; }
+        public static CLIManager? CLIManager { get; private set; }
 
         public static async Task Main(string[] args)
         {
