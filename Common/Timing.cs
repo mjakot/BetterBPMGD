@@ -30,5 +30,16 @@
             Speed = speed;
             ColorPattern = colorPattern;
         }
+
+        public Timing(ulong offsetMs, double bpm, bool subdivideBeats, int beatSubdivision, SpeedPortalTypes speed, string colorPattern, int Id)
+        {
+            this.Id = Id;
+            OffsetMS = offsetMs;
+            Bpm = bpm;
+            SubdivideBeats = subdivideBeats;
+            BeatSubdivision = beatSubdivision;
+            Speed = speed;
+            ColorPattern = colorPattern;
+        }
     }
 }

@@ -2,7 +2,9 @@
 using BetterBPMGD.Stores;
 using BetterBPMGD.ViewModels;
 using BetterBPMGDCLI;
+using BetterBPMGDCLI.Models.Settings;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using Level = BetterBPMGD.Models.Level;
 
@@ -47,7 +49,14 @@ namespace BetterBPMGD
             base.OnStartup(e);
         }
 
-        private void MainWindow_Closed(object? sender, System.EventArgs e) => Program.WorkFlowManager!.Dispose();
+        private void MainWindow_Closed(object? sender, System.EventArgs e)
+        {
+            Program.WorkFlowManager!.Dispose();
+
+#if DEBUG
+         File.Delete(PathSettings.StartupFilePath);
+#endif
+        }
 
         private BPMViewModel CreateBPMViewModel() => new(new(level, Program.WorkFlowManager!), new(navigationStore, CreateSettingViewModel));
 

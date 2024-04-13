@@ -15,6 +15,7 @@ namespace BetterBPMGD.Models
                 => TimeUnit = timeUnit;
 
         public Timing(Common.Timing timing)
-                : this(timing.OffsetMS, UnitsOfTime.milisecond, timing.Bpm, timing.SubdivideBeats, timing.BeatSubdivision, timing.Speed, timing.ColorPattern) { }
+                : base(timing.OffsetMS, timing.Bpm, timing.SubdivideBeats, timing.BeatSubdivision, timing.Speed, timing.ColorPattern, timing.Id)
+                => TimeUnit = UnitsOfTime.milisecond;
     }
 }

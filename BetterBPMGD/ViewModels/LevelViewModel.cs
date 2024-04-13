@@ -20,6 +20,7 @@ namespace BetterBPMGD.ViewModels
         public bool AddTiming(Timing timing)
         {
             bool result = level.AddTiming(timing);
+            workFlowManager.CurrentTimingProject.AddTiming(timing);
             OnPropertyChanged(nameof(LevelTimings));
             return result;
         }
@@ -35,6 +36,8 @@ namespace BetterBPMGD.ViewModels
         public bool EditTiming(Timing timing)
         {
             bool result = level.EditTiming(timing);
+            workFlowManager.CurrentTimingProject.RemoveTiming(timing.Id);
+            workFlowManager.CurrentTimingProject.AddTiming(timing);
             OnPropertyChanged(nameof(LevelTimings));
             return result;
         }
